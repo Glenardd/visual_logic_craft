@@ -1,0 +1,125 @@
+{
+    "cards": [
+      {
+        "card_name": "Conditional Cobra",
+        "concept": "Conditionals",
+        "challenge_rotation": [
+          "Write an if-else statement to check if a number is even or odd.",
+          "Use an if-elif-else structure to classify a number as positive, negative, or zero.",
+          "Write a conditional to check if a string contains the letter 'a'.",
+          "Use a conditional to determine if a number is divisible by 5 and 10.",
+          "Write a conditional to find the largest of three numbers."
+        ],
+        "effect": "Deal 2 damage to the enemy."
+      },
+      {
+        "card_name": "Variable Vulture",
+        "concept": "Variables",
+        "challenge_rotation": [
+          "Declare a variable and assign it a string value.",
+          "Declare two variables and swap their values.",
+          "Declare a variable and change its value using an arithmetic operation.",
+          "Write a program that uses three variables and prints their sum.",
+          "Assign a value to a variable, then reassign it to another type (e.g., int to string)."
+        ],
+        "effect": "Gain 1 extra action."
+      },
+      {
+        "card_name": "Function Falcon",
+        "concept": "Functions",
+        "challenge_rotation": [
+          "Define a function that returns the square of a number.",
+          "Create a function that takes two arguments and returns their product.",
+          "Write a function that checks if a string is a palindrome.",
+          "Define a function that takes an array and returns the sum of its elements.",
+          "Write a recursive function to calculate the factorial of a number."
+        ],
+        "effect": "Heal 3 health."
+      },
+      {
+        "card_name": "Array Antelope",
+        "concept": "Arrays",
+        "challenge_rotation": [
+          "Write a loop to iterate through an array and print each element.",
+          "Create a function that finds the largest number in an array.",
+          "Write code to reverse an array.",
+          "Merge two arrays into one and print the result.",
+          "Remove duplicate values from an array."
+        ],
+        "effect": "Summon an ally."
+      },
+      {
+        "card_name": "String Serpent",
+        "concept": "Strings",
+        "challenge_rotation": [
+          "Write code to reverse a string.",
+          "Find and print all vowels in a string.",
+          "Concatenate two strings and print the result.",
+          "Check if two strings are anagrams.",
+          "Count the number of words in a string."
+        ],
+        "effect": "Deal 1 damage for each vowel in the enemy's name."
+      },
+      {
+        "card_name": "Boolean Bison",
+        "concept": "Booleans",
+        "challenge_rotation": [
+          "Write a function that returns True if a number is prime.",
+          "Check if a string is a palindrome using boolean logic.",
+          "Determine if two numbers are multiples of each other.",
+          "Write code to check if all elements in an array are unique.",
+          "Return True if a number is within a certain range."
+        ],
+        "effect": "Increase your defense by 2."
+      },
+      {
+        "card_name": "Recursive Raccoon",
+        "concept": "Recursive Functions",
+        "challenge_rotation": [
+          "Write a recursive function to calculate Fibonacci numbers.",
+          "Define a recursive function to sum the elements of an array.",
+          "Write a recursive function to count the digits in a number.",
+          "Create a recursive function to reverse a string.",
+          "Write a recursive function to check if a number is a power of 2."
+        ],
+        "effect": "Restore 2 health each turn for 3 turns."
+      },
+      {
+        "card_name": "Prime Python",
+        "concept": "Conditionals",
+        "challenge_rotation": [
+          "Write a function to check if a number is prime.",
+          "Use conditionals to find all prime numbers between 1 and 100.",
+          "Write a conditional to check if a number is a perfect square.",
+          "Create a function that returns whether a number is prime or not.",
+          "Write a loop with a conditional to sum all prime numbers in an array."
+        ],
+        "effect": "Draw 2 cards if your HP is less than 50%."
+      },
+      {
+        "card_name": "Fibonacci Fox",
+        "concept": "Loops",
+        "challenge_rotation": [
+          "Write a loop to generate the first 10 Fibonacci numbers.",
+          "Create a function that uses a loop to return the nth Fibonacci number.",
+          "Write a loop that prints Fibonacci numbers less than 100.",
+          "Create a loop to sum Fibonacci numbers up to a certain value.",
+          "Write code to determine if a number belongs to the Fibonacci sequence."
+        ],
+        "effect": "Draw 1 card and gain 1 health."
+      },
+      {
+        "card_name": "String Sphinx",
+        "concept": "Strings",
+        "challenge_rotation": [
+          "Write code to find the longest substring without repeating characters.",
+          "Count the number of times a specific character appears in a string.",
+          "Write code to check if two strings are permutations of each other.",
+          "Create a function to remove all spaces from a string.",
+          "Write a function to count vowels and consonants in a string."
+        ],
+        "effect": "Deal 3 damage to the enemy."
+      }
+    ]
+  }
+  
