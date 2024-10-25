@@ -2,7 +2,7 @@ import PlatformCreate from "../../utils/addPlatforms";
 import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
-import { platformsDataMissionOne } from "../../objData/platformsDataMissionOne";
+import { platformsDataMissionOne } from "../../objData/platformData";
 
 class MissionOne extends Phaser.Scene {
     constructor() {
