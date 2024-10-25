@@ -47,7 +47,7 @@ class Player extends Phaser.GameObjects.Rectangle{
             }
 
             // Jump
-            if (event.key === "w" || event.key === "W" && this.body.touching.down) {
+            if ((event.key === "w" || event.key === "W") && this.body.touching.down) {
                 this.body.setVelocityY(-380);
             };
         });
