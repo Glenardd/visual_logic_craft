@@ -27,6 +27,38 @@ class Player extends Phaser.GameObjects.Rectangle{
         camera.main.startFollow(this);
         camera.main.setZoom(0.8,0.8);
     };
+
+    //the position of the camera
+    setCameraOffset(camera, width){
+        camera.main.followOffset.x =-width/ 2;
+    };
+
+    setPlayerMovement(){
+        // Handle keydown events
+        
+        this.scene.input.keyboard.on('keydown', (event) => {
+            // Move Right
+            if (event.key === "d" || event.key === "D" ) {
+                this.body.setVelocityX(360);
+            }
+            // Move Left
+            else if (event.key === "a" || event.key === "A") {
+                this.body.setVelocityX(-360);
+            }
+
+            // Jump
+            if (event.key === "w" || event.key === "W" && this.body.touching.down) {
+                this.body.setVelocityY(-380);
+            };
+        });
+
+        // Handle keyup events to stop the player
+        this.scene.input.keyboard.on("keyup", (event) => {
+            if (["a", "d", "A", "D"].includes(event.key)) {
+                this.body.setVelocityX(0);
+            }
+        });
+    };
 };
 
 export default Player;

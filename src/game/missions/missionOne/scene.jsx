@@ -56,31 +56,8 @@ class MissionOne extends Phaser.Scene {
     };
 
     update() {
-        this.cameras.main.followOffset.x = -this.Width / 2;
-
-        // Handle keydown events
-        this.input.keyboard.on('keydown', (event) => {
-            // Move Right
-            if (event.key === "d") {
-                this.player.body.setVelocityX(360);
-                this.cameras.main.followOffset.x = -this.Width / 2;
-            }
-            // Move Left
-            else if (event.key === "a") {
-                this.player.body.setVelocityX(-360);
-            }
-            // Jump
-            if (event.key === "w" && this.player.body.touching.down) {
-                this.player.body.setVelocityY(-380);
-            };
-        });
-
-        // Handle keyup events to stop the player
-        this.input.keyboard.on("keyup", (event) => {
-            if (["a", "d"].includes(event.key)) {
-                this.player.body.setVelocityX(0);
-            }
-        });
+        this.player.setCameraOffset(this.cameras, this.Width);
+        this.player.setPlayerMovement();
     };
 };
 
