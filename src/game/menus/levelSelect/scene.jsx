@@ -22,19 +22,24 @@ class LevelSelect extends Phaser.Scene{
             line.createHorizontalLine(0.5,visibility).PosY,
         );
 
-        this.welcomeText();
+        this.levelSelectbtn();
     };
 
-    welcomeText(){
+    levelSelectbtn(){
 
-        const missionOneBtn = new ButtonCreate(this,0,0, "Mission Two",25, 100,200, 0x88d17b,0x5e9654,this.changeScene,true);
+        const missionOneBtn = new ButtonCreate(this,0,0, "Mission One",25, 100,200, 0x88d17b,0x5e9654, ()=>this.changeScene("missionOne"),true);
         missionOneBtn.setInteractivivity(true);
         missionOneBtn.setCenter();
         this.levelSelection.add(missionOneBtn);
+
+        const missionTwoBtn = new ButtonCreate(this,0,100, "Mission Two",25, 100,200, 0x88d17b,0x5e9654, ()=>this.changeScene("missionTwo"),true);
+        missionTwoBtn.setInteractivivity(true);
+        missionTwoBtn.setCenter();
+        this.levelSelection.add(missionTwoBtn);
     };
 
-    changeScene(){
-        this.scene.start("missionTwo"); 
+    changeScene(sceneName){
+        this.scene.start(sceneName); 
         this.scene.stop("levelSelect");
         // console.log("mission two");
     };

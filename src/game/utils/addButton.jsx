@@ -46,8 +46,8 @@ class ButtonCreate extends Phaser.GameObjects.Container{
     setCenter(){
         const [buttonPadding, btnText] = this.list;
         buttonPadding.setOrigin(0.5,0.5);
-        btnText.x = 0;
-        btnText.y = 0;
+        btnText.x = btnText.x - this.buttonPadding.width/2;
+        btnText.y = btnText.y - this.buttonPadding.height/2;
     };
 
 };
