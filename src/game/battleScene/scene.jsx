@@ -16,6 +16,8 @@ class FightScene extends Phaser.Scene {
 
     create(data) {
 
+        console.log("Battle scene");
+
         this.enemyHealth = data.enemyHp;
         this.enemyName = data.enemyName;
         this.destroyedEnemies = data.destroyedEnemies;
@@ -251,7 +253,7 @@ class FightScene extends Phaser.Scene {
 
             return normalizedCode;
         }catch{
-            //catch noney
+            //catch none
         };
     };
 
@@ -299,7 +301,7 @@ class FightScene extends Phaser.Scene {
                 this.enemyBody.destroy(true);
 
                 //saves the original position of the player
-                this.scene.launch("missionOne", {
+                this.scene.launch("missionTwo", {
                     enemyNewHp: this.enemyHealth,
                     playerNewPos: this.playerPrevPos, 
                     enemyName: this.enemyName, 

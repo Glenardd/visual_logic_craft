@@ -29,7 +29,7 @@ function App() {
         autoCenter: Phaser.Scale.CENTER_BOTH
       },
       parent: ".game",
-      scene: [LevelSelect,MissionTwo, MissionOne],
+      scene: [LevelSelect,MissionTwo, MissionOne, FightScene],
     };
 
     const game = new Phaser.Game(config);

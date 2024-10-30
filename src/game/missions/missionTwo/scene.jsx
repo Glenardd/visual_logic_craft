@@ -11,6 +11,8 @@ class MissionTwo extends Phaser.Scene {
 
     create(data) {
 
+        console.log("Mission 2");
+
         //enemy names when defeated contained here
         const destroyedEnemies = data.destroyedEnemies || [];   
         
