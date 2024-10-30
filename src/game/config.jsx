@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import Phaser from "phaser";
+
+//scenes
 import MissionOne from "./missions/missionOne/scene";
 import FightScene from "./battleScene/scene";
+import MissionTwo from "./missions/missionTwo/scene";
+import LevelSelect from "./menus/levelSelect/scene";
 
 function App() {
 
@@ -25,7 +29,7 @@ function App() {
         autoCenter: Phaser.Scale.CENTER_BOTH
       },
       parent: ".game",
-      scene: [MissionOne,FightScene]
+      scene: [LevelSelect,MissionTwo, MissionOne],
     };
 
     const game = new Phaser.Game(config);

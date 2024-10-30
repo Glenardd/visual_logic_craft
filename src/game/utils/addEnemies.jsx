@@ -44,6 +44,7 @@ class EnemyCreate{
                 },
             });
             this.scene.scene.stop("missionOne");
+            this.scene.scene.stop("missionTwo");
         };
         
         this.allEnemies.forEach(enemy => this.scene.physics.add.overlap(this.player, enemy, hit, null, this));

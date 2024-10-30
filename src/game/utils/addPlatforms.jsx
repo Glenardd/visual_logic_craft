@@ -1,12 +1,13 @@
 import Platform from "./Platform";
 
 class PlatformCreate {
-    constructor(scene, player, platformGroup, missionMap) {
+    constructor(scene, player, platformGroup, missionMap, platformColor) {
         this.missionMap = missionMap;
         this.scene = scene;
         this.player = player;
         this.platformGroup = platformGroup;
-    }
+        this.platformColor = platformColor;
+    };
 
     addPlatforms() {
         const width = this.scene.cameras.main.width;
@@ -23,10 +24,10 @@ class PlatformCreate {
 
         // Loop through the platform data and create platforms
         platforms.forEach(p => {
-            const platform = new Platform(this.scene, p.x, p.y, p.width, p.height, 0x5e8c51, this.player);
+            const platform = new Platform(this.scene, p.x, p.y, p.width, p.height, this.platformColor, this.player);
             this.platformGroup.add(platform);
         });
-    }
-}
+    };
+};
 
 export default PlatformCreate;

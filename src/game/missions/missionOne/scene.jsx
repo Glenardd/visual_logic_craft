@@ -40,13 +40,13 @@ class MissionOne extends Phaser.Scene {
 
         //create the object platform class
         this.platformGroup = this.physics.add.staticGroup();
-        const addNewPlatform = new PlatformCreate(this, this.player, this.platformGroup, platformsDataMissionOne);
+        const addNewPlatform = new PlatformCreate(this, this.player, this.platformGroup, platformsDataMissionOne, 0x5e8c51);
         addNewPlatform.addPlatforms();
 
         const platform = addNewPlatform.platformGroup.children.entries;
-        const platformEnemy1 = new EnemyCreate(this, platform[1], 2, this.player, "group 1", destroyedEnemies);
+        const platformEnemy1 = new EnemyCreate(this, platform[1], 1, this.player, "group 1", destroyedEnemies);
         const platformEnemy2 = new EnemyCreate(this, platform[2], 1, this.player, "group 2", destroyedEnemies);
-        const platformEnemy3 = new EnemyCreate(this, platform[4], 2, this.player, "group 3", destroyedEnemies);
+        const platformEnemy3 = new EnemyCreate(this, platform[4], 1, this.player, "group 3", destroyedEnemies);
 
         [platformEnemy1, platformEnemy2, platformEnemy3].forEach(enemyGroup => {
             if(enemyNewHp === 0){

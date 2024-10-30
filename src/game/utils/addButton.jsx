@@ -9,17 +9,17 @@ class ButtonCreate extends Phaser.GameObjects.Container{
         this.interactivity = true
         
         //btn padding
-        const buttonPadding = scene.add.rectangle(x, y, width, height, backgroundColor);
-        buttonPadding.setStrokeStyle(3, "#fffff");
-        buttonPadding.setOrigin(0);
+        this.buttonPadding = scene.add.rectangle(x, y, width, height, backgroundColor);
+        this.buttonPadding.setStrokeStyle(3, "#fffff");
+        this.buttonPadding.setOrigin(0);
 
         //btn text
         const btnText = scene.add.text(0,0, text, {fontSize: fontSize, align: "center"});
         btnText.setOrigin(0.5, 0.5); // Set origin to the center
-        btnText.x = buttonPadding.x + buttonPadding.width / 2;
-        btnText.y = buttonPadding.y + buttonPadding.height / 2;
+        btnText.x = this.buttonPadding.x + this.buttonPadding.width / 2;
+        btnText.y = this.buttonPadding.y + this.buttonPadding.height / 2;
 
-        this.add([buttonPadding, btnText]);
+        this.add([this.buttonPadding, btnText]);
 
         //add container to scene
         scene.add.existing(this);
@@ -29,7 +29,7 @@ class ButtonCreate extends Phaser.GameObjects.Container{
     };
 
     setInteractivivity(turnOn) {
-        const [buttonPadding, btnText] = this.list; // Retrieve the buttonPadding rectangle
+        const [buttonPadding, btnText] = this.list; // Retrieve the this.buttonPadding rectangle
 
         buttonPadding.removeAllListeners();// remove existing event listeners to avoid duplication
         buttonPadding.setInteractive({ useHandCursor: turnOn });
@@ -37,10 +37,17 @@ class ButtonCreate extends Phaser.GameObjects.Container{
         btnText.setAlpha(turnOn ? 1 : 0);
 
         // Handle pointer events on the rectangle
-        buttonPadding.on("pointerdown", () => {this.func()});
+        this.buttonPadding.on("pointerdown", () => {this.func()});
 
-        buttonPadding.on("pointerover", () => buttonPadding.setFillStyle(this.foregroundColor));
-        buttonPadding.on("pointerout", () => buttonPadding.setFillStyle(this.backgroundColor));
+        this.buttonPadding.on("pointerover", () => this.buttonPadding.setFillStyle(this.foregroundColor));
+        this.buttonPadding.on("pointerout", () => this.buttonPadding.setFillStyle(this.backgroundColor));
+    };
+
+    setCenter(){
+        const [buttonPadding, btnText] = this.list;
+        buttonPadding.setOrigin(0.5,0.5);
+        btnText.x = 0;
+        btnText.y = 0;
     };
 
 };
