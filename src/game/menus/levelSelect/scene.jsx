@@ -1,4 +1,3 @@
-import SceneChange from "../../utils/sceneManager";
 import AddLine from "../../utils/addLayoutGuide";
 import ButtonCreate from "../../utils/addButton";
 
