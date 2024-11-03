@@ -14,7 +14,7 @@ class ButtonCreate extends Phaser.GameObjects.Container{
         this.buttonPadding.setOrigin(0);
 
         //btn text
-        const btnText = scene.add.text(0,0, text, {fontSize: fontSize, align: "center"});
+        const btnText = scene.add.text(0,0, text, {fontSize: fontSize, align: "center", color: "#000"});
         btnText.setOrigin(0.5, 0.5); // Set origin to the center
         btnText.x = this.buttonPadding.x + this.buttonPadding.width / 2;
         btnText.y = this.buttonPadding.y + this.buttonPadding.height / 2;
