@@ -42,6 +42,8 @@ class EnemyCreate{
                     x: player.x,
                     y: player.y
                 },
+
+                currentScene: this.scene.scene.key,
             });
             this.scene.scene.stop("missionOne");
             this.scene.scene.stop("missionTwo");

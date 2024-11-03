@@ -12,6 +12,7 @@ class FightScene extends Phaser.Scene {
         
         this.enemyHealth = 0;
         this.enemyName = "";
+        this.currentScene = "";
     };
 
     create(data) {
@@ -23,6 +24,8 @@ class FightScene extends Phaser.Scene {
         this.destroyedEnemies = data.destroyedEnemies;
         
         this.playerPrevPos = data.playerPrevPos;
+
+        this.currentScene = data.currentScene;
 
         const width = this.scale.width;
         const height = this.scale.height;
@@ -301,7 +304,7 @@ class FightScene extends Phaser.Scene {
                 this.enemyBody.destroy(true);
 
                 //saves the original position of the player
-                this.scene.launch("missionTwo", {
+                this.scene.launch(`${this.currentScene}`, {
                     enemyNewHp: this.enemyHealth,
                     playerNewPos: this.playerPrevPos, 
                     enemyName: this.enemyName, 

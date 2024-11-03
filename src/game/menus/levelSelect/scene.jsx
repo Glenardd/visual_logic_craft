@@ -40,7 +40,6 @@ class LevelSelect extends Phaser.Scene{
     changeScene(sceneName){
         this.scene.start(sceneName); 
         this.scene.stop("levelSelect");
-        // console.log("mission two");
     };
 };
 
