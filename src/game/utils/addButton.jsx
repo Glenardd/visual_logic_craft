@@ -24,14 +24,14 @@ class ButtonCreate extends Phaser.GameObjects.Container{
         //add container to scene
         scene.add.existing(this);
 
-        this.setInteractivivity(this.interactivity);
+        this.setInteractivity(this.interactivity);
         
         this.buttonPadding.setScrollFactor(0);
         btnText.setScrollFactor(0);
 
     };
 
-    setInteractivivity(turnOn) {
+    setInteractivity(turnOn) {
         const [buttonPadding, btnText] = this.list; // Retrieve the this.buttonPadding rectangle
 
         buttonPadding.removeAllListeners();// remove existing event listeners to avoid duplication

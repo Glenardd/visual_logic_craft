@@ -27,12 +27,12 @@ class LevelSelect extends Phaser.Scene{
     levelSelectbtn(){
 
         const missionOneBtn = new ButtonCreate(this,0,0, "Mission One",25, 100,200, 0x88d17b,0x5e9654, ()=>this.changeScene("missionOne"),true);
-        missionOneBtn.setInteractivivity(true);
+        missionOneBtn.setInteractivity(true);
         missionOneBtn.setCenter();
         this.levelSelection.add(missionOneBtn);
 
         const missionTwoBtn = new ButtonCreate(this,0,100, "Mission Two",25, 100,200 ,0x88d17b,0x5e9654, ()=>this.changeScene("missionTwo"),true);
-        missionTwoBtn.setInteractivivity(true);
+        missionTwoBtn.setInteractivity(true);
         missionTwoBtn.setCenter();
         this.levelSelection.add(missionTwoBtn);
     };

@@ -126,7 +126,7 @@ class FightScene extends Phaser.Scene {
         };
 
         const deselect = () =>{
-            this.deselectCardbtn.setInteractivivity(false);
+            this.deselectCardbtn.setInteractivity(false);
             console.log("deselect");
 
             //clear view th card challenge
@@ -137,7 +137,7 @@ class FightScene extends Phaser.Scene {
         };
 
         const select = (cardAnswer, cardInstuction) =>{
-            this.deselectCardbtn.setInteractivivity(true);
+            // this.deselectCardbtn.setInteractivity(true);
             console.log("selected a card");
             
             //view th card challenge
@@ -147,8 +147,8 @@ class FightScene extends Phaser.Scene {
         };
 
         const endTurn = () =>{
-            this.endturnbtn.setInteractivivity(false);
-            this.runBtn.setInteractivivity(true);
+            this.endturnbtn.setInteractivity(false);
+            this.runBtn.setInteractivity(true);
             //reset turns when turn ended
             this.attempts = 0
             this.countAttempts.setText(`Attempts: ${this.attempts}`);
@@ -160,8 +160,8 @@ class FightScene extends Phaser.Scene {
                 ease: "Power1",
                 x: "-=250",
                 onStart:()=>{
-                    this.runBtn.setInteractivivity(false);
-                    this.endturnbtn.setInteractivivity(false);
+                    this.runBtn.setInteractivity(false);
+                    this.endturnbtn.setInteractivity(false);
                     this.resultVal.setText("Enemy turn");
                 },
                 onComplete: () =>{
@@ -170,7 +170,7 @@ class FightScene extends Phaser.Scene {
                         ease: "Power1",
                         x: "+=250",
                         onComplete: ()=>{
-                            this.runBtn.setInteractivivity(true);
+                            this.runBtn.setInteractivity(true);
                             this.resultVal.setText("Your turn");
                         },
                     });
@@ -211,7 +211,7 @@ class FightScene extends Phaser.Scene {
 
         //cards
         this.card1= new CreateCard(this, 0, 0, 250, 300, 0xdbb77d, "card1", 100, "loop","Print hello world","print(\"hello world\")", select);
-        this.card2= new CreateCard(this, 0, 60, 250, 300, 0xdbb77d, "card2", "magic some mob", "variable","Nothing", "just make a loop",select);
+        this.card2= new CreateCard(this, 0, 60, 250, 300, 0xdbb77d, "card2", "magic some mob","variable","Nothing","just make a loop",select);
         this.card3= new CreateCard(this, 0, 120, 250, 300, 0xdbb77d, "card2", "yes, do nothing", "function","Nothing", "just make a loop",select);
         this.card4= new CreateCard(this, 0, 175, 250, 300, 0xdbb77d, "card3", "nothing at the moment", "functsss","Nothing", "just make a loop", select);
         cards.add([this.card1,this.card2,this.card3,this.card4]);
@@ -280,8 +280,8 @@ class FightScene extends Phaser.Scene {
                 ease: "Power1",
                 x: "+=250",
                 onStart:()=>{
-                    this.runBtn.setInteractivivity(false);
-                    this.endturnbtn.setInteractivivity(false);
+                    this.runBtn.setInteractivity(false);
+                    this.endturnbtn.setInteractivity(false);
                 },
                 onComplete: () =>{
                     this.tweens.add({
@@ -289,14 +289,14 @@ class FightScene extends Phaser.Scene {
                         ease: "Power1",
                         x: "-=250",
                         onComplete: ()=>{
-                            this.endturnbtn.setInteractivivity(true);
+                            this.endturnbtn.setInteractivity(true);
                         },
                     });
                 },
             });
 
-            this.endturnbtn.setInteractivivity(true);
-            this.runBtn.setInteractivivity(false);
+            this.endturnbtn.setInteractivity(true);
+            this.runBtn.setInteractivity(false);
 
             //damage
             this.enemyHealth -= this.card1.cardDamage;
@@ -324,8 +324,8 @@ class FightScene extends Phaser.Scene {
         };
 
         if(this.attempts >= 3){
-            this.endturnbtn.setInteractivivity(true);
-            this.runBtn.setInteractivivity(false);
+            this.endturnbtn.setInteractivity(true);
+            this.runBtn.setInteractivity(false);
             this.attempts = 0;
         };
     };
