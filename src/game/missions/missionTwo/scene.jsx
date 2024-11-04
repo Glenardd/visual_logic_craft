@@ -57,7 +57,7 @@ class MissionTwo extends Phaser.Scene {
             };
         });
 
-        pauseBtn(this);
+        pauseBtn(this, width, height);
     };
 
     update() {
