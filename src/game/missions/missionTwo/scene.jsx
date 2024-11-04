@@ -1,6 +1,7 @@
 import PlatformCreate from "../../utils/addPlatforms";
 import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
+import {pauseBtn} from "../../buttons/pauseButton/pauseBtn";
 
 import { platformsDataMissionTwo } from "../../objData/platformData";
 
@@ -55,6 +56,8 @@ class MissionTwo extends Phaser.Scene {
                 enemyGroup.destroyEnemy(enemyName);
             };
         });
+
+        pauseBtn(this);
     };
 
     update() {

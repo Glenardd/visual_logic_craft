@@ -2,6 +2,7 @@ import * as monaco from "monaco-editor";
 import ButtonCreate from "../utils/addButton";
 import AddLine from "../utils/addLayoutGuide.jsx";
 import CreateCard from "../utils/addCards.jsx";
+import { pauseBtn } from "../buttons/pauseButton/pauseBtn.jsx";
 
 class FightScene extends Phaser.Scene {
     constructor() {
@@ -226,6 +227,8 @@ class FightScene extends Phaser.Scene {
 
         this.countAttempts = this.add.text(0,5,`Attempts: 0`, {fontSize: "40px"});
         attemptsUi.add(this.countAttempts);
+
+        pauseBtn(this);
     };
 
     addFloatingAnimation(object){

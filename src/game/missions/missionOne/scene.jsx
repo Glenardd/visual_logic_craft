@@ -3,6 +3,7 @@ import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
 import { platformsDataMissionOne } from "../../objData/platformData";
+import { pauseBtn } from "../../buttons/pauseButton/pauseBtn";
 
 class MissionOne extends Phaser.Scene {
     constructor() {
@@ -55,6 +56,8 @@ class MissionOne extends Phaser.Scene {
                 enemyGroup.destroyEnemy(enemyName);
             };
         });
+
+        pauseBtn(this);
     };
 
     update() {
