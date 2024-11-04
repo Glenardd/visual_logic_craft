@@ -4,7 +4,8 @@ class AddLine extends Phaser.GameObjects.Graphics {
         this.width = width;
         this.height = height;
         this.setDepth(1);
-
+        this.setScrollFactor(0)
+        
         scene.add.existing(this);
     };  
 

@@ -1,6 +1,7 @@
 import PlatformCreate from "../../utils/addPlatforms";
 import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
+import AddLine from "../../utils/addLayoutGuide";
 
 import { platformsDataMissionOne } from "../../objData/platformData";
 import { pauseBtn } from "../../buttons/pauseButton/pauseBtn";
@@ -30,8 +31,14 @@ class MissionOne extends Phaser.Scene {
         const height = this.Height;
 
         //container
-        const container = this.add.container(width/2, height / 2);
-        
+        const container = this.add.container(width/ 2, height / 2);
+
+        const visibility = 0.5
+
+        const line = new AddLine(this, width, height);
+        const lineX = line.createVerticalLine(0.5, visibility);
+        const lineY = line.createHorizontalLine(0.5, visibility);
+
         //when player returns to this scene
         const playerX = playerNewPos === undefined ? width*-0.4 : playerNewPos.x;
         const playerY = playerNewPos === undefined ? 0 : playerNewPos.y;

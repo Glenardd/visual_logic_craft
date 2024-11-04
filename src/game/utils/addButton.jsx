@@ -6,7 +6,7 @@ class ButtonCreate extends Phaser.GameObjects.Container{
         this.foregroundColor = foregroundColor;
         this.backgroundColor = backgroundColor;
         this.scene =  scene;
-        this.interactivity = true
+        this.interactivity = interactivity
         
         //btn padding
         this.buttonPadding = scene.add.rectangle(x, y, width, height, backgroundColor);
@@ -24,7 +24,10 @@ class ButtonCreate extends Phaser.GameObjects.Container{
         //add container to scene
         scene.add.existing(this);
 
-        this.setInteractivivity(interactivity);
+        this.setInteractivivity(this.interactivity);
+        
+        this.buttonPadding.setScrollFactor(0);
+        btnText.setScrollFactor(0);
 
     };
 
@@ -49,7 +52,6 @@ class ButtonCreate extends Phaser.GameObjects.Container{
         btnText.x = btnText.x - this.buttonPadding.width/2;
         btnText.y = btnText.y - this.buttonPadding.height/2;
     };
-
 };
 
 export default ButtonCreate;

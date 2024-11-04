@@ -23,9 +23,8 @@ class Player extends Phaser.GameObjects.Rectangle{
 
     //set up camera
     setCamera(camera, width, height){
-        camera.main.setBounds(0, 0, width * 3.3, height)
-        camera.main.startFollow(this);
-        camera.main.setZoom(0.8,0.8);
+        camera.main.setBounds(0, 200, width * 3.3, height);
+        camera.main.startFollow(this,0,0.1,0.1);
     };
 
     //the position of the camera
