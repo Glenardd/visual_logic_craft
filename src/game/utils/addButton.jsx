@@ -44,6 +44,7 @@ class ButtonCreate extends Phaser.GameObjects.Container{
 
         this.buttonPadding.on("pointerover", () => this.buttonPadding.setFillStyle(this.foregroundColor));
         this.buttonPadding.on("pointerout", () => this.buttonPadding.setFillStyle(this.backgroundColor));
+        return this
     };
 
     setCenter(){
@@ -51,6 +52,7 @@ class ButtonCreate extends Phaser.GameObjects.Container{
         buttonPadding.setOrigin(0.5,0.5);
         btnText.x = btnText.x - this.buttonPadding.width/2;
         btnText.y = btnText.y - this.buttonPadding.height/2;
+        return this;
     };
 };
 

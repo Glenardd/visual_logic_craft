@@ -15,7 +15,7 @@ class MissionTwo extends Phaser.Scene {
         console.log("Mission 2");
 
         //enemy names when defeated contained here
-        const destroyedEnemies = data.destroyedEnemies || [];   
+        this.destroyedEnemies = data.destroyedEnemies || [];   
         
         const enemyNewHp = data.enemyNewHp;
         const enemyName = data.enemyName;
@@ -47,20 +47,19 @@ class MissionTwo extends Phaser.Scene {
         addNewPlatform.addPlatforms();
 
         const platform = addNewPlatform.platformGroup.children.entries;
-        const platformEnemy1 = new EnemyCreate(this, platform[1], 2, this.player, "group 1", destroyedEnemies);
-        const platformEnemy2 = new EnemyCreate(this, platform[2], 1, this.player, "group 2", destroyedEnemies);
-        const platformEnemy3 = new EnemyCreate(this, platform[4], 2, this.player, "group 3", destroyedEnemies);
+        const platformEnemy1 = new EnemyCreate(this, platform[1], 2, this.player, "group 1", this.destroyedEnemies);
+        const platformEnemy2 = new EnemyCreate(this, platform[2], 1, this.player, "group 2", this.destroyedEnemies);
+        const platformEnemy3 = new EnemyCreate(this, platform[4], 2, this.player, "group 3", this.destroyedEnemies);
 
         [platformEnemy1, platformEnemy2, platformEnemy3].forEach(enemyGroup => {
             if(enemyNewHp === 0){
                 enemyGroup.destroyEnemy(enemyName);
             };
         });
-
-        pauseBtn(this, width, height);
     };
 
     update() {
+        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies);
         this.player.setCameraOffset(this.cameras, this.Width);
         this.player.setPlayerMovement();
     };
