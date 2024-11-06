@@ -4,7 +4,6 @@ import AddLine from "../../utils/addLayoutGuide";
 export const pauseBtn = (scene, width, height, destroyedEnemies) =>{
     const returnEvent = () =>{
         scene.scene.launch("pauseMenu", {previousScene: scene.scene.key, playerNewPos: scene.player, destroyedEnemies: destroyedEnemies});
-        scene.scene.stop(`${scene.scene.key}`);
     };
 
     const visibility = 0;

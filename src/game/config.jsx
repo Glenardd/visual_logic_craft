@@ -16,6 +16,7 @@ function App() {
       width: 2000,
       height: 1200,
       backgroundColor: "#3486eb",
+      disableContextMenu: true,
       physics: {
         default: 'arcade',
         arcade: {

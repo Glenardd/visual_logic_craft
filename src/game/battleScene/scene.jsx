@@ -18,8 +18,6 @@ class FightScene extends Phaser.Scene {
 
     create(data) {
 
-        console.log("Battle scene");
-
         this.enemyHealth = data.enemyHp;
         this.enemyName = data.enemyName;
         this.destroyedEnemies = data.destroyedEnemies;
@@ -73,6 +71,14 @@ class FightScene extends Phaser.Scene {
         const containerDom = this.add.dom(0, 0).createFromHTML(containerDiv);
         containerDom.setOrigin(0);
         editorLayout.add(containerDom);
+
+        this.events.on("pause", ()=>{
+            containerDom.setVisible(false);
+        });
+
+        this.events.on("resume", ()=>{
+            containerDom.setVisible(true);
+        });
 
         //code editor
         const containerID = document.getElementById("codeEditor");
