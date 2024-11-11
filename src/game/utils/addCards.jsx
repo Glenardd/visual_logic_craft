@@ -1,13 +1,26 @@
-class CreateCard extends Phaser.GameObjects.Container {
-    constructor(scene, x, y, width, height, backgroundColor, cardName, cardDamage, challengeType,instruction, cardAnswer, func) {
-        super(scene, x, y);
+import cardData from "../objData/cardsData.json"
 
-        this.cardName = cardName;
-        this.cardDamage = cardDamage;
-        this.cardInstruction = instruction
-        this.challengeType = challengeType;
-        this.cardAnswer = cardAnswer;
-        this.backgroundColor = backgroundColor;
+class CreateCard extends Phaser.GameObjects.Container {
+    constructor(scene, x, y, width, height, backgroundColor, concept, func) {
+        super(scene, x, y);
+        
+        let index = 0;
+
+        //randomize the concept                
+        for (let card of cardData) {
+            if (card.concept === concept) {
+                // Use the concept questions
+                this.cardName = card.card_name;
+                this.cardQuestion = card.challenge_rotation[index].question;
+                this.cardAnswer = card.challenge_rotation[index].answer;
+                this.cardValue = card.value;
+                index++;
+            };
+
+            if(index === card.challenge_rotation.length){
+                index = 0;
+            };
+        };
 
         const cardPadding = scene.add.rectangle(0, 0, width, height, backgroundColor);
         cardPadding.setStrokeStyle(4, 0x00000);
@@ -26,9 +39,9 @@ class CreateCard extends Phaser.GameObjects.Container {
         this.setSize(width, height);
         this.setPosition(x, y);
         scene.add.existing(this);
-
+        
         cardPadding.on("pointerdown", () => {
-            func(this.cardInstruction, this.cardAnswer);
+            func(this.cardQuestion, this.cardAnswer);
             
             cardPadding.setStrokeStyle(4, 0xff0000);
             scene.tweens.add({

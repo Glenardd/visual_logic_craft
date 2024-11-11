@@ -39,7 +39,7 @@ function App() {
     return () =>{
       if(game) {game.destroy(true);} 
     };
-  });
+  }, []);
 
   return (
     <div id="game"></div>

@@ -17,7 +17,6 @@ class FightScene extends Phaser.Scene {
     };
 
     create(data) {
-
         this.enemyHealth = data.enemyHp;
         this.enemyName = data.enemyName;
         this.destroyedEnemies = data.destroyedEnemies;
@@ -114,7 +113,6 @@ class FightScene extends Phaser.Scene {
         const runCode = () => {
 
             if(this.selectedCase === ""){
-                // console.log("empty");
                 this.resultVal.setText("Pick a card");
                 setTimeout(()=>{this.resultVal.setText("Your turn")},1000);
                 
@@ -142,13 +140,13 @@ class FightScene extends Phaser.Scene {
             this.selectedCase = "";
         };
 
-        const select = (cardAnswer, cardInstuction) =>{
+        const select = (cardQuestion, cardAnswer) =>{
             // this.deselectCardbtn.setInteractivity(true);
             console.log("selected a card");
             
             //view th card challenge
-            this.viewCardValue.setText(cardAnswer);
-            this.selectedCase = cardInstuction;
+            this.viewCardValue.setText(cardQuestion);
+            this.selectedCase = cardAnswer;
             this.resultVal.setText("Input your code");
         };
 
@@ -213,14 +211,77 @@ class FightScene extends Phaser.Scene {
         this.viewCardValue.setOrigin(0.5);
         this.viewCardValue.x = viewCard.x + viewCard.width/2;
         this.viewCardValue.y = viewCard.y + viewCard.height/2;
-        cardView.add([viewCard, this.viewCardValue]);
+        cardView.add([viewCard, this.viewCardValue]); 
 
+        this.card1= new CreateCard(
+            this, 
+            0, 
+            0, 
+            250, 
+            300,
+            0xdbb77d, 
+            "Variables", 
+            select
+        );
+        
         //cards
-        this.card1= new CreateCard(this, 0, 0, 250, 300, 0xdbb77d, "card1", 100, "loop","Print hello world","print(\"hello world\")", select);
-        this.card2= new CreateCard(this, 0, 60, 250, 300, 0xdbb77d, "card2", "magic some mob","variable","Nothing","just make a loop",select);
-        this.card3= new CreateCard(this, 0, 120, 250, 300, 0xdbb77d, "card2", "yes, do nothing", "function","Nothing", "just make a loop",select);
-        this.card4= new CreateCard(this, 0, 175, 250, 300, 0xdbb77d, "card3", "nothing at the moment", "functsss","Nothing", "just make a loop", select);
-        cards.add([this.card1,this.card2,this.card3,this.card4]);
+        // this.card1= new CreateCard(
+        //     this, 
+        //     0, 
+        //     0, 
+        //     250, 
+        //     300, 
+        //     0xdbb77d, 
+        //     "card1", 
+        //     100, 
+        //     "loop",
+        //     "Print hello world"
+        //     ,"print(\"hello world\")"
+        //     , select
+        // );
+        // this.card2= new CreateCard(
+        //     this, 
+        //     0, 
+        //     60, 
+        //     250, 
+        //     300, 
+        //     0xdbb77d, 
+        //     "card2", 
+        //     "magic some mob",
+        //     "variable",
+        //     "Nothing",
+        //     "just make a loop",
+        //     select
+        // );
+        // this.card3= new CreateCard(
+        //     this, 
+        //     0, 
+        //     120, 
+        //     250, 
+        //     300, 
+        //     0xdbb77d, 
+        //     "card2", 
+        //     "yes, do nothing", 
+        //     "function",
+        //     "Nothing", 
+        //     "just make a loop",
+        //     select
+        // );
+        // this.card4= new CreateCard(
+        //     this, 
+        //     0, 
+        //     175, 
+        //     250, 
+        //     300, 
+        //     0xdbb77d, 
+        //     "card3", 
+        //     "nothing at the moment", 
+        //     "functsss","Nothing", 
+        //     "just make a loop", 
+        //     select
+        // );
+
+        cards.add([this.card1]);
 
         //buttons
         this.deselectCardbtn = new ButtonCreate(this,100,0, "Deselect", 25, 50,200, 0xe85f5f, 0x914c4c, deselect, false);
@@ -305,7 +366,7 @@ class FightScene extends Phaser.Scene {
             this.runBtn.setInteractivity(false);
 
             //damage
-            this.enemyHealth -= this.card1.cardDamage;
+            this.enemyHealth -= this.card1.cardValue;
             this.enemyHealthBar.setText(`${this.enemyHealth} & ${this.enemyName}`);
 
             if(this.enemyHealth <= 0){
