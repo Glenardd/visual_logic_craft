@@ -31,7 +31,7 @@ function App() {
         autoCenter: Phaser.Scale.CENTER_BOTH
       },
       parent: ".game",
-      scene: [LevelSelect,MissionTwo, MissionOne, FightScene, PauseMenu],
+      scene: [FightScene, PauseMenu], //LevelSelect,MissionTwo, MissionOne, FightScene, PauseMenu
     };
 
     const game = new Phaser.Game(config);

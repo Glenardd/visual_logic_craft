@@ -141,9 +141,6 @@ class FightScene extends Phaser.Scene {
         };
 
         const select = (cardQuestion, cardAnswer) =>{
-            // this.deselectCardbtn.setInteractivity(true);
-            console.log("selected a card");
-            
             //view th card challenge
             this.viewCardValue.setText(cardQuestion);
             this.selectedCase = cardAnswer;
@@ -220,9 +217,20 @@ class FightScene extends Phaser.Scene {
             250, 
             300,
             0xdbb77d, 
-            "Variables", 
+            "Variable Vulture", 
             select
         );
+
+        // this.card2= new CreateCard(
+        //     this, 
+        //     0, 
+        //     0, 
+        //     250, 
+        //     300,
+        //     0xdbb77d, 
+        //     "Variables", 
+        //     select
+        // );
         
         //cards
         // this.card1= new CreateCard(

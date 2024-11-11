@@ -1,32 +1,16 @@
 import cardData from "../objData/cardsData.json"
 
 class CreateCard extends Phaser.GameObjects.Container {
-    constructor(scene, x, y, width, height, backgroundColor, concept, func) {
+    constructor(scene, x, y, width, height, backgroundColor, cardName, func) {
         super(scene, x, y);
         
         let index = 0;
-
-        //randomize the concept                
-        for (let card of cardData) {
-            if (card.concept === concept) {
-                // Use the concept questions
-                this.cardName = card.card_name;
-                this.cardQuestion = card.challenge_rotation[index].question;
-                this.cardAnswer = card.challenge_rotation[index].answer;
-                this.cardValue = card.value;
-                index++;
-            };
-
-            if(index === card.challenge_rotation.length){
-                index = 0;
-            };
-        };
 
         const cardPadding = scene.add.rectangle(0, 0, width, height, backgroundColor);
         cardPadding.setStrokeStyle(4, 0x00000);
         cardPadding.setOrigin(0);
 
-        const cardText = scene.add.text(width / 2, height / 2, this.cardName, {
+        const cardText = scene.add.text(width / 2, height / 2, cardName, {
             fontSize: '50px',
             color: '#000',
             align: "center",
@@ -41,6 +25,22 @@ class CreateCard extends Phaser.GameObjects.Container {
         scene.add.existing(this);
         
         cardPadding.on("pointerdown", () => {
+            index++;
+
+            for (let card of cardData) {
+                if (card.card_name === cardName) {
+                    if(card.concept){
+                        this.cardQuestion = card.challenge_rotation[index].question;
+                        this.cardAnswer = card.challenge_rotation[index].answer;
+                        this.cardValue = card.value;
+                    };
+                };
+    
+                if(index === card.challenge_rotation.length){
+                    index = 0;
+                };
+            };
+            
             func(this.cardQuestion, this.cardAnswer);
             
             cardPadding.setStrokeStyle(4, 0xff0000);

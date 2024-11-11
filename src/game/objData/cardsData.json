@@ -31,7 +31,7 @@
     "concept": "Variables",
     "challenge_rotation": [
       {
-        "question": "Declare a variable and assign it a string value.",
+        "question": "Declare a variable \n and assign it a string value.",
         "answer": "greeting = 'Hello, world!'"
       },
       {
