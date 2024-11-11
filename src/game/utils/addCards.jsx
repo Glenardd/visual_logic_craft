@@ -14,6 +14,7 @@ class CreateCard extends Phaser.GameObjects.Container {
             fontSize: '50px',
             color: '#000',
             align: "center",
+            wordWrap: { width: width, useAdvancedWrap: true }
         });
         cardText.setOrigin(0.5, 0.5);
 

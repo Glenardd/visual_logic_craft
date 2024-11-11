@@ -202,7 +202,11 @@ class FightScene extends Phaser.Scene {
         
         //view card
         const viewCard = this.add.rectangle(0,0,400,380, 0x9c8454);
-        this.viewCardValue = this.add.text(0,0,"Pick a card", {fontSize: "40px"});
+        this.viewCardValue = this.add.text(0,0,"Pick a card", {
+            fontSize: "40px",
+            wordWrap: { width: viewCard.width, useAdvancedWrap: true }
+        });
+
         viewCard.setOrigin(0);
         viewCard.setStrokeStyle(3, 0x0000);
         this.viewCardValue.setOrigin(0.5);
