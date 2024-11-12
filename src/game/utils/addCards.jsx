@@ -1,16 +1,20 @@
 import cardData from "../objData/cardsData.json"
 
 class CreateCard extends Phaser.GameObjects.Container {
-    constructor(scene, x, y, width, height, backgroundColor, cardName, func) {
+    constructor(scene, x, y, width, height, backgroundColor, cardName, interactivity, func) {
         super(scene, x, y);
-        
-        let index = 0;
 
-        const cardPadding = scene.add.rectangle(0, 0, width, height, backgroundColor);
-        cardPadding.setStrokeStyle(4, 0x00000);
-        cardPadding.setOrigin(0);
+        this.index = 0;
+        this.interactivity = interactivity;
+        this.func = func;
+        this.scene = scene;
+        this.cardName = cardName
 
-        const cardText = scene.add.text(width / 2, height / 2, cardName, {
+        this.cardPadding = this.scene.add.rectangle(0, 0, width, height, backgroundColor);
+        this.cardPadding.setStrokeStyle(4, 0x00000);
+        this.cardPadding.setOrigin(0);
+
+        const cardText = this.scene.add.text(width / 2, height / 2, this.cardName, {
             fontSize: '50px',
             color: '#000',
             align: "center",
@@ -18,59 +22,66 @@ class CreateCard extends Phaser.GameObjects.Container {
         });
         cardText.setOrigin(0.5, 0.5);
 
-        cardPadding.setInteractive({ useHandCursor: true})
-
-        this.add([cardPadding, cardText]);
+        this.add([this.cardPadding, cardText]);
         this.setSize(width, height);
         this.setPosition(x, y);
-        scene.add.existing(this);
-        
-        cardPadding.on("pointerdown", () => {
-            index++;
+        this.scene.add.existing(this);
 
-            for (let card of cardData) {
-                if (card.card_name === cardName) {
-                    if(card.concept){
-                        this.cardQuestion = card.challenge_rotation[index].question;
-                        this.cardAnswer = card.challenge_rotation[index].answer;
-                        this.cardValue = card.value;
+        this.setInteractivity(this.interactivity);
+    };
+
+    setInteractivity(turnOn) {
+        if (turnOn) {
+            this.cardPadding.setInteractive({ useHandCursor: turnOn });
+
+            this.cardPadding.removeAllListeners();
+
+            this.cardPadding.on("pointerdown", () => {
+                this.index++;
+
+                for (let card of cardData) {
+                    if (card.card_name === this.cardName) {
+                        if (card.concept) {
+                            this.cardQuestion = card.challenge_rotation[this.index].question;
+                            this.cardAnswer = card.challenge_rotation[this.index].answer;
+                            this.cardValue = card.value;
+                        };
+                    };
+
+                    if (this.index === card.challenge_rotation.length) {
+                        this.index = 0;
                     };
                 };
-    
-                if(index === card.challenge_rotation.length){
-                    index = 0;
-                };
-            };
-            
-            func(this.cardQuestion, this.cardAnswer);
-            
-            cardPadding.setStrokeStyle(4, 0xff0000);
-            scene.tweens.add({
-                targets: this,
-                angle: 15,
-                x: 150,
-                duration: 500,
-                ease: 'Power2',
-                onStart: () =>{
-                },
-                onComplete: () => {
-                    cardPadding.setStrokeStyle(4, 0x000);
-                    scene.tweens.add({
-                        targets: this,
-                        angle: 0,
-                        x: 0,
-                        duration: 500,
-                        ease: 'Power2',
-                        onComplete: () =>{
-                            scene.deselectCardbtn.setInteractivity(true);
-                        },
-                    });
-                },
+
+                this.func(this.cardQuestion, this.cardAnswer);
+
+                this.cardPadding.setStrokeStyle(4, 0xff0000);
+                this.scene.tweens.add({
+                    targets: this,
+                    angle: 15,
+                    x: 150,
+                    duration: 500,
+                    ease: 'Power2',
+                    onComplete: () => {
+                        this.cardPadding.setStrokeStyle(4, 0x000);
+                        this.scene.tweens.add({
+                            targets: this,
+                            angle: 0,
+                            x: 0,
+                            duration: 500,
+                            ease: 'Power2',
+                            onComplete: () => {
+                                this.scene.deselectCardbtn.setInteractivity(turnOn);
+                            },
+                        });
+                    },
+                });
             });
-        });
-        
-        scene.add.existing(this);
-    }
+
+        } else {
+            this.cardPadding.disableInteractive({ useHandCursor: !turnOn });
+        };
+    };
 }
 
 export default CreateCard;

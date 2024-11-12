@@ -138,13 +138,21 @@ class FightScene extends Phaser.Scene {
             this.resultVal.setText("Please pick a card");
             setTimeout(()=>{this.resultVal.setText("Your turn")},1000);
             this.selectedCase = "";
+
+            
+            this.card1.setInteractivity(true);
+            this.card2.setInteractivity(true);
         };
 
         const select = (cardQuestion, cardAnswer) =>{
+
             //view th card challenge
             this.viewCardValue.setText(cardQuestion);
             this.selectedCase = cardAnswer;
             this.resultVal.setText("Input your code");
+            
+            this.card1.setInteractivity(false);
+            this.card2.setInteractivity(false);
         };
 
         const endTurn = () =>{
@@ -221,20 +229,23 @@ class FightScene extends Phaser.Scene {
             250, 
             300,
             0xdbb77d, 
-            "Variable Vulture", 
+            "Variable Vulture",
+            true,
             select
         );
 
-        // this.card2= new CreateCard(
-        //     this, 
-        //     0, 
-        //     0, 
-        //     250, 
-        //     300,
-        //     0xdbb77d, 
-        //     "Variables", 
-        //     select
-        // );
+        this.card2= new CreateCard(
+            this, 
+            0, 
+            60, 
+            250, 
+            300,
+            0xdbb77d, 
+            "Conditional Cobra",
+            true,
+            select
+        );
+
         
         //cards
         // this.card1= new CreateCard(
@@ -293,7 +304,7 @@ class FightScene extends Phaser.Scene {
         //     select
         // );
 
-        cards.add([this.card1]);
+        cards.add([this.card1, this.card2]);
 
         //buttons
         this.deselectCardbtn = new ButtonCreate(this,100,0, "Deselect", 25, 50,200, 0xe85f5f, 0x914c4c, deselect, false);
@@ -408,7 +419,6 @@ class FightScene extends Phaser.Scene {
             this.attempts = 0;
         };
     };
-
 };
 
 export default FightScene;

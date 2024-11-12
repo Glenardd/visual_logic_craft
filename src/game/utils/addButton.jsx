@@ -6,7 +6,7 @@ class ButtonCreate extends Phaser.GameObjects.Container{
         this.foregroundColor = foregroundColor;
         this.backgroundColor = backgroundColor;
         this.scene =  scene;
-        this.interactivity = interactivity
+        this.interactivity = interactivity;
         
         //btn padding
         this.buttonPadding = scene.add.rectangle(x, y, width, height, backgroundColor);
