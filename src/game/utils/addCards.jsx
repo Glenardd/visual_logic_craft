@@ -20,6 +20,7 @@ class CreateCard extends Phaser.GameObjects.Container {
             align: "center",
             wordWrap: { width: width, useAdvancedWrap: true }
         });
+        
         cardText.setOrigin(0.5, 0.5);
 
         this.add([this.cardPadding, cardText]);
@@ -53,7 +54,7 @@ class CreateCard extends Phaser.GameObjects.Container {
                     };
                 };
 
-                this.func(this.cardQuestion, this.cardAnswer);
+                this.func(this.cardQuestion, this.cardAnswer, this.cardName);
 
                 this.cardPadding.setStrokeStyle(4, 0xff0000);
                 this.scene.tweens.add({

@@ -31,7 +31,7 @@ class FightScene extends Phaser.Scene {
         //create grid for layout guide
         const line = new AddLine(this, width, height);
 
-        const visible = 0;
+        // const visible = 0.5;
         
         //line guides
         const first_Vline = line.createVerticalLine(0.25, visible);
@@ -63,7 +63,7 @@ class FightScene extends Phaser.Scene {
         topUiLeft.add(this.enemyHealthBar);
 
         const playerHealthBar = this.add.text(0,0, `${data.playerName} & ${data.playerHp}`, { fontSize: "50px", fill: "#fff" });
-        topUiRight.add(playerHealthBar)
+        topUiRight.add(playerHealthBar);
 
         //container for code editor
         const containerDiv = `<div id="codeEditor" style="width: 57.4em; height: 380px; border: 1px solid grey;"></div>`;
@@ -135,6 +135,7 @@ class FightScene extends Phaser.Scene {
 
             //clear view th card challenge
             this.viewCardValue.setText("Pick a card");
+            this.viewCardName.setText("");
             this.resultVal.setText("Please pick a card");
             setTimeout(()=>{this.resultVal.setText("Your turn")},1000);
             this.selectedCase = "";
@@ -144,10 +145,11 @@ class FightScene extends Phaser.Scene {
             this.card2.setInteractivity(true);
         };
 
-        const select = (cardQuestion, cardAnswer) =>{
+        const select = (cardQuestion, cardAnswer, cardName) =>{
 
             //view th card challenge
             this.viewCardValue.setText(cardQuestion);
+            this.viewCardName.setText(cardName);
             this.selectedCase = cardAnswer;
             this.resultVal.setText("Input your code");
             
@@ -211,16 +213,26 @@ class FightScene extends Phaser.Scene {
         //view card
         const viewCard = this.add.rectangle(0,0,400,380, 0x9c8454);
         this.viewCardValue = this.add.text(0,0,"Pick a card", {
-            fontSize: "40px",
+            fontSize: "30px",
+            wordWrap: { width: viewCard.width, useAdvancedWrap: true }
+        });
+
+        this.viewCardName = this.add.text(0,0,"", {
+            fontSize: "30px",
             wordWrap: { width: viewCard.width, useAdvancedWrap: true }
         });
 
         viewCard.setOrigin(0);
         viewCard.setStrokeStyle(3, 0x0000);
         this.viewCardValue.setOrigin(0.5);
+        this.viewCardName.setOrigin(0.5);
+
         this.viewCardValue.x = viewCard.x + viewCard.width/2;
         this.viewCardValue.y = viewCard.y + viewCard.height/2;
-        cardView.add([viewCard, this.viewCardValue]); 
+
+        this.viewCardName.x = viewCard.x + viewCard.width/2;
+        this.viewCardName.y = (viewCard.y -150) + viewCard.height/2;
+        cardView.add([viewCard, this.viewCardValue, this.viewCardName]); 
 
         this.card1= new CreateCard(
             this, 
@@ -242,6 +254,18 @@ class FightScene extends Phaser.Scene {
             300,
             0xdbb77d, 
             "Conditional Cobra",
+            true,
+            select
+        );
+
+        this.card3= new CreateCard(
+            this, 
+            0, 
+            120, 
+            250, 
+            300,
+            0xdbb77d, 
+            "Array Antelope",
             true,
             select
         );
@@ -304,7 +328,7 @@ class FightScene extends Phaser.Scene {
         //     select
         // );
 
-        cards.add([this.card1, this.card2]);
+        cards.add([this.card1, this.card2, this.card3]);
 
         //buttons
         this.deselectCardbtn = new ButtonCreate(this,100,0, "Deselect", 25, 50,200, 0xe85f5f, 0x914c4c, deselect, false);
