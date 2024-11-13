@@ -31,7 +31,7 @@ class FightScene extends Phaser.Scene {
         //create grid for layout guide
         const line = new AddLine(this, width, height);
 
-        // const visible = 0.5;
+        const visible = 0;
         
         //line guides
         const first_Vline = line.createVerticalLine(0.25, visible);
@@ -136,6 +136,7 @@ class FightScene extends Phaser.Scene {
             //clear view th card challenge
             this.viewCardValue.setText("Pick a card");
             this.viewCardName.setText("");
+            this.viewCardConcept.setText("");
             this.resultVal.setText("Please pick a card");
             setTimeout(()=>{this.resultVal.setText("Your turn")},1000);
             this.selectedCase = "";
@@ -145,11 +146,12 @@ class FightScene extends Phaser.Scene {
             this.card2.setInteractivity(true);
         };
 
-        const select = (cardQuestion, cardAnswer, cardName) =>{
+        const select = (cardQuestion, cardAnswer, cardName, cardConcept) =>{
 
             //view th card challenge
             this.viewCardValue.setText(cardQuestion);
             this.viewCardName.setText(cardName);
+            this.viewCardConcept.setText(`\"${cardConcept}\"`);
             this.selectedCase = cardAnswer;
             this.resultVal.setText("Input your code");
             
@@ -222,17 +224,27 @@ class FightScene extends Phaser.Scene {
             wordWrap: { width: viewCard.width, useAdvancedWrap: true }
         });
 
+        this.viewCardConcept = this.add.text(0,0,"", {
+            fontSize: "30px",
+            wordWrap: { width: viewCard.width, useAdvancedWrap: true }
+        });
+
         viewCard.setOrigin(0);
         viewCard.setStrokeStyle(3, 0x0000);
         this.viewCardValue.setOrigin(0.5);
         this.viewCardName.setOrigin(0.5);
+        this.viewCardConcept.setOrigin(0.5);
 
         this.viewCardValue.x = viewCard.x + viewCard.width/2;
         this.viewCardValue.y = viewCard.y + viewCard.height/2;
 
         this.viewCardName.x = viewCard.x + viewCard.width/2;
-        this.viewCardName.y = (viewCard.y -150) + viewCard.height/2;
-        cardView.add([viewCard, this.viewCardValue, this.viewCardName]); 
+        this.viewCardName.y = (viewCard.y -165) + viewCard.height/2;
+
+        this.viewCardConcept.x = viewCard.x + viewCard.width/2;
+        this.viewCardConcept.y = (viewCard.y -120) + viewCard.height/2;
+
+        cardView.add([viewCard, this.viewCardValue, this.viewCardName, this.viewCardConcept]); 
 
         this.card1= new CreateCard(
             this, 
@@ -379,7 +391,7 @@ class FightScene extends Phaser.Scene {
 
     //case tester
     assertEqual(code) {
-        
+        const diff = require('diff');
         const caseOneNormalized = this.codeNormalizer(this.selectedCase);
 
         //attack enemy if correct
