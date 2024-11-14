@@ -4,82 +4,98 @@
     "concept": "Conditionals",
     "challenge_rotation": [
       {
-        "question": "Write an if-else statement to check if a number is even or odd.",
-        "answer": "number = 5\nif number % 2 == 0:\n    print('Even')\nelse:\n    print('Odd')"
+        "question": "Write an if-else statement to check if a number is even or odd. Use 'number' as the variable with a value of 5.",
+        "answer": "number = 5\nif number % 2 == 0:\n    print('Even')\nelse:\n    print('Odd')",
+        "output": "Odd"
       },
       {
-        "question": "Use an if-elif-else structure to classify a number as positive, negative, or zero.",
-        "answer": "num = -3\nif num > 0:\n    print('Positive')\nelif num < 0:\n    print('Negative')\nelse:\n    print('Zero')"
+        "question": "Use an if-elif-else structure to classify a number as positive, negative, or zero. Use 'num' with a value of -3.",
+        "answer": "num = -3\nif num > 0:\n    print('Positive')\nelif num < 0:\n    print('Negative')\nelse:\n    print('Zero')",
+        "output": "Negative"
       },
       {
-        "question": "Write a conditional to check if a string contains the letter 'a'.",
-        "answer": "text = 'apple'\nif 'a' in text:\n    print('Contains the letter a')\nelse:\n    print('Does not contain the letter a')"
+        "question": "Write a conditional to check if a string contains the letter 'a'. Use 'text' with a value of 'apple'.",
+        "answer": "text = 'apple'\nif 'a' in text:\n    print('Contains the letter a')\nelse:\n    print('Does not contain the letter a')",
+        "output": "Contains the letter a"
       },
       {
-        "question": "Use a conditional to determine if a number is divisible by 5 and 10.",
-        "answer": "num = 50\nif num % 5 == 0 and num % 10 == 0:\n    print('Divisible by 5 and 10')\nelse:\n    print('Not divisible by 5 and 10')"
+        "question": "Use a conditional to determine if a number is divisible by 5 and 10. Use 'num' with a value of 50.",
+        "answer": "num = 50\nif num % 5 == 0 and num % 10 == 0:\n    print('Divisible by 5 and 10')\nelse:\n    print('Not divisible by 5 and 10')",
+        "output": "Divisible by 5 and 10"
       },
       {
-        "question": "Write a conditional to find the largest of three numbers.",
-        "answer": "a, b, c = 3, 7, 5\nif a >= b and a >= c:\n    print('Largest:', a)\nelif b >= a and b >= c:\n    print('Largest:', b)\nelse:\n    print('Largest:', c)"
+        "question": "Write a conditional to find the largest of three numbers. Use 'a' as 3, 'b' as 7, and 'c' as 5.",
+        "answer": "a, b, c = 3, 7, 5\nif a >= b and a >= c:\n    print('Largest:', a)\nelif b >= a and b >= c:\n    print('Largest:', b)\nelse:\n    print('Largest:', c)",
+        "output": "Largest: 7"
       }
     ],
-    "effect": "Deal 2 damage to the enemy."
+    "effect": "Deal 2 damage to the enemy.",
+    "value": 2
   },
   {
     "card_name": "Variable Vulture",
     "concept": "Variables",
     "challenge_rotation": [
       {
-        "question": "Declare a variable \n and assign it a string value.",
-        "answer": "greeting = 'Hello, world!'"
+        "question": "Declare a variable and assign it a string value. Use 'greeting' with a value of 'Hello, world!'",
+        "answer": "greeting = 'Hello, world!' \n print(greeting)",
+        "output": "Hello, world!"
       },
       {
-        "question": "Declare two variables and swap their values.",
-        "answer": "x, y = 5, 10\nx, y = y, x\nprint(x, y)  # x is now 10, y is now 5"
+        "question": "Declare two variables and swap their values. Use 'x' as 5 and 'y' as 10.",
+        "answer": "x, y = 5, 10\nx, y = y, x\nprint(x, y)  # x is now 10, y is now 5",
+        "output": "10 5"
       },
       {
-        "question": "Declare a variable and change its value using an arithmetic operation.",
-        "answer": "count = 10\ncount = count + 5\nprint(count)  # count is now 15"
+        "question": "Declare a variable and change its value using an arithmetic operation. Use 'count' with an initial value of 10.",
+        "answer": "count = 10\ncount = count + 5\nprint(count)  # count is now 15",
+        "output": "15"
       },
       {
-        "question": "Write a program that uses three variables and prints their sum.",
-        "answer": "a, b, c = 3, 5, 7\nsum_value = a + b + c\nprint('Sum:', sum_value)"
+        "question": "Write a program that uses three variables and prints their sum. Use 'a' as 3, 'b' as 5, and 'c' as 7.",
+        "answer": "a, b, c = 3, 5, 7\nsum_value = a + b + c\nprint('Sum:', sum_value)",
+        "output": "Sum: 15"
       },
       {
-        "question": "Assign a value to a variable, then reassign it to another type (e.g., int to string).",
-        "answer": "value = 42\nvalue = str(value)\nprint(value)  # now '42' as a string"
+        "question": "Assign a value to a variable, then reassign it to another type (e.g., int to string). Use 'value' with an initial value of 42.",
+        "answer": "value = 42\nvalue = str(value)\nprint(value)  # now '42' as a string",
+        "output": "'42'"
       }
     ],
     "effect": "Deal 5 damage to the enemy",
-    "value":5
+    "value": 5
   },
   {
     "card_name": "Function Falcon",
     "concept": "Functions",
     "challenge_rotation": [
       {
-        "question": "Define a function that returns the square of a number.",
-        "answer": "def square(num):\n    return num ** 2\n\nprint(square(4))  # Output: 16"
+        "question": "Define a function that returns the square of a number. Use 'num' as the parameter with a value of 4.",
+        "answer": "def square(num):\n    return num ** 2\n\nprint(square(4))  # Output: 16",
+        "output": "16"
       },
       {
-        "question": "Create a function that takes two arguments and returns their product.",
-        "answer": "def multiply(a, b):\n    return a * b\n\nprint(multiply(3, 5))  # Output: 15"
+        "question": "Create a function that takes two arguments and returns their product. Use 'a' as 3 and 'b' as 5.",
+        "answer": "def multiply(a, b):\n    return a * b\n\nprint(multiply(3, 5))  # Output: 15",
+        "output": "15"
       },
       {
-        "question": "Write a function that checks if a string is a palindrome.",
-        "answer": "def is_palindrome(word):\n    return word == word[::-1]\n\nprint(is_palindrome('racecar'))  # Output: True"
+        "question": "Write a function that checks if a string is a palindrome. Use 'word' with a value of 'racecar'.",
+        "answer": "def is_palindrome(word):\n    return word == word[::-1]\n\nprint(is_palindrome('racecar'))  # Output: True",
+        "output": "True"
       },
       {
-        "question": "Define a function that takes an array and returns the sum of its elements.",
-        "answer": "def sum_array(arr):\n    return sum(arr)\n\nprint(sum_array([1, 2, 3]))  # Output: 6"
+        "question": "Define a function that takes an array and returns the sum of its elements. Use 'arr' with values [1, 2, 3].",
+        "answer": "def sum_array(arr):\n    return sum(arr)\n\nprint(sum_array([1, 2, 3]))  # Output: 6",
+        "output": "6"
       },
       {
-        "question": "Write a recursive function to calculate the factorial of a number.",
-        "answer": "def factorial(n):\n    if n <= 1:\n        return 1\n    else:\n        return n * factorial(n - 1)\n\nprint(factorial(5))  # Output: 120"
+        "question": "Write a recursive function to calculate the factorial of a number. Use 'n' with a value of 5.",
+        "answer": "def factorial(n):\n    if n <= 1:\n        return 1\n    else:\n        return n * factorial(n - 1)\n\nprint(factorial(5))  # Output: 120",
+        "output": "120"
       }
     ],
-    "effect": "Heal 3 health.",
+    "effect": "deal 3 damages to enemies",
     "value": 3
   },
   {
@@ -87,28 +103,32 @@
     "concept": "Arrays",
     "challenge_rotation": [
       {
-        "question": "Write a loop to iterate through an array and print each element.",
-        "answer": "array = [1, 2, 3]\nfor item in array:\n    print(item)"
+        "question": "Write a loop to iterate through an array and print each element. Use 'array' with values [1, 2, 3].",
+        "answer": "array = [1, 2, 3]\nfor item in array:\n    print(item)",
+        "output": "1\n2\n3"
       },
       {
-        "question": "Create a function that finds the largest number in an array.",
-        "answer": "def max_in_array(arr):\n    return max(arr)\n\nprint(max_in_array([1, 5, 3]))  # Output: 5"
+        "question": "Create a function that finds the largest number in an array. Use 'arr' with values [1, 5, 3].",
+        "answer": "def max_in_array(arr):\n    return max(arr)\n\nprint(max_in_array([1, 5, 3]))  # Output: 5",
+        "output": "5"
       },
       {
-        "question": "Write code to reverse an array.",
-        "answer": "array = [1, 2, 3]\narray.reverse()\nprint(array)  # Output: [3, 2, 1]"
+        "question": "Write code to reverse an array. Use 'array' with values [1, 2, 3].",
+        "answer": "array = [1, 2, 3]\narray.reverse()\nprint(array)  # Output: [3, 2, 1]",
+        "output": "[3, 2, 1]"
       },
       {
-        "question": "Merge two arrays into one and print the result.",
-        "answer": "arr1 = [1, 2]\narr2 = [3, 4]\nmerged = arr1 + arr2\nprint(merged)  # Output: [1, 2, 3, 4]"
+        "question": "Merge two arrays into one and print the result. Use 'arr1' as [1, 2] and 'arr2' as [3, 4].",
+        "answer": "arr1 = [1, 2]\narr2 = [3, 4]\nmerged = arr1 + arr2\nprint(merged)  # Output: [1, 2, 3, 4]",
+        "output": "[1, 2, 3, 4]"
       },
       {
-        "question": "Remove duplicate values from an array.",
-        "answer": "array = [1, 2, 2, 3]\nunique_array = list(set(array))\nprint(unique_array)  # Output: [1, 2, 3]"
+        "question": "Remove duplicate values from an array. Use 'array' with values [1, 2, 2, 3].",
+        "answer": "array = [1, 2, 2, 3]\nunique_array = list(set(array))\nprint(unique_array)  # Output: [1, 2, 3]",
+        "output": "[1, 2, 3]"
       }
     ],
     "effect": "Deal 10 damage to the enemy.",
     "value": 10
   }
 ]
-

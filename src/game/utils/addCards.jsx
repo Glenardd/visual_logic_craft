@@ -46,6 +46,7 @@ class CreateCard extends Phaser.GameObjects.Container {
                             this.cardConcept = card.concept;
                             this.cardQuestion = card.challenge_rotation[this.index].question;
                             this.cardAnswer = card.challenge_rotation[this.index].answer;
+                            this.cardOutput = card.challenge_rotation[this.index].output;
                             this.cardValue = card.value;
                         };
                     };
@@ -55,7 +56,7 @@ class CreateCard extends Phaser.GameObjects.Container {
                     };
                 };
 
-                this.func(this.cardQuestion, this.cardAnswer, this.cardName, this.cardConcept);
+                this.func(this.cardQuestion, this.cardAnswer, this.cardName, this.cardConcept, this.cardOutput);
 
                 this.cardPadding.setStrokeStyle(4, 0xff0000);
                 this.scene.tweens.add({
