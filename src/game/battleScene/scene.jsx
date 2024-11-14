@@ -4,7 +4,6 @@ import AddLine from "../utils/addLayoutGuide.jsx";
 import CreateCard from "../utils/addCards.jsx";
 import { diffWords } from "diff";
 import { pauseBtn } from "../buttons/pauseButton/pauseBtn.jsx";
-import PythonRunner from "../utils/pyoDide.jsx";
 import { loadPyodide } from "pyodide";
 
 class FightScene extends Phaser.Scene {
@@ -288,6 +287,17 @@ class FightScene extends Phaser.Scene {
             select
         );
 
+        this.card4 = new CreateCard(
+            this,
+            0,
+            175,
+            250,
+            300,
+            0xdbb77d,
+            "Function Falcon",
+            true,
+            select
+        );
 
         //cards
         // this.card1= new CreateCard(
@@ -346,7 +356,7 @@ class FightScene extends Phaser.Scene {
         //     select
         // );
 
-        cards.add([this.card1, this.card2, this.card3]);
+        cards.add([this.card1, this.card2, this.card3, this.card4]);
 
         //buttons
         this.deselectCardbtn = new ButtonCreate(this, 100, 0, "Deselect", 25, 50, 200, 0xe85f5f, 0x914c4c, deselect, false);
