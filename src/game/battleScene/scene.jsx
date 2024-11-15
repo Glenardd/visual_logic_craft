@@ -405,24 +405,6 @@ class FightScene extends Phaser.Scene {
         };
     };
 
-    async loadPyoDide(code){
-        let output = "";
-        
-        // Loading Pyodide
-        const pyodide = await loadPyodide({
-            indexURL: "https://cdn.jsdelivr.net/pyodide/v0.26.3/full",
-            stdout: (out) => {
-                output = out;  // capturing the output from stdout
-            }
-        });
-    
-        // Running the Python code
-        pyodide.runPython(code);
-        
-        // Return the output after Python code execution
-        console.log(output);
-    };
-
     //case tester
     assertEqual(code, codeExecute) {
 
@@ -439,79 +421,88 @@ class FightScene extends Phaser.Scene {
             return similarity.toFixed(2);
         };
 
-        const caseOneNormalized = this.codeNormalizer(this.selectedCase);
+        //list of the code normalized
+        const caseOneNormalized = this.selectedCase.map(answers =>{
+            return this.codeNormalizer(answers.code);
+        });
 
-        const diffResult = diffWords(caseOneNormalized, code);
+        //expected code
+        const expectedOutput = this.selectedCase.map(expected =>{
+            return expected.output;
+        });
 
-        const similarity = calculateSimilarity(diffResult, caseOneNormalized.length)
+        //checks the similarity of the code
+        caseOneNormalized.map(answers =>{
+            const diffResult = diffWords(answers, code);
+            const similarity = calculateSimilarity(diffResult, answers.length)
 
-        console.log(caseOneNormalized);
-        console.log(code);
-        // console.log(this.selectedCaseOutput);
-        console.log(similarity);
-
-        this.loadPyoDide(codeExecute);
+            console.log(caseOneNormalized);
+            console.log("normalized input code: ",code);
+            // console.log(this.selectedCaseOutput);
+            console.log(similarity);
+            
+        });
 
         //attack enemy if correct
-        if (caseOneNormalized.toLowerCase() === code.toLowerCase()) {
-            this.resultVal.setText("Passed");
+        // if (caseOneNormalized.toLowerCase() === code.toLowerCase()) {
+        //     this.resultVal.setText("Passed");
 
-            const [player] = this.playerAndEnemy.list;
+        //     const [player] = this.playerAndEnemy.list;
 
-            //animation attack of player
-            this.tweens.add({
-                targets: player,
-                ease: "Power1",
-                x: "+=250",
-                onStart: () => {
-                    this.runBtn.setInteractivity(false);
-                    this.endturnbtn.setInteractivity(false);
-                },
-                onComplete: () => {
-                    this.tweens.add({
-                        targets: player,
-                        ease: "Power1",
-                        x: "-=250",
-                        onComplete: () => {
-                            this.endturnbtn.setInteractivity(true);
-                        },
-                    });
-                },
-            });
+        //     //animation attack of player
+        //     this.tweens.add({
+        //         targets: player,
+        //         ease: "Power1",
+        //         x: "+=250",
+        //         onStart: () => {
+        //             this.runBtn.setInteractivity(false);
+        //             this.endturnbtn.setInteractivity(false);
+        //         },
+        //         onComplete: () => {
+        //             this.tweens.add({
+        //                 targets: player,
+        //                 ease: "Power1",
+        //                 x: "-=250",
+        //                 onComplete: () => {
+        //                     this.endturnbtn.setInteractivity(true);
+        //                 },
+        //             });
+        //         },
+        //     });
 
-            this.endturnbtn.setInteractivity(true);
-            this.runBtn.setInteractivity(false);
+        //     this.endturnbtn.setInteractivity(true);
+        //     this.runBtn.setInteractivity(false);
 
-            //damage
-            this.enemyHealth -= this.card1.cardValue;
-            this.enemyHealthBar.setText(`${this.enemyHealth} & ${this.enemyName}`);
+        //     //damage
+        //     this.enemyHealth -= this.card1.cardValue;
+        //     this.enemyHealthBar.setText(`${this.enemyHealth} & ${this.enemyName}`);
 
-            if (this.enemyHealth <= 0) {
-                console.log("enemy dead");
-                this.enemyBody.destroy(true);
+        //     if (this.enemyHealth <= 0) {
+        //         console.log("enemy dead");
+        //         this.enemyBody.destroy(true);
 
-                //saves the original position of the player
-                this.scene.launch(`${this.currentScene}`, {
-                    enemyNewHp: this.enemyHealth,
-                    playerNewPos: this.playerPrevPos,
-                    enemyName: this.enemyName,
-                    destroyedEnemies: [...this.destroyedEnemies, this.enemyName]
-                });
-                this.scene.stop("fightScene");
-            };
+        //         //saves the original position of the player
+        //         this.scene.launch(`${this.currentScene}`, {
+        //             enemyNewHp: this.enemyHealth,
+        //             playerNewPos: this.playerPrevPos,
+        //             enemyName: this.enemyName,
+        //             destroyedEnemies: [...this.destroyedEnemies, this.enemyName]
+        //         });
+        //         this.scene.stop("fightScene");
+        //     };
 
-        } else {
-            this.attempts += 1;
-            this.countAttempts.setText(`Turns: ${this.attempts}`);
-            this.resultVal.setText("Wrong");
-            setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
-        };
+        // } else {
+        //     this.attempts += 1;
+        //     this.countAttempts.setText(`Turns: ${this.attempts}`);
+        //     this.resultVal.setText("Wrong");
+        //     setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
+        // };
 
-        if (this.attempts >= 3) {
-            this.endturnbtn.setInteractivity(true);
-            this.runBtn.setInteractivity(false);
-            this.attempts = 0;
-        };
+        // if (this.attempts >= 3) {
+        //     this.endturnbtn.setInteractivity(true);
+        //     this.runBtn.setInteractivity(false);
+        //     this.attempts = 0;
+        // };
     };
 };
 
