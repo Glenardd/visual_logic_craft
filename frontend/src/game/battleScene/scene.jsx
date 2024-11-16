@@ -2,7 +2,6 @@ import * as monaco from "monaco-editor";
 import ButtonCreate from "../utils/addButton";
 import AddLine from "../utils/addLayoutGuide.jsx";
 import CreateCard from "../utils/addCards.jsx";
-import { diffWords } from "diff";
 import { pauseBtn } from "../buttons/pauseButton/pauseBtn.jsx";
 import { loadPyodide } from "pyodide";
 
@@ -409,21 +408,8 @@ class FightScene extends Phaser.Scene {
     //case tester
     assertEqual(code, codeExecute) {
 
-        function calculateSimilarity(diffResult, targetLength) {
-            let changes = 0;
-
-            diffResult.forEach(part => {
-                if (part.added || part.removed) {
-                    changes += part.count;
-                }
-            });
-
-            const similarity = (1 - changes / targetLength) * 100;
-            return similarity.toFixed(2);
-        };
-
         //list of the code normalized
-        const caseOneNormalized = this.selectedCase.map(answers => {
+        const caseAnswers = this.selectedCase.map(answers => {
             return this.codeNormalizer(answers.code);
         });
 
@@ -433,93 +419,95 @@ class FightScene extends Phaser.Scene {
         });
 
         //this will execute the python code
-        const fetchData = async() => {
-            const response = await fetch('http://localhost:5000/', { 
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({"code": codeExecute})  
-            });
-            const data = await response.json();  // Wait for the JSON to be parsed
-            return data;  // Return the data
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/', {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ "code": codeExecute })
+                });
+                const data = await response.json();  // Wait for the JSON to be parsed
+                return data;  // Return the data
+            } catch (error) {
+                throw new Error("Nothing is fetch: ", error);
+            };
         };
-        
-        //fetch the result
-        fetchData().then(data =>console.log(data));
 
-        //checks the similarity of the code
-        caseOneNormalized.map(answers => {
-            const diffResult = diffWords(answers, code);
-            const similarity = calculateSimilarity(diffResult, answers.length)
+        //checks player code
+        const checkAnswer = caseAnswers.some(answer => answer === code);
+        console.log(checkAnswer);
 
-            console.log(caseOneNormalized);
-            console.log("normalized input code: ", code);
-            // console.log(this.selectedCaseOutput);
-            console.log(similarity);
+        //checks player output if right
+
+        fetchData().then(data => {
+            const pythonOutput = data.result;
+            const checkOutput = expectedOutput.some(output => output === pythonOutput)
+
+            //attack enemy if correct
+            if (checkOutput && checkAnswer) {
+                this.resultVal.setText("Passed");
+
+                const [player] = this.playerAndEnemy.list;
+
+                //animation attack of player
+                this.tweens.add({
+                    targets: player,
+                    ease: "Power1",
+                    x: "+=250",
+                    onStart: () => {
+                        this.runBtn.setInteractivity(false);
+                        this.endturnbtn.setInteractivity(false);
+                    },
+                    onComplete: () => {
+                        this.tweens.add({
+                            targets: player,
+                            ease: "Power1",
+                            x: "-=250",
+                            onComplete: () => {
+                                this.endturnbtn.setInteractivity(true);
+                            },
+                        });
+                    },
+                });
+
+                this.endturnbtn.setInteractivity(true);
+                this.runBtn.setInteractivity(false);
+
+                //damage
+                this.enemyHealth -= this.card1.cardValue;
+                this.enemyHealthBar.setText(`${this.enemyHealth} & ${this.enemyName}`);
+
+                if (this.enemyHealth <= 0) {
+                    console.log("enemy dead");
+                    this.enemyBody.destroy(true);
+
+                    //saves the original position of the player
+                    this.scene.launch(`${this.currentScene}`, {
+                        enemyNewHp: this.enemyHealth,
+                        playerNewPos: this.playerPrevPos,
+                        enemyName: this.enemyName,
+                        destroyedEnemies: [...this.destroyedEnemies, this.enemyName]
+                    });
+                    this.scene.stop("fightScene");
+                };
+
+            } else {
+                this.attempts += 1;
+                this.countAttempts.setText(`Turns: ${this.attempts}`);
+                this.resultVal.setText("Wrong");
+                setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
+            };
+
+            if (this.attempts >= 3) {
+                this.endturnbtn.setInteractivity(true);
+                this.runBtn.setInteractivity(false);
+                this.attempts = 0;
+            };
 
         });
 
-        //attack enemy if correct
-        // if (caseOneNormalized.toLowerCase() === code.toLowerCase()) {
-        //     this.resultVal.setText("Passed");
-
-        //     const [player] = this.playerAndEnemy.list;
-
-        //     //animation attack of player
-        //     this.tweens.add({
-        //         targets: player,
-        //         ease: "Power1",
-        //         x: "+=250",
-        //         onStart: () => {
-        //             this.runBtn.setInteractivity(false);
-        //             this.endturnbtn.setInteractivity(false);
-        //         },
-        //         onComplete: () => {
-        //             this.tweens.add({
-        //                 targets: player,
-        //                 ease: "Power1",
-        //                 x: "-=250",
-        //                 onComplete: () => {
-        //                     this.endturnbtn.setInteractivity(true);
-        //                 },
-        //             });
-        //         },
-        //     });
-
-        //     this.endturnbtn.setInteractivity(true);
-        //     this.runBtn.setInteractivity(false);
-
-        //     //damage
-        //     this.enemyHealth -= this.card1.cardValue;
-        //     this.enemyHealthBar.setText(`${this.enemyHealth} & ${this.enemyName}`);
-
-        //     if (this.enemyHealth <= 0) {
-        //         console.log("enemy dead");
-        //         this.enemyBody.destroy(true);
-
-        //         //saves the original position of the player
-        //         this.scene.launch(`${this.currentScene}`, {
-        //             enemyNewHp: this.enemyHealth,
-        //             playerNewPos: this.playerPrevPos,
-        //             enemyName: this.enemyName,
-        //             destroyedEnemies: [...this.destroyedEnemies, this.enemyName]
-        //         });
-        //         this.scene.stop("fightScene");
-        //     };
-
-        // } else {
-        //     this.attempts += 1;
-        //     this.countAttempts.setText(`Turns: ${this.attempts}`);
-        //     this.resultVal.setText("Wrong");
-        //     setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
-        // };
-
-        // if (this.attempts >= 3) {
-        //     this.endturnbtn.setInteractivity(true);
-        //     this.runBtn.setInteractivity(false);
-        //     this.attempts = 0;
-        // };
     };
 };
 
