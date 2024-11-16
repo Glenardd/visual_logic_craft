@@ -20,6 +20,7 @@ class FightScene extends Phaser.Scene {
     };
 
     create(data) {
+
         this.enemyHealth = data.enemyHp;
         this.enemyName = data.enemyName;
         this.destroyedEnemies = data.destroyedEnemies;
@@ -422,25 +423,41 @@ class FightScene extends Phaser.Scene {
         };
 
         //list of the code normalized
-        const caseOneNormalized = this.selectedCase.map(answers =>{
+        const caseOneNormalized = this.selectedCase.map(answers => {
             return this.codeNormalizer(answers.code);
         });
 
         //expected code
-        const expectedOutput = this.selectedCase.map(expected =>{
+        const expectedOutput = this.selectedCase.map(expected => {
             return expected.output;
         });
 
+        //this will execute the python code
+        const fetchData = async() => {
+            const response = await fetch('http://localhost:5000/', { 
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({"code": codeExecute})  
+            });
+            const data = await response.json();  // Wait for the JSON to be parsed
+            return data;  // Return the data
+        };
+        
+        //fetch the result
+        fetchData().then(data =>console.log(data));
+
         //checks the similarity of the code
-        caseOneNormalized.map(answers =>{
+        caseOneNormalized.map(answers => {
             const diffResult = diffWords(answers, code);
             const similarity = calculateSimilarity(diffResult, answers.length)
 
             console.log(caseOneNormalized);
-            console.log("normalized input code: ",code);
+            console.log("normalized input code: ", code);
             // console.log(this.selectedCaseOutput);
             console.log(similarity);
-            
+
         });
 
         //attack enemy if correct
