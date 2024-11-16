@@ -36,6 +36,108 @@
             "output": "Negative"
           }
         ]
+      },
+      {
+        "question": "Write a program to check if a year is a leap year. Use 'year' with a value of 2024.",
+        "answers": [
+          {
+            "code": "year = 2024\nif (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:\n    print('Leap year')\nelse:\n    print('Not a leap year')",
+            "output": "Leap year"
+          },
+          {
+            "code": "year = 2024\nleap = 'Leap year' if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0 else 'Not a leap year'\nprint(leap)",
+            "output": "Leap year"
+          },
+          {
+            "code": "year = 2024\nif year % 4 == 0:\n    if year % 100 == 0:\n        if year % 400 == 0:\n            print('Leap year')\n        else:\n            print('Not a leap year')\n    else:\n        print('Leap year')\nelse:\n    print('Not a leap year')",
+            "output": "Leap year"
+          }
+        ]
+      },
+      {
+        "question": "Write a program to check if a number is divisible by both 3 and 5. Use 'num' with a value of 15.",
+        "answers": [
+          {
+            "code": "num = 15\nif num % 3 == 0 and num % 5 == 0:\n    print('Divisible by both')\nelse:\n    print('Not divisible by both')",
+            "output": "Divisible by both"
+          },
+          {
+            "code": "num = 15\nresult = 'Divisible by both' if num % 3 == 0 and num % 5 == 0 else 'Not divisible by both'\nprint(result)",
+            "output": "Divisible by both"
+          },
+          {
+            "code": "num = 15\nif num % 3 == 0:\n    if num % 5 == 0:\n        print('Divisible by both')\n    else:\n        print('Not divisible by both')\nelse:\n    print('Not divisible by both')",
+            "output": "Divisible by both"
+          }
+        ]
+      },
+      {
+        "question": "Write a program to check if a character is a vowel or consonant. Use 'char' with a value of 'a'.",
+        "answers": [
+          {
+            "code": "char = 'a'\nif char in 'aeiouAEIOU':\n    print('Vowel')\nelse:\n    print('Consonant')",
+            "output": "Vowel"
+          },
+          {
+            "code": "char = 'a'\nvowel = 'Vowel' if char in 'aeiouAEIOU' else 'Consonant'\nprint(vowel)",
+            "output": "Vowel"
+          },
+          {
+            "code": "char = 'a'\nif char.lower() in 'aeiou':\n    print('Vowel')\nelse:\n    print('Consonant')",
+            "output": "Vowel"
+          }
+        ]
+      },
+      {
+        "question": "Determine if a number is within a range (1-10). Use 'num' with a value of 7.",
+        "answers": [
+          {
+            "code": "num = 7\nif 1 <= num <= 10:\n    print('Within range')\nelse:\n    print('Out of range')",
+            "output": "Within range"
+          },
+          {
+            "code": "num = 7\nprint('Within range' if 1 <= num <= 10 else 'Out of range')",
+            "output": "Within range"
+          },
+          {
+            "code": "num = 7\nif num >= 1 and num <= 10:\n    print('Within range')\nelse:\n    print('Out of range')",
+            "output": "Within range"
+          }
+        ]
+      },
+      {
+        "question": "Check if a number is positive and divisible by 7. Use 'n' with a value of 14.",
+        "answers": [
+          {
+            "code": "n = 14\nif n > 0 and n % 7 == 0:\n    print('Positive and divisible by 7')\nelse:\n    print('Not positive or not divisible by 7')",
+            "output": "Positive and divisible by 7"
+          },
+          {
+            "code": "n = 14\nresult = 'Positive and divisible by 7' if n > 0 and n % 7 == 0 else 'Not positive or not divisible by 7'\nprint(result)",
+            "output": "Positive and divisible by 7"
+          },
+          {
+            "code": "n = 14\nif n > 0:\n    if n % 7 == 0:\n        print('Positive and divisible by 7')\n    else:\n        print('Not divisible by 7')\nelse:\n    print('Not positive')",
+            "output": "Positive and divisible by 7"
+          }
+        ]
+      },
+      {
+        "question": "Use nested if statements to check if a number is greater than 10 and even. Use 'x' with a value of 12.",
+        "answers": [
+          {
+            "code": "x = 12\nif x > 10:\n    if x % 2 == 0:\n        print('Greater than 10 and even')\n    else:\n        print('Greater than 10 but odd')\nelse:\n    print('10 or less')",
+            "output": "Greater than 10 and even"
+          },
+          {
+            "code": "x = 12\nif x > 10 and x % 2 == 0:\n    print('Greater than 10 and even')\nelse:\n    print('Not greater than 10 or not even')",
+            "output": "Greater than 10 and even"
+          },
+          {
+            "code": "x = 12\nprint('Greater than 10 and even' if x > 10 and x % 2 == 0 else 'Not greater than 10 or not even')",
+            "output": "Greater than 10 and even"
+          }
+        ]
       }
     ],
     "effect": "Deal 2 damage to the enemy.",
@@ -46,7 +148,7 @@
     "concept": "Variables",
     "challenge_rotation": [
       {
-        "question": "Declare a variable and assign it a string value. Use 'greeting' with a value of 'Hello, world!'",
+        "question": "Declare a variable and assign it a string value. Use 'greeting' with a value of 'Hello, world!'.",
         "answers": [
           {
             "code": "greeting = 'Hello, world!'\nprint(greeting)",
@@ -61,8 +163,7 @@
             "output": "Hello, world!"
           }
         ]
-      },
-      {
+      },{
         "question": "Declare two variables and swap their values. Use 'x' as 5 and 'y' as 10.",
         "answers": [
           {
@@ -78,59 +179,397 @@
             "output": "10 5"
           }
         ]
-      }
-    ],
-    "effect": "Deal 5 damage to the enemy",
-    "value": 5
-  },
-  {
-    "card_name": "Function Falcon",
-    "concept": "Functions",
-    "challenge_rotation": [
+      },
       {
-        "question": "Define a function that returns the square of a number. Use 'num' as the parameter with a value of 4 and use 'square' as the name of the function.",
+        "question": "Write a program to concatenate two strings. Use 'first_name' as 'John' and 'last_name' as 'Doe'.",
         "answers": [
           {
-            "code": "def square(num):\n    return num ** 2\n\nprint(square(4))",
-            "output": "16"
+            "code": "first_name = 'John'\nlast_name = 'Doe'\nfull_name = first_name + ' ' + last_name\nprint(full_name)",
+            "output": "John Doe"
           },
           {
-            "code": "def square(num):\n    return num * num\n\nprint(square(4))",
-            "output": "16"
+            "code": "first_name = 'John'\nlast_name = 'Doe'\nprint(f'{first_name} {last_name}')",
+            "output": "John Doe"
           },
           {
-            "code": "square = lambda num: num ** 2\nprint(square(4))",
-            "output": "16"
+            "code": "first_name = 'John'\nlast_name = 'Doe'\nprint(' '.join([first_name, last_name]))",
+            "output": "John Doe"
+          }
+        ]
+      },
+      {
+        "question": "Create a program to initialize a variable with a list of integers and print it. Use 'numbers' with values [10, 20, 30].",
+        "answers": [
+          {
+            "code": "numbers = [10, 20, 30]\nprint(numbers)",
+            "output": "[10, 20, 30]"
+          },
+          {
+            "code": "numbers = [10, 20, 30]\nresult = ', '.join(map(str, numbers))\nprint(f'Numbers: [{result}]')",
+            "output": "[10, 20, 30]"
+          },
+          {
+            "code": "numbers = [10, 20, 30]\nfor num in numbers:\n    print(num, end=' ')",
+            "output": "10 20 30"
+          }
+        ]
+      },
+      {
+        "question": "Write a program to calculate the area of a rectangle. Use 'length' as 5 and 'width' as 10.",
+        "answers": [
+          {
+            "code": "length = 5\nwidth = 10\narea = length * width\nprint(area)",
+            "output": "50"
+          },
+          {
+            "code": "length = 5\nwidth = 10\nprint(f'Area: {length * width}')",
+            "output": "50"
+          },
+          {
+            "code": "length, width = 5, 10\nprint('Area =', length * width)",
+            "output": "50"
+          }
+        ]
+      },
+      {
+        "question": "Create a program to count the characters in a string. Use 'word' with the value 'Python'.",
+        "answers": [
+          {
+            "code": "word = 'Python'\nprint(len(word))",
+            "output": "6"
+          },
+          {
+            "code": "word = 'Python'\ncount = 0\nfor char in word:\n    count += 1\nprint(count)",
+            "output": "6"
+          },
+          {
+            "code": "word = 'Python'\nprint(sum(1 for _ in word))",
+            "output": "6"
+          }
+        ]
+      },
+      {
+        "question": "Write a program to increment a variable by 1 using two different methods. Use 'num' as 10.",
+        "answers": [
+          {
+            "code": "num = 10\nnum += 1\nprint(num)",
+            "output": "11"
+          },
+          {
+            "code": "num = 10\nnum = num + 1\nprint(num)",
+            "output": "11"
+          },
+          {
+            "code": "num = 10\nprint(num + 1)",
+            "output": "11"
+          }
+        ]
+      },
+      {
+        "question": "Declare a variable and assign a boolean value. Use 'is_active' with the value True.",
+        "answers": [
+          {
+            "code": "is_active = True\nprint(is_active)",
+            "output": "True"
+          },
+          {
+            "code": "is_active = True\nprint(f'Active: {is_active}')",
+            "output": "Active: True"
+          },
+          {
+            "code": "is_active = True\nprint(bool(is_active))",
+            "output": "True"
           }
         ]
       }
     ],
-    "effect": "Deal 3 damage to enemies.",
-    "value": 3
-  },
-  {
+    "effect": "Deal 5 damage to the enemy.",
+    "value": 5
+  },{
     "card_name": "Array Antelope",
     "concept": "Arrays",
     "challenge_rotation": [
       {
-        "question": "Write a loop to iterate through an array and print each element. Use 'array' with values [1, 2, 3].",
+        "question": "Declare an array and print its first element. Use 'numbers' with values [1, 2, 3, 4].",
         "answers": [
           {
-            "code": "array = [1, 2, 3]\nfor item in array:\n    print(item)",
-            "output": "1\n2\n3"
+            "code": "numbers = [1, 2, 3, 4]\nprint(numbers[0])",
+            "output": "1"
           },
           {
-            "code": "array = [1, 2, 3]\nfor i in range(len(array)):\n    print(array[i])",
-            "output": "1\n2\n3"
+            "code": "numbers = [1, 2, 3, 4]\nprint(f'The first number is {numbers[0]}')",
+            "output": "The first number is 1"
           },
           {
-            "code": "array = [1, 2, 3]\n[print(i) for i in array]",
-            "output": "1\n2\n3"
+            "code": "numbers = [1, 2, 3, 4]\nprint(numbers[0])",
+            "output": "1"
+          }
+        ]
+      },
+      {
+        "question": "Access and print the last element of an array. Use 'colors' with values ['red', 'green', 'blue'].",
+        "answers": [
+          {
+            "code": "colors = ['red', 'green', 'blue']\nprint(colors[-1])",
+            "output": "blue"
+          },
+          {
+            "code": "colors = ['red', 'green', 'blue']\nprint(f'The last color is {colors[-1]}')",
+            "output": "The last color is blue"
+          },
+          {
+            "code": "colors = ['red', 'green', 'blue']\nprint(colors[len(colors)-1])",
+            "output": "blue"
+          }
+        ]
+      },
+      {
+        "question": "Write a program to find the length of an array. Use 'fruits' with values ['apple', 'banana', 'cherry'].",
+        "answers": [
+          {
+            "code": "fruits = ['apple', 'banana', 'cherry']\nprint(len(fruits))",
+            "output": "3"
+          },
+          {
+            "code": "fruits = ['apple', 'banana', 'cherry']\ncount = len(fruits)\nprint(count)",
+            "output": "3"
+          },
+          {
+            "code": "fruits = ['apple', 'banana', 'cherry']\nprint('Length:', len(fruits))",
+            "output": "Length: 3"
+          }
+        ]
+      },
+      {
+        "question": "Add an element to the end of an array. Use 'nums' with values [1, 2, 3] and add 4.",
+        "answers": [
+          {
+            "code": "nums = [1, 2, 3]\nnums.append(4)\nprint(nums)",
+            "output": "[1, 2, 3, 4]"
+          },
+          {
+            "code": "nums = [1, 2, 3]\nnums.append(4)\nprint(f'Updated nums: {nums}')",
+            "output": "Updated nums: [1, 2, 3, 4]"
+          },
+          {
+            "code": "nums = [1, 2, 3]\nnums.append(4)\nprint(nums)",
+            "output": "[1, 2, 3, 4]"
+          }
+        ]
+      },
+      {
+        "question": "Remove an element from an array. Use 'letters' with values ['a', 'b', 'c'] and remove 'b'.",
+        "answers": [
+          {
+            "code": "letters = ['a', 'b', 'c']\nletters.remove('b')\nprint(letters)",
+            "output": "['a', 'c']"
+          },
+          {
+            "code": "letters = ['a', 'b', 'c']\nletters.remove('b')\nprint(f'Updated letters: {letters}')",
+            "output": "Updated letters: ['a', 'c']"
+          },
+          {
+            "code": "letters = ['a', 'b', 'c']\nletters.remove('b')\nprint(letters)",
+            "output": "['a', 'c']"
+          }
+        ]
+      },
+      {
+        "question": "Write a program to find the sum of all elements in an array. Use 'values' with numbers [1, 2, 3, 4].",
+        "answers": [
+          {
+            "code": "values = [1, 2, 3, 4]\nsum_values = sum(values)\nprint(sum_values)",
+            "output": "10"
+          },
+          {
+            "code": "values = [1, 2, 3, 4]\nsum_values = 0\nfor value in values:\n    sum_values += value\nprint(sum_values)",
+            "output": "10"
+          },
+          {
+            "code": "values = [1, 2, 3, 4]\nsum_values = sum(values)\nprint(f'Sum: {sum_values}')",
+            "output": "Sum: 10"
+          }
+        ]
+      },
+      {
+        "question": "Write a program to sort an array in ascending order. Use 'nums' with values [3, 1, 4, 2].",
+        "answers": [
+          {
+            "code": "nums = [3, 1, 4, 2]\nnums.sort()\nprint(nums)",
+            "output": "[1, 2, 3, 4]"
+          },
+          {
+            "code": "nums = [3, 1, 4, 2]\nnums.sort()\nprint(f'Sorted nums: {nums}')",
+            "output": "Sorted nums: [1, 2, 3, 4]"
+          },
+          {
+            "code": "nums = [3, 1, 4, 2]\nnums.sort()\nprint(nums)",
+            "output": "[1, 2, 3, 4]"
+          }
+        ]
+      },
+      {
+        "question": "Write a program to find the maximum number in an array. Use 'numbers' with values [5, 10, 3, 7].",
+        "answers": [
+          {
+            "code": "numbers = [5, 10, 3, 7]\nmax_num = max(numbers)\nprint(max_num)",
+            "output": "10"
+          },
+          {
+            "code": "numbers = [5, 10, 3, 7]\nmax_num = max(numbers)\nprint(f'Max number: {max_num}')",
+            "output": "Max number: 10"
+          },
+          {
+            "code": "numbers = [5, 10, 3, 7]\nmax_num = max(numbers)\nprint(max_num)",
+            "output": "10"
           }
         ]
       }
     ],
-    "effect": "Deal 10 damage to the enemy.",
-    "value": 10
-  }
+    "effect": "Deal 4 damage to the enemy.",
+    "value": 4
+  },{
+    "card_name": "Function Falcon",
+    "concept": "Functions",
+    "challenge_rotation": [
+      {
+        "question": "Write a function to add two numbers. Use 'a' as 5 and 'b' as 3.",
+        "answers": [
+          {
+            "code": "def add(a, b):\n    return a + b\nresult = add(5, 3)\nprint(result)",
+            "output": "8"
+          },
+          {
+            "code": "def add(a, b):\n    return a + b\nprint(add(5, 3))",
+            "output": "8"
+          },
+          {
+            "code": "def add(a, b):\n    return a + b\nsum_result = add(5, 3)\nprint(sum_result)",
+            "output": "8"
+          }
+        ]
+      },
+      {
+        "question": "Write a function to calculate the factorial of a number. Use 'n' as 4.",
+        "answers": [
+          {
+            "code": "def factorial(n):\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n-1)\nprint(factorial(4))",
+            "output": "24"
+          },
+          {
+            "code": "def factorial(n):\n    result = 1\n    for i in range(1, n + 1):\n        result *= i\n    return result\nprint(factorial(4))",
+            "output": "24"
+          },
+          {
+            "code": "def factorial(n):\n    fact = 1\n    for i in range(1, n + 1):\n        fact *= i\n    return fact\nprint(factorial(4))",
+            "output": "24"
+          }
+        ]
+      },
+      {
+        "question": "Write a function to check if a number is even or odd. Use 'num' as 7.",
+        "answers": [
+          {
+            "code": "def is_even_or_odd(num):\n    if num % 2 == 0:\n        return 'Even'\n    else:\n        return 'Odd'\nprint(is_even_or_odd(7))",
+            "output": "Odd"
+          },
+          {
+            "code": "def is_even_or_odd(num):\n    return 'Even' if num % 2 == 0 else 'Odd'\nprint(is_even_or_odd(7))",
+            "output": "Odd"
+          },
+          {
+            "code": "def is_even_or_odd(num):\n    if num % 2:\n        return 'Odd'\n    return 'Even'\nprint(is_even_or_odd(7))",
+            "output": "Odd"
+          }
+        ]
+      },
+      {
+        "question": "Write a function to return the maximum of three numbers. Use 'a' as 1, 'b' as 4, and 'c' as 3.",
+        "answers": [
+          {
+            "code": "def max_of_three(a, b, c):\n    return max(a, b, c)\nprint(max_of_three(1, 4, 3))",
+            "output": "4"
+          },
+          {
+            "code": "def max_of_three(a, b, c):\n    return a if a > b and a > c else b if b > c else c\nprint(max_of_three(1, 4, 3))",
+            "output": "4"
+          },
+          {
+            "code": "def max_of_three(a, b, c):\n    return a if a >= b and a >= c else (b if b >= c else c)\nprint(max_of_three(1, 4, 3))",
+            "output": "4"
+          }
+        ]
+      },
+      {
+        "question": "Write a function to calculate the area of a rectangle. Use 'length' as 5 and 'width' as 3.",
+        "answers": [
+          {
+            "code": "def area_of_rectangle(length, width):\n    return length * width\nprint(area_of_rectangle(5, 3))",
+            "output": "15"
+          },
+          {
+            "code": "def area_of_rectangle(length, width):\n    return length * width\narea = area_of_rectangle(5, 3)\nprint(area)",
+            "output": "15"
+          },
+          {
+            "code": "def area_of_rectangle(length, width):\n    return length * width\nprint(f'Area: {area_of_rectangle(5, 3)}')",
+            "output": "Area: 15"
+          }
+        ]
+      },
+      {
+        "question": "Write a function to count how many times a specific element appears in a list. Use 'lst' as [1, 2, 2, 3, 2] and count 2.",
+        "answers": [
+          {
+            "code": "def count_occurrences(lst, element):\n    return lst.count(element)\nprint(count_occurrences([1, 2, 2, 3, 2], 2))",
+            "output": "3"
+          },
+          {
+            "code": "def count_occurrences(lst, element):\n    return lst.count(element)\ncount = count_occurrences([1, 2, 2, 3, 2], 2)\nprint(count)",
+            "output": "3"
+          },
+          {
+            "code": "def count_occurrences(lst, element):\n    count = 0\n    for item in lst:\n        if item == element:\n            count += 1\n    return count\nprint(count_occurrences([1, 2, 2, 3, 2], 2))",
+            "output": "3"
+          }
+        ]
+      },
+      {
+        "question": "Write a function to return the reverse of a string. Use 'text' as 'hello'.",
+        "answers": [
+          {
+            "code": "def reverse_string(text):\n    return text[::-1]\nprint(reverse_string('hello'))",
+            "output": "olleh"
+          },
+          {
+            "code": "def reverse_string(text):\n    return ''.join(reversed(text))\nprint(reverse_string('hello'))",
+            "output": "olleh"
+          },
+          {
+            "code": "def reverse_string(text):\n    return text[::-1]\nreversed_text = reverse_string('hello')\nprint(reversed_text)",
+            "output": "olleh"
+          }
+        ]
+      },
+      {
+        "question": "Write a function to check if a word is a palindrome. Use 'word' as 'racecar'.",
+        "answers": [
+          {
+            "code": "def is_palindrome(word):\n    return word == word[::-1]\nprint(is_palindrome('racecar'))",
+            "output": "True"
+          },
+          {
+            "code": "def is_palindrome(word):\n    return word == word[::-1]\nresult = is_palindrome('racecar')\nprint(result)",
+            "output": "True"
+          },
+          {
+            "code": "def is_palindrome(word):\n    return word == word[::-1]\nprint('Palindrome:', is_palindrome('racecar'))",
+            "output": "Palindrome: True"
+          }
+        ]
+      }
+    ],
+    "effect": "Deal 3 damage to the enemy.",
+    "value": 3
+  }  
 ]

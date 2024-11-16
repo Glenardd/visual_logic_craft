@@ -260,6 +260,7 @@ class FightScene extends Phaser.Scene {
             250,
             300,
             0xdbb77d,
+            0xA88A5A,
             "Variable Vulture",
             true,
             select
@@ -272,6 +273,7 @@ class FightScene extends Phaser.Scene {
             250,
             300,
             0xdbb77d,
+            0xA88A5A,
             "Conditional Cobra",
             true,
             select
@@ -284,6 +286,7 @@ class FightScene extends Phaser.Scene {
             250,
             300,
             0xdbb77d,
+            0xA88A5A,
             "Array Antelope",
             true,
             select
@@ -296,6 +299,7 @@ class FightScene extends Phaser.Scene {
             250,
             300,
             0xdbb77d,
+            0xA88A5A,
             "Function Falcon",
             true,
             select

@@ -1,16 +1,18 @@
 import cardData from "../objData/cardsData.json"
 
 class CreateCard extends Phaser.GameObjects.Container {
-    constructor(scene, x, y, width, height, backgroundColor, cardName, interactivity, func) {
+    constructor(scene, x, y, width, height, backgroundColor, foregroundColor, cardName, interactivity, func) {
         super(scene, x, y);
 
-        this.index = 0;
+        this.index = -1;
         this.interactivity = interactivity;
         this.func = func;
         this.scene = scene;
-        this.cardName = cardName
+        this.cardName = cardName;
+        this.backgroundColor = backgroundColor;
+        this.foregroundColor = foregroundColor;
 
-        this.cardPadding = this.scene.add.rectangle(0, 0, width, height, backgroundColor);
+        this.cardPadding = this.scene.add.rectangle(0, 0, width, height, this.backgroundColor);
         this.cardPadding.setStrokeStyle(4, 0x00000);
         this.cardPadding.setOrigin(0);
 
@@ -37,11 +39,19 @@ class CreateCard extends Phaser.GameObjects.Container {
 
             this.cardPadding.removeAllListeners();
 
-            this.cardPadding.on("pointerdown", () => {
-                this.index++;
+            this.cardPadding.on("pointerover", () =>{
+                this.cardPadding.setFillStyle(this.foregroundColor)
+            });
 
+            this.cardPadding.on("pointerout", () =>{
+                this.cardPadding.setFillStyle(this.backgroundColor);
+            });
+
+            this.cardPadding.on("pointerdown", () => {
+                console.log(this.index);
                 for (let card of cardData) {
                     if (card.card_name === this.cardName) {
+                        this.index++;
                         if (card.concept) {
                             this.cardConcept = card.concept;
                             this.cardQuestion = card.challenge_rotation[this.index].question;
@@ -49,10 +59,12 @@ class CreateCard extends Phaser.GameObjects.Container {
                             this.cardOutput = card.challenge_rotation[this.index].output;
                             this.cardValue = card.value;
                         };
+
+                        console.log(this.cardQuestion);
                     };
 
                     if (this.index === card.challenge_rotation.length) {
-                        this.index = 0;
+                        this.index = -1;
                     };
                 };
 
@@ -83,6 +95,7 @@ class CreateCard extends Phaser.GameObjects.Container {
 
         } else {
             this.cardPadding.disableInteractive({ useHandCursor: !turnOn });
+            this.cardPadding.setFillStyle(this.backgroundColor)
         };
     };
 }
