@@ -162,6 +162,10 @@ class FightScene extends Phaser.Scene {
 
             this.card1.setInteractivity(false);
             this.card2.setInteractivity(false);
+
+            cards.list.map(card =>{
+                card.setInteractivity(false);
+            });
         };
 
         const endTurn = () => {
