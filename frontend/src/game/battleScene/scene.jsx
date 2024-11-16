@@ -146,8 +146,9 @@ class FightScene extends Phaser.Scene {
             this.selectedCaseOutput = "";
 
 
-            this.card1.setInteractivity(true);
-            this.card2.setInteractivity(true);
+            cards.list.map(card =>{
+                card.setInteractivity(true);
+            });
         };
 
         const select = (cardQuestion, cardAnswer, cardName, cardConcept, cardOutput) => {
@@ -159,9 +160,6 @@ class FightScene extends Phaser.Scene {
             this.selectedCase = cardAnswer;
             this.selectedCaseOutput = cardOutput;
             this.resultVal.setText("Input your code");
-
-            this.card1.setInteractivity(false);
-            this.card2.setInteractivity(false);
 
             cards.list.map(card =>{
                 card.setInteractivity(false);
