@@ -137,9 +137,12 @@ class FightScene extends Phaser.Scene {
             console.log("deselect");
 
             //clear view th card challenge
-            this.viewCardValue.setText("Pick a card");
+            this.viewCardInstructions.setText("Pick a card").setFontSize("30px");
             this.viewCardName.setText("");
             this.viewCardConcept.setText("");
+            this.viewCardOutput.setText("");
+            this.viewCardValue.setText("");
+
             this.resultVal.setText("Please pick a card");
             setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
             this.selectedCase = "";
@@ -151,15 +154,20 @@ class FightScene extends Phaser.Scene {
             });
         };
 
-        const select = (cardQuestion, cardAnswer, cardName, cardConcept, cardOutput) => {
+        const select = (cardQuestion, cardAnswer, cardName, cardConcept, cardOutput, cardValue) => {
 
             //view th card challenge
-            this.viewCardValue.setText(cardQuestion);
+            this.viewCardInstructions.setText(cardQuestion).setFontSize("25px");
             this.viewCardName.setText(cardName);
             this.viewCardConcept.setText(`\"${cardConcept}\"`);
+            this.viewCardOutput.setText(`Output: ${cardOutput}`);
+            this.viewCardValue.setText(`Damage: ${cardValue}`)
             this.selectedCase = cardAnswer;
             this.selectedCaseOutput = cardOutput;
+            this.cardValue = cardValue;
             this.resultVal.setText("Input your code");
+
+            console.log(this.cardValue);
 
             cards.list.map(card =>{
                 card.setInteractivity(false);
@@ -221,7 +229,7 @@ class FightScene extends Phaser.Scene {
 
         //view card
         const viewCard = this.add.rectangle(0, 0, 400, 380, 0x9c8454);
-        this.viewCardValue = this.add.text(0, 0, "Pick a card", {
+        this.viewCardInstructions = this.add.text(0, 0, "Pick a card", {
             fontSize: "30px",
             wordWrap: { width: viewCard.width, useAdvancedWrap: true }
         });
@@ -236,14 +244,26 @@ class FightScene extends Phaser.Scene {
             wordWrap: { width: viewCard.width, useAdvancedWrap: true }
         });
 
+        this.viewCardValue = this.add.text(0, 0, "", {
+            fontSize: "30px",
+            wordWrap: { width: viewCard.width, useAdvancedWrap: true }
+        });
+
+        this.viewCardOutput = this.add.text(0, 0, "", {
+            fontSize: "20px",
+            wordWrap: { width: viewCard.width, useAdvancedWrap: true }
+        });
+
         viewCard.setOrigin(0);
         viewCard.setStrokeStyle(3, 0x0000);
-        this.viewCardValue.setOrigin(0.5);
+        this.viewCardInstructions.setOrigin(0.5);
         this.viewCardName.setOrigin(0.5);
         this.viewCardConcept.setOrigin(0.5);
+        this.viewCardValue.setOrigin(0.5);
+        this.viewCardOutput.setOrigin(0.5);
 
-        this.viewCardValue.x = viewCard.x + viewCard.width / 2;
-        this.viewCardValue.y = viewCard.y + viewCard.height / 2;
+        this.viewCardInstructions.x = viewCard.x + viewCard.width / 2;
+        this.viewCardInstructions.y = (viewCard.y + 15) + viewCard.height / 2;
 
         this.viewCardName.x = viewCard.x + viewCard.width / 2;
         this.viewCardName.y = (viewCard.y - 165) + viewCard.height / 2;
@@ -251,7 +271,13 @@ class FightScene extends Phaser.Scene {
         this.viewCardConcept.x = viewCard.x + viewCard.width / 2;
         this.viewCardConcept.y = (viewCard.y - 120) + viewCard.height / 2;
 
-        cardView.add([viewCard, this.viewCardValue, this.viewCardName, this.viewCardConcept]);
+        this.viewCardValue.x = viewCard.x + viewCard.width / 2;
+        this.viewCardValue.y = (viewCard.y - 80) + viewCard.height / 2;
+
+        this.viewCardOutput.x = viewCard.x + viewCard.width / 2;
+        this.viewCardOutput.y = (viewCard.y + 150) + viewCard.height / 2;
+
+        cardView.add([viewCard, this.viewCardInstructions, this.viewCardName, this.viewCardConcept, this.viewCardValue, this.viewCardOutput]);
 
         this.card1 = new CreateCard(
             this,
@@ -304,63 +330,6 @@ class FightScene extends Phaser.Scene {
             true,
             select
         );
-
-        //cards
-        // this.card1= new CreateCard(
-        //     this, 
-        //     0, 
-        //     0, 
-        //     250, 
-        //     300, 
-        //     0xdbb77d, 
-        //     "card1", 
-        //     100, 
-        //     "loop",
-        //     "Print hello world"
-        //     ,"print(\"hello world\")"
-        //     , select
-        // );
-        // this.card2= new CreateCard(
-        //     this, 
-        //     0, 
-        //     60, 
-        //     250, 
-        //     300, 
-        //     0xdbb77d, 
-        //     "card2", 
-        //     "magic some mob",
-        //     "variable",
-        //     "Nothing",
-        //     "just make a loop",
-        //     select
-        // );
-        // this.card3= new CreateCard(
-        //     this, 
-        //     0, 
-        //     120, 
-        //     250, 
-        //     300, 
-        //     0xdbb77d, 
-        //     "card2", 
-        //     "yes, do nothing", 
-        //     "function",
-        //     "Nothing", 
-        //     "just make a loop",
-        //     select
-        // );
-        // this.card4= new CreateCard(
-        //     this, 
-        //     0, 
-        //     175, 
-        //     250, 
-        //     300, 
-        //     0xdbb77d, 
-        //     "card3", 
-        //     "nothing at the moment", 
-        //     "functsss","Nothing", 
-        //     "just make a loop", 
-        //     select
-        // );
 
         cards.add([this.card1, this.card2, this.card3, this.card4]);
 

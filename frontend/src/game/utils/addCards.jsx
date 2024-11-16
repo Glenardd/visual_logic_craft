@@ -48,7 +48,6 @@ class CreateCard extends Phaser.GameObjects.Container {
             });
 
             this.cardPadding.on("pointerdown", () => {
-                console.log(this.index);
                 for (let card of cardData) {
                     if (card.card_name === this.cardName) {
                         this.index++;
@@ -59,8 +58,6 @@ class CreateCard extends Phaser.GameObjects.Container {
                             this.cardOutput = card.challenge_rotation[this.index].output;
                             this.cardValue = card.value;
                         };
-
-                        console.log(this.cardQuestion);
                     };
 
                     if (this.index === card.challenge_rotation.length) {
@@ -68,7 +65,7 @@ class CreateCard extends Phaser.GameObjects.Container {
                     };
                 };
 
-                this.func(this.cardQuestion, this.cardAnswer, this.cardName, this.cardConcept, this.cardOutput);
+                this.func(this.cardQuestion, this.cardAnswer, this.cardName, this.cardConcept, this.cardOutput, this.cardValue);
 
                 this.cardPadding.setStrokeStyle(4, 0xff0000);
                 this.scene.tweens.add({
