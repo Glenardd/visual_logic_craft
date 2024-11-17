@@ -18,10 +18,11 @@ def root():
 
     data_ = textwrap.dedent(code);
 
-    exec(data_)
+    exec(data_, {})
 
     result = output.getvalue()
 
     return jsonify({"result": result.strip()})
+
 if __name__ == "__main__":
     app.run(debug=True)

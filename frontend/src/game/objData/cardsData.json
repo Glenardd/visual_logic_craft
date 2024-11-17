@@ -433,7 +433,7 @@
     "concept": "Functions",
     "challenge_rotation": [
       {
-        "question": "Write a function to add two numbers. Use 'a' as 5 and 'b' as 3.",
+        "question": "Write a function named 'add' with parameters 'a' and 'b' to add two numbers. Use 'a' as 5 and 'b' as 3.",
         "answers": [
           {
             "code": "def add(a, b):\n    return a + b\nresult = add(5, 3)\nprint(result)",
@@ -450,7 +450,7 @@
         ]
       },
       {
-        "question": "Write a function to calculate the factorial of a number. Use 'n' as 4.",
+        "question": "Write a function named 'factorial' with parameter 'n' to calculate the factorial of a number. Use 'n' as 4.",
         "answers": [
           {
             "code": "def factorial(n):\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n-1)\nprint(factorial(4))",
@@ -467,7 +467,7 @@
         ]
       },
       {
-        "question": "Write a function to check if a number is even or odd. Use 'num' as 7.",
+        "question": "Write a function named 'is_even_or_odd' with parameter 'num' to check if a number is even or odd. Use 'num' as 7.",
         "answers": [
           {
             "code": "def is_even_or_odd(num):\n    if num % 2 == 0:\n        return 'Even'\n    else:\n        return 'Odd'\nprint(is_even_or_odd(7))",
@@ -484,7 +484,7 @@
         ]
       },
       {
-        "question": "Write a function to return the maximum of three numbers. Use 'a' as 1, 'b' as 4, and 'c' as 3.",
+        "question": "Write a function named 'max_of_three' with parameters 'a', 'b', and 'c' to return the maximum of three numbers. Use 'a' as 1, 'b' as 4, and 'c' as 3.",
         "answers": [
           {
             "code": "def max_of_three(a, b, c):\n    return max(a, b, c)\nprint(max_of_three(1, 4, 3))",
@@ -501,7 +501,7 @@
         ]
       },
       {
-        "question": "Write a function to calculate the area of a rectangle. Use 'length' as 5 and 'width' as 3.",
+        "question": "Write a function named 'area_of_rectangle' with parameters 'length' and 'width' to calculate the area of a rectangle. Use 'length' as 5 and 'width' as 3.",
         "answers": [
           {
             "code": "def area_of_rectangle(length, width):\n    return length * width\nprint(area_of_rectangle(5, 3))",
@@ -518,7 +518,7 @@
         ]
       },
       {
-        "question": "Write a function to count how many times a specific element appears in a list. Use 'lst' as [1, 2, 2, 3, 2] and count 2.",
+        "question": "Write a function named 'count_occurrences' with parameters 'lst' and 'element' to count how many times a specific element appears in a list. Use 'lst' as [1, 2, 2, 3, 2] and count 2.",
         "answers": [
           {
             "code": "def count_occurrences(lst, element):\n    return lst.count(element)\nprint(count_occurrences([1, 2, 2, 3, 2], 2))",
@@ -535,7 +535,7 @@
         ]
       },
       {
-        "question": "Write a function to return the reverse of a string. Use 'text' as 'hello'.",
+        "question": "Write a function named 'reverse_string' with parameter 'text' to return the reverse of a string. Use 'text' as 'hello'.",
         "answers": [
           {
             "code": "def reverse_string(text):\n    return text[::-1]\nprint(reverse_string('hello'))",
@@ -552,7 +552,7 @@
         ]
       },
       {
-        "question": "Write a function to check if a word is a palindrome. Use 'word' as 'racecar'.",
+        "question": "Write a function named 'is_palindrome' with parameter 'word' to check if a word is a palindrome. Use 'word' as 'racecar'.",
         "answers": [
           {
             "code": "def is_palindrome(word):\n    return word == word[::-1]\nprint(is_palindrome('racecar'))",

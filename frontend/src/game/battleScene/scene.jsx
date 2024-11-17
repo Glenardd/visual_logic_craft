@@ -242,7 +242,7 @@ class FightScene extends Phaser.Scene {
         });
 
         this.viewCardInstructions = this.add.text(0, 0, "", {
-            fontSize: "25px",
+            fontSize: "20px",
             wordWrap: { width: viewCard.width, useAdvancedWrap: true }
         });
 
@@ -384,16 +384,17 @@ class FightScene extends Phaser.Scene {
                 .replace(/\s+/g, ' ')                                   // Replace multiple spaces with a single space
                 .replace(/\s*:\s*/g, ': ')                              // Standardize colon spacing
                 .replace(/\s*=\s*/g, ' = ')                             // Standardize equals spacing
-                .replace(/\s*\(\s*/g, '(')                              // Remove space before opening parenthesis
-                .replace(/\s*\)\s*/g, ')')                              // Remove space after closing parenthesis
+                .replace(/\(\s*/g, '(')                                 // Remove space before opening parenthesis
+                .replace(/\s*\)/g, ')')                                 // Remove space after closing parenthesis
                 .replace(/\[\s*/g, '[')                                 // Remove space after opening square bracket
                 .replace(/\s*\]/g, ']')                                 // Remove space before closing square bracket
-                .replace(/"/g, "'");                                    // Normalize double quotes to single quotes
-
+                .replace(/"/g, "'")                                     // Normalize double quotes to single quotes
+                .replace(/\s*,\s*/g, ',');                              // Preserve compact commas like x,y=5,10
+    
             return normalizedCode;
         } catch {
-            //catch none
-        };
+            // Catch errors silently
+        }
     };
 
     //case tester
@@ -426,15 +427,11 @@ class FightScene extends Phaser.Scene {
             };
         };
 
-        console.log("caseAnsers: ",caseAnswers);
-        console.log("expectedOutput: ",expectedOutput);
-
         //checks player code
         const checkAnswer = caseAnswers.some(answer => answer === code);
         console.log(checkAnswer);
 
         //checks player output if right
-
         fetchData().then(data => {
             //executed result of the python code
             const pythonOutput = data.result;
@@ -500,7 +497,6 @@ class FightScene extends Phaser.Scene {
                 this.runBtn.setInteractivity(false);
                 this.attempts = 0;
             };
-
         });
 
     };
