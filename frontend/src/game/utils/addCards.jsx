@@ -4,7 +4,7 @@ class CreateCard extends Phaser.GameObjects.Container {
     constructor(scene, x, y, width, height, backgroundColor, foregroundColor, cardName, interactivity, func) {
         super(scene, x, y);
 
-        this.index = -1;
+        this.index = 0;
         this.interactivity = interactivity;
         this.func = func;
         this.scene = scene;
@@ -54,18 +54,17 @@ class CreateCard extends Phaser.GameObjects.Container {
                         if (card.concept) {
                             this.cardConcept = card.concept;
                             this.cardQuestion = card.challenge_rotation[this.index].question;
-                            this.cardAnswer = card.challenge_rotation[this.index].answers[this.index].code;
-                            this.cardOutput = card.challenge_rotation[this.index].answers[this.index].output;
+                            this.cardAnswer = card.challenge_rotation[this.index].answers;
                             this.cardValue = card.value;
                         };
                     };
 
                     if (this.index === card.challenge_rotation.length) {
-                        this.index = -1;
+                        this.index = 0;
                     };
                 };
 
-                this.func(this.cardQuestion, this.cardAnswer, this.cardName, this.cardConcept, this.cardOutput, this.cardValue);
+                this.func(this.cardQuestion, this.cardAnswer, this.cardName, this.cardConcept, this.cardValue);
 
                 this.cardPadding.setStrokeStyle(4, 0xff0000);
                 this.scene.tweens.add({

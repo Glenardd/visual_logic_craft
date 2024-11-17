@@ -10,8 +10,8 @@ class FightScene extends Phaser.Scene {
         super({ key: "fightScene" });
         this.editor = null;
         this.attempts = 0;
-        this.selectedCase = "";
-        this.selectedCaseOutput = "";
+        this.selectedCase = [];
+        this.selectedCaseOutput = [];
 
         this.enemyHealth = 0;
         this.enemyName = "";
@@ -146,8 +146,8 @@ class FightScene extends Phaser.Scene {
 
             this.resultVal.setText("Please pick a card");
             setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
-            this.selectedCase = "";
-            this.selectedCaseOutput = "";
+            this.selectedCase = [""];
+            this.selectedCaseOutput = [""];
 
 
             cards.list.map(card =>{
@@ -155,21 +155,26 @@ class FightScene extends Phaser.Scene {
             });
         };
 
-        const select = (cardQuestion, cardAnswer, cardName, cardConcept, cardOutput, cardValue) => {
+        const select = (cardQuestion, cardAnswer, cardName, cardConcept, cardValue) => {
 
             //view th card challenge
             this.selectACardMessage.setText("");
             this.viewCardInstructions.setText(cardQuestion);
             this.viewCardName.setText(cardName);
             this.viewCardConcept.setText(`\"${cardConcept}\"`);
-            this.viewCardOutput.setText(`Output: ${cardOutput}`);
             this.viewCardValue.setText(`Damage: ${cardValue}`)
-            this.selectedCase = cardAnswer;
-            this.selectedCaseOutput = cardOutput;
+
+            cardAnswer.map(expected =>{
+                this.selectedCase.push(expected.code);
+                this.selectedCaseOutput.push(expected.output);
+                this.viewCardOutput.setText(`Output: ${expected.output}`);
+            });
+
+            this.selectedCase.map(code => console.log(code));
+
+            //card damage
             this.cardValue = cardValue;
             this.resultVal.setText("Input your code");
-
-            console.log(this.cardValue);
 
             cards.list.map(card =>{
                 card.setInteractivity(false);
@@ -396,12 +401,12 @@ class FightScene extends Phaser.Scene {
 
         //list of the code normalized
         const caseAnswers = this.selectedCase.map(answers => {
-            return this.codeNormalizer(answers.code);
+            return this.codeNormalizer(answers);
         });
 
         //expected code
-        const expectedOutput = this.selectedCase.map(expected => {
-            return expected.output;
+        const expectedOutput = this.selectedCaseOutput.map(expected => {
+            return expected; 
         });
 
         //this will execute the python code
@@ -421,6 +426,9 @@ class FightScene extends Phaser.Scene {
             };
         };
 
+        console.log("caseAnsers: ",caseAnswers);
+        console.log("expectedOutput: ",expectedOutput);
+
         //checks player code
         const checkAnswer = caseAnswers.some(answer => answer === code);
         console.log(checkAnswer);
@@ -428,8 +436,9 @@ class FightScene extends Phaser.Scene {
         //checks player output if right
 
         fetchData().then(data => {
+            //executed result of the python code
             const pythonOutput = data.result;
-            const checkOutput = expectedOutput.some(output => output === pythonOutput)
+            const checkOutput = expectedOutput.some(output => output === pythonOutput);
 
             //attack enemy if correct
             if (checkOutput && checkAnswer) {
@@ -462,7 +471,7 @@ class FightScene extends Phaser.Scene {
                 this.runBtn.setInteractivity(false);
 
                 //damage
-                this.enemyHealth -= this.card1.cardValue;
+                this.enemyHealth -= this.cardValue;
                 this.enemyHealthBar.setText(`${this.enemyHealth} & ${this.enemyName}`);
 
                 if (this.enemyHealth <= 0) {
@@ -481,7 +490,7 @@ class FightScene extends Phaser.Scene {
 
             } else {
                 this.attempts += 1;
-                this.countAttempts.setText(`Turns: ${this.attempts}`);
+                this.countAttempts.setText(`Attempts: ${this.attempts}`);
                 this.resultVal.setText("Wrong");
                 setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
             };
