@@ -20,7 +20,7 @@ class FightScene extends Phaser.Scene {
 
     create(data) {
 
-        this.enemyHealth = data.enemyHp;
+        this.enemyHealth = 10 || data.enemyHp;
         this.enemyName = data.enemyName;
         this.destroyedEnemies = data.destroyedEnemies;
 
@@ -137,7 +137,8 @@ class FightScene extends Phaser.Scene {
             console.log("deselect");
 
             //clear view th card challenge
-            this.viewCardInstructions.setText("Pick a card").setFontSize("30px");
+            this.selectACardMessage.setText("Pick a card");
+            this.viewCardInstructions.setText("")
             this.viewCardName.setText("");
             this.viewCardConcept.setText("");
             this.viewCardOutput.setText("");
@@ -157,7 +158,8 @@ class FightScene extends Phaser.Scene {
         const select = (cardQuestion, cardAnswer, cardName, cardConcept, cardOutput, cardValue) => {
 
             //view th card challenge
-            this.viewCardInstructions.setText(cardQuestion).setFontSize("25px");
+            this.selectACardMessage.setText("");
+            this.viewCardInstructions.setText(cardQuestion);
             this.viewCardName.setText(cardName);
             this.viewCardConcept.setText(`\"${cardConcept}\"`);
             this.viewCardOutput.setText(`Output: ${cardOutput}`);
@@ -229,8 +231,13 @@ class FightScene extends Phaser.Scene {
 
         //view card
         const viewCard = this.add.rectangle(0, 0, 400, 380, 0x9c8454);
-        this.viewCardInstructions = this.add.text(0, 0, "Pick a card", {
-            fontSize: "30px",
+        this.selectACardMessage= this.add.text(0, 0, "Pick a card", {
+            fontSize: "50px",
+            wordWrap: { width: viewCard.width, useAdvancedWrap: true }
+        });
+
+        this.viewCardInstructions = this.add.text(0, 0, "", {
+            fontSize: "25px",
             wordWrap: { width: viewCard.width, useAdvancedWrap: true }
         });
 
@@ -256,11 +263,15 @@ class FightScene extends Phaser.Scene {
 
         viewCard.setOrigin(0);
         viewCard.setStrokeStyle(3, 0x0000);
+        this.selectACardMessage.setOrigin(0.5);
         this.viewCardInstructions.setOrigin(0.5);
         this.viewCardName.setOrigin(0.5);
         this.viewCardConcept.setOrigin(0.5);
         this.viewCardValue.setOrigin(0.5);
         this.viewCardOutput.setOrigin(0.5);
+
+        this.selectACardMessage.x = viewCard.x + viewCard.width / 2;
+        this.selectACardMessage.y = viewCard.y + viewCard.height / 2;
 
         this.viewCardInstructions.x = viewCard.x + viewCard.width / 2;
         this.viewCardInstructions.y = (viewCard.y + 15) + viewCard.height / 2;
@@ -277,7 +288,7 @@ class FightScene extends Phaser.Scene {
         this.viewCardOutput.x = viewCard.x + viewCard.width / 2;
         this.viewCardOutput.y = (viewCard.y + 150) + viewCard.height / 2;
 
-        cardView.add([viewCard, this.viewCardInstructions, this.viewCardName, this.viewCardConcept, this.viewCardValue, this.viewCardOutput]);
+        cardView.add([viewCard, this.viewCardInstructions, this.viewCardName, this.viewCardConcept, this.viewCardValue, this.viewCardOutput, this.selectACardMessage]);
 
         this.card1 = new CreateCard(
             this,

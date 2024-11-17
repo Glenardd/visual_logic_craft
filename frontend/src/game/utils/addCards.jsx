@@ -54,8 +54,8 @@ class CreateCard extends Phaser.GameObjects.Container {
                         if (card.concept) {
                             this.cardConcept = card.concept;
                             this.cardQuestion = card.challenge_rotation[this.index].question;
-                            this.cardAnswer = card.challenge_rotation[this.index].answers;
-                            this.cardOutput = card.challenge_rotation[this.index].output;
+                            this.cardAnswer = card.challenge_rotation[this.index].answers[this.index].code;
+                            this.cardOutput = card.challenge_rotation[this.index].answers[this.index].output;
                             this.cardValue = card.value;
                         };
                     };
