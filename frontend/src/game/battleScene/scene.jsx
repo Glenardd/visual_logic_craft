@@ -38,7 +38,7 @@ class FightScene extends Phaser.Scene {
         //create grid for layout guide
         const line = new AddLine(this, width, height);
 
-        const visible = 0.3;
+        const visible = 0;
 
         //line guides
         const first_Vline = line.createVerticalLine(0.25, visible);
@@ -53,7 +53,7 @@ class FightScene extends Phaser.Scene {
         const topUi_Hline = line.createHorizontalLine(0.05, visible);
         const enemyAndPlayer_Hline = line.createHorizontalLine(0.4, visible);
         const enemyHealthbar_Hline = line.createHorizontalLine(0.12, visible);
-        const enemyHealthbar_Vline = line.createVerticalLine(0.6, visible);
+        const enemyHealthbar_Vline = line.createVerticalLine(0.58, visible);
         const playerHealthbar_Hline = line.createHorizontalLine(0.12, visible);
         const playerHealthbar_Vline = line.createVerticalLine(0.07, visible);
 
