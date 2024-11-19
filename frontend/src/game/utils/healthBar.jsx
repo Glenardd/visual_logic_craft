@@ -3,7 +3,15 @@ class HealthBar extends Phaser.GameObjects.Container{
         super(scene,x, y);
 
         this.scene = scene;
-        this.healthValue = value;
+        this.maxHealth = 100;
+        this.currentHealth = this.maxHealth;
+        this.healthBarWidth = 700;
+
+        this.healthProgressBar = this.scene.add.rectangle(0, 0, this.healthBarWidth, 40, 0x74db4f);
+        this.healthProgressBar.setOrigin(0);
+        this.healthProgressBar.setStrokeStyle(4, 0x00000);
+
+        this.add(this.healthProgressBar);
 
         //add to scene
         this.scene.add.existing(this);
@@ -11,21 +19,31 @@ class HealthBar extends Phaser.GameObjects.Container{
 
     //add health
     Add(value){
-        this.healthValue +=value;
+        this.currentHealth +=value;
+        this.updateHp();
     };
 
     //subtract health
     Subtract(value){
-        this.healthValue -=value; 
+        this.currentHealth -=value;
+        this.updateHp();
+        
     };
 
     //display the progress bar
-    displayHealthBar(){
-        const healthProgressBar = this.scene.add.rectangle(0, 0, 700, 40, 0x74db4f);
-        healthProgressBar.setOrigin(0);
-        healthProgressBar.setStrokeStyle(4, 0x00000);
+    updateHp(){
+        this.currentHealth = Phaser.Math.Clamp(this.currentHealth,0, this.maxHealth);
+        let hpPercent = (this.currentHealth / this.maxHealth) * this.healthBarWidth
 
-        this.add(healthProgressBar);
+        this.scene.tweens.add({
+            targets: this.healthProgressBar,
+            width: hpPercent,
+            duration: 500, // Adjust duration for desired speed
+            ease: 'Power 1',
+            onUpdate: () =>{
+                hpPercent = this.healthProgressBar.width * this.healthBarWidth; 
+            },
+        });
     };
 };
 

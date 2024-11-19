@@ -69,8 +69,7 @@ class FightScene extends Phaser.Scene {
         const topUiRight = this.add.container(third_Vline.PosX, topUi_Hline.PosY);
 
         //enemy health bar
-        const enemyHpBar = new HealthBar(this, healthbar_Vline.PosX, healthbar_Hline.PosY, 100);
-        enemyHpBar.displayHealthBar();
+        this.enemyHpBar = new HealthBar(this, healthbar_Vline.PosX, healthbar_Hline.PosY, 100);
 
         this.enemyHealthBar = this.add.text(0, 0, `${this.enemyHealth} & ${this.enemyName || "Enemy"}`, { fontSize: "50px", fill: "#fff" });
         topUiLeft.add(this.enemyHealthBar);
@@ -480,6 +479,7 @@ class FightScene extends Phaser.Scene {
                 //damage
                 this.enemyHealth -= this.cardValue;
                 this.enemyHealthBar.setText(`${this.enemyHealth} & ${this.enemyName || "enemy"}`);
+                this.enemyHpBar.Subtract(this.cardValue);
 
                 if (this.enemyHealth <= 0) {
                     console.log("enemy dead");
