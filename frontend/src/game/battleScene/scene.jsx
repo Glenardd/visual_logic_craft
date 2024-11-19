@@ -20,10 +20,14 @@ class FightScene extends Phaser.Scene {
 
     create(data) {
 
-        this.enemyHealth = 10 || data.enemyHp;
+        //enemy information
+        this.enemyHealth = data.enemyHp || 100;
         this.enemyName = data.enemyName;
         this.destroyedEnemies = data.destroyedEnemies;
 
+        //player information
+        this.playerHealth = data.playerHp || 100;
+        this.playerName = data.playerName;
         this.playerPrevPos = data.playerPrevPos;
 
         this.currentScene = data.currentScene;
@@ -62,10 +66,10 @@ class FightScene extends Phaser.Scene {
         const topUiLeft = this.add.container(topUi_Vline.PosX, topUi_Hline.PosY);
         const topUiRight = this.add.container(third_Vline.PosX, topUi_Hline.PosY);
 
-        this.enemyHealthBar = this.add.text(0, 0, `${this.enemyHealth} & ${this.enemyName}`, { fontSize: "50px", fill: "#fff" });
+        this.enemyHealthBar = this.add.text(0, 0, `${this.enemyHealth} & ${this.enemyName || "Enemy"}`, { fontSize: "50px", fill: "#fff" });
         topUiLeft.add(this.enemyHealthBar);
 
-        const playerHealthBar = this.add.text(0, 0, `${data.playerName} & ${data.playerHp}`, { fontSize: "50px", fill: "#fff" });
+        const playerHealthBar = this.add.text(0, 0, `${this.playerHealth} & ${this.playerName || "Player"} `, { fontSize: "50px", fill: "#fff" });
         topUiRight.add(playerHealthBar);
 
         //container for code editor
@@ -428,14 +432,14 @@ class FightScene extends Phaser.Scene {
         };
 
         //checks player code
-        const checkAnswer = caseAnswers.some(answer => answer === code);
+        const checkAnswer = caseAnswers.some(answer => answer.toLowerCase() === code.toLowerCase());
         console.log(checkAnswer);
 
         //checks player output if right
         fetchData().then(data => {
             //executed result of the python code
             const pythonOutput = data.result;
-            const checkOutput = expectedOutput.some(output => output === pythonOutput);
+            const checkOutput = expectedOutput.some(output => output.toLowerCase() === pythonOutput.toLowerCase());
 
             //attack enemy if correct
             if (checkOutput && checkAnswer) {
@@ -469,7 +473,7 @@ class FightScene extends Phaser.Scene {
 
                 //damage
                 this.enemyHealth -= this.cardValue;
-                this.enemyHealthBar.setText(`${this.enemyHealth} & ${this.enemyName}`);
+                this.enemyHealthBar.setText(`${this.enemyHealth} & ${this.enemyName || "enemy"}`);
 
                 if (this.enemyHealth <= 0) {
                     console.log("enemy dead");
