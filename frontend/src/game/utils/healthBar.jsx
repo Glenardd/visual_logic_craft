@@ -1,5 +1,5 @@
 class HealthBar extends Phaser.GameObjects.Container{
-    constructor(scene,x, y, value, role, name){
+    constructor(scene,x, y, value, role){
         super(scene,x, y);
 
         this.scene = scene;
@@ -7,7 +7,6 @@ class HealthBar extends Phaser.GameObjects.Container{
         this.currentHealth = this.maxHealth;
         this.healthBarWidth = 700;
         this.role = role;
-        this.name = name;
 
         //health progress bar
         this.healthProgressBar = this.scene.add.rectangle(0, 0, this.healthBarWidth, 40, 0x74db4f);
@@ -20,7 +19,8 @@ class HealthBar extends Phaser.GameObjects.Container{
         this.healthValue.setOrigin(0);
 
         //display names
-        this.names = this.scene.add.text(0,3, `${this.name}`, {fontSize: 35});
+        const roleStr = this.role.split(" ");
+        this.names = this.scene.add.text(0,3, `${roleStr[0].charAt(0).toUpperCase() + roleStr[0].slice(1)}`, {fontSize: 35});
         this.names.setOrigin(0);
 
         this.updateHealthValuePosition();
