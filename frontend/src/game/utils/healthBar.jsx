@@ -14,13 +14,13 @@ class HealthBar extends Phaser.GameObjects.Container{
         this.healthProgressBar.setStrokeStyle(4, 0x00000);
 
         //health progress value
-        this.healthValue = this.scene.add.text(0,3, `${this.currentHealth}`, {fontSize: 35});
+        this.healthValue = this.scene.add.text(0,3, `${this.currentHealth}`, {fontSize: 35,  color: '#000',});
         this.healthValue.x = (this.healthProgressBar.x + this.healthProgressBar.width) -680;
         this.healthValue.setOrigin(0);
 
         //display names
         const roleStr = this.role.split(" ");
-        this.names = this.scene.add.text(0,3, `${roleStr[0].charAt(0).toUpperCase() + roleStr[0].slice(1)}`, {fontSize: 35});
+        this.names = this.scene.add.text(0,3, `${roleStr[0].charAt(0).toUpperCase() + roleStr[0].slice(1)}`, {fontSize: 35,  color: '#000',});
         this.names.setOrigin(0);
 
         this.updateHealthValuePosition();
