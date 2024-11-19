@@ -52,8 +52,10 @@ class FightScene extends Phaser.Scene {
         const fourth_Hline = line.createHorizontalLine(0.51, visible);
         const topUi_Hline = line.createHorizontalLine(0.05, visible);
         const enemyAndPlayer_Hline = line.createHorizontalLine(0.4, visible);
-        const healthbar_Hline = line.createHorizontalLine(0.12, visible);
-        const healthbar_Vline = line.createVerticalLine(0.6, visible);
+        const enemyHealthbar_Hline = line.createHorizontalLine(0.12, visible);
+        const enemyHealthbar_Vline = line.createVerticalLine(0.6, visible);
+        const playerHealthbar_Hline = line.createHorizontalLine(0.12, visible);
+        const playerHealthbar_Vline = line.createVerticalLine(0.07, visible);
 
         //obj layers 
         this.playerAndEnemy = this.add.container(0, enemyAndPlayer_Hline.PosY);
@@ -69,10 +71,13 @@ class FightScene extends Phaser.Scene {
         const topUiLeft = this.add.container(third_Vline.PosX, topUi_Hline.PosY);
 
         //enemy health bar
-        this.enemyHpBar = new HealthBar(this, healthbar_Vline.PosX, healthbar_Hline.PosY, this.enemyHealth);
+        this.enemyHpBar = new HealthBar(this, enemyHealthbar_Vline.PosX, enemyHealthbar_Hline.PosY, this.enemyHealth);
 
         this.enemyHealthBar = this.add.text(0, 0, `${this.enemyName}`, { fontSize: "50px", fill: "#fff" });
         topUiRight.add(this.enemyHealthBar);
+
+        //player health bar
+        this.playerHpBar = new HealthBar(this, playerHealthbar_Vline.PosX, playerHealthbar_Hline.PosY, this.playerHealth);
 
         const playerHealthBar = this.add.text(0, 0, `${this.playerName || "Player"} `, { fontSize: "50px", fill: "#fff" });
         topUiLeft.add(playerHealthBar);
