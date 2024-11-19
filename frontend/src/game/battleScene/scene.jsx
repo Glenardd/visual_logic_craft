@@ -3,7 +3,6 @@ import ButtonCreate from "../utils/addButton";
 import AddLine from "../utils/addLayoutGuide.jsx";
 import CreateCard from "../utils/addCards.jsx";
 import { pauseBtn } from "../buttons/pauseButton/pauseBtn.jsx";
-import { loadPyodide } from "pyodide";
 
 class FightScene extends Phaser.Scene {
     constructor() {
