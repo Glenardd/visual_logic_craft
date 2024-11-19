@@ -67,20 +67,14 @@ class FightScene extends Phaser.Scene {
         const deselectBtn = this.add.container(first_Vline.PosX, third_Hline.PosY);
         const cards = this.add.container(third_Vline.PosX, second_Hline.PosY);
         const attemptsUi = this.add.container(third_Vline.PosX, fourth_Hline.PosY);
-        const topUiRight = this.add.container(topUi_Vline.PosX, topUi_Hline.PosY);
-        const topUiLeft = this.add.container(third_Vline.PosX, topUi_Hline.PosY);
+        // const topUiRight = this.add.container(topUi_Vline.PosX, topUi_Hline.PosY);
+        // const topUiLeft = this.add.container(third_Vline.PosX, topUi_Hline.PosY);
 
         //enemy health bar
         this.enemyHpBar = new HealthBar(this, enemyHealthbar_Vline.PosX, enemyHealthbar_Hline.PosY, this.enemyHealth, "enemy", "Enemy");
 
-        this.enemyHealthBar = this.add.text(0, 0, `${this.enemyName}`, { fontSize: "50px", fill: "#fff" });
-        topUiRight.add(this.enemyHealthBar);
-
         //player health bar
         this.playerHpBar = new HealthBar(this, playerHealthbar_Vline.PosX, playerHealthbar_Hline.PosY, this.playerHealth, "player", "Player");
-
-        const playerHealthBar = this.add.text(0, 0, `${this.playerName || "Player"} `, { fontSize: "50px", fill: "#fff" });
-        topUiLeft.add(playerHealthBar);
 
         //container for code editor
         const containerDiv = `<div id="codeEditor" style="width: 57.4em; height: 380px; border: 1px solid grey;"></div>`;
