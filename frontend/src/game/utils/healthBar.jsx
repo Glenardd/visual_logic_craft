@@ -4,20 +4,25 @@ class HealthBar extends Phaser.GameObjects.Container{
 
         this.scene = scene;
         this.healthValue = value;
+
+        //add to scene
+        this.scene.add.existing(this);
+    };
+
+    //add health
+    Add(value){
+        this.healthValue +=value;
+    };
+
+    //subtract health
+    Subtract(value){
+        this.healthValue -=value; 
     };
 
     //display the progress bar
     displayHealthBar(){
-
-    };
-
-    //add health
-    Add(){
-
-    };
-
-    //subtract health
-    Subtract(){
-
+        return this.healthValue;
     };
 };
+
+export default HealthBar;

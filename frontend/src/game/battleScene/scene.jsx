@@ -2,6 +2,7 @@ import * as monaco from "monaco-editor";
 import ButtonCreate from "../utils/addButton";
 import AddLine from "../utils/addLayoutGuide.jsx";
 import CreateCard from "../utils/addCards.jsx";
+import HealthBar from "../utils/healthBar.jsx";
 import { pauseBtn } from "../buttons/pauseButton/pauseBtn.jsx";
 
 class FightScene extends Phaser.Scene {
