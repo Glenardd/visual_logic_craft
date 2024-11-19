@@ -21,7 +21,11 @@ class HealthBar extends Phaser.GameObjects.Container{
 
     //display the progress bar
     displayHealthBar(){
-        return this.healthValue;
+        const healthProgressBar = this.scene.add.rectangle(0, 0, 700, 40, 0x74db4f);
+        healthProgressBar.setOrigin(0);
+        healthProgressBar.setStrokeStyle(4, 0x00000);
+
+        this.add(healthProgressBar);
     };
 };
 

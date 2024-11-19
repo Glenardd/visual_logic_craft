@@ -52,6 +52,8 @@ class FightScene extends Phaser.Scene {
         const fourth_Hline = line.createHorizontalLine(0.51, visible);
         const topUi_Hline = line.createHorizontalLine(0.05, visible)
         const enemyAndPlayer_Hline = line.createHorizontalLine(0.4, visible)
+        const healthbar_Hline = line.createHorizontalLine(0.12, visible)
+        const healthbar_Vline = line.createVerticalLine(0.6, visible)
 
         //obj layers 
         this.playerAndEnemy = this.add.container(0, enemyAndPlayer_Hline.PosY);
@@ -65,6 +67,10 @@ class FightScene extends Phaser.Scene {
         const attemptsUi = this.add.container(third_Vline.PosX, fourth_Hline.PosY);
         const topUiLeft = this.add.container(topUi_Vline.PosX, topUi_Hline.PosY);
         const topUiRight = this.add.container(third_Vline.PosX, topUi_Hline.PosY);
+
+        //enemy health bar
+        const enemyHpBar = new HealthBar(this, healthbar_Vline.PosX, healthbar_Hline.PosY, 100);
+        enemyHpBar.displayHealthBar();
 
         this.enemyHealthBar = this.add.text(0, 0, `${this.enemyHealth} & ${this.enemyName || "Enemy"}`, { fontSize: "50px", fill: "#fff" });
         topUiLeft.add(this.enemyHealthBar);
@@ -502,7 +508,6 @@ class FightScene extends Phaser.Scene {
                 this.attempts = 0;
             };
         });
-
     };
 };
 

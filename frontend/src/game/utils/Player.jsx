@@ -60,7 +60,7 @@ class Player extends Phaser.GameObjects.Rectangle{
         this.scene.input.keyboard.on("keyup", (event) => {
             if (["a", "d", "A", "D"].includes(event.key)) {
                 this.body.setVelocityX(0);
-            }
+            };
         });
     };
 };
