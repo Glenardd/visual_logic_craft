@@ -1,5 +1,5 @@
 class HealthBar extends Phaser.GameObjects.Container{
-    constructor(scene,x, y, value, role){
+    constructor(scene,x, y, value, role, name){
         super(scene,x, y);
 
         this.scene = scene;
@@ -7,6 +7,7 @@ class HealthBar extends Phaser.GameObjects.Container{
         this.currentHealth = this.maxHealth;
         this.healthBarWidth = 700;
         this.role = role;
+        this.name = name;
 
         //health progress bar
         this.healthProgressBar = this.scene.add.rectangle(0, 0, this.healthBarWidth, 40, 0x74db4f);
@@ -18,9 +19,14 @@ class HealthBar extends Phaser.GameObjects.Container{
         this.healthValue.x = (this.healthProgressBar.x + this.healthProgressBar.width) -680;
         this.healthValue.setOrigin(0);
 
-        this.updateHealthValuePosition();
+        //display names
+        this.names = this.scene.add.text(0,3, `${this.name}`, {fontSize: 35});
+        this.names.setOrigin(0);
 
-        this.add([this.healthProgressBar, this.healthValue]);  
+        this.updateHealthValuePosition();
+        this.updateNamePosition();
+
+        this.add([this.healthProgressBar, this.healthValue, this.names]);  
         
         //add to scene
         this.scene.add.existing(this);
@@ -65,6 +71,16 @@ class HealthBar extends Phaser.GameObjects.Container{
         }else if(this.role === "player"){
             //left
             this.healthValue.x = this.healthProgressBar.x + 10;
+        };
+    };
+
+    updateNamePosition(){
+        if(this.role === "player"){
+            //right
+            this.names.x = this.healthProgressBar.x + this.healthProgressBar.width - 140;
+        }else if(this.role === "enemy"){
+            //left
+            this.names.x = this.healthProgressBar.x + 10;
         };
     };
 };

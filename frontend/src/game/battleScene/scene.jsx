@@ -71,13 +71,13 @@ class FightScene extends Phaser.Scene {
         const topUiLeft = this.add.container(third_Vline.PosX, topUi_Hline.PosY);
 
         //enemy health bar
-        this.enemyHpBar = new HealthBar(this, enemyHealthbar_Vline.PosX, enemyHealthbar_Hline.PosY, this.enemyHealth, "enemy");
+        this.enemyHpBar = new HealthBar(this, enemyHealthbar_Vline.PosX, enemyHealthbar_Hline.PosY, this.enemyHealth, "enemy", "Enemy");
 
         this.enemyHealthBar = this.add.text(0, 0, `${this.enemyName}`, { fontSize: "50px", fill: "#fff" });
         topUiRight.add(this.enemyHealthBar);
 
         //player health bar
-        this.playerHpBar = new HealthBar(this, playerHealthbar_Vline.PosX, playerHealthbar_Hline.PosY, this.playerHealth, "player");
+        this.playerHpBar = new HealthBar(this, playerHealthbar_Vline.PosX, playerHealthbar_Hline.PosY, this.playerHealth, "player", "Player");
 
         const playerHealthBar = this.add.text(0, 0, `${this.playerName || "Player"} `, { fontSize: "50px", fill: "#fff" });
         topUiLeft.add(playerHealthBar);
