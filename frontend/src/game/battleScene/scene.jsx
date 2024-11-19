@@ -22,12 +22,12 @@ class FightScene extends Phaser.Scene {
 
         //enemy information
         this.enemyHealth = data.enemyHp || 100;
-        this.enemyName = data.enemyName;
+        this.enemyName = data.enemyName || "Enemy";
         this.destroyedEnemies = data.destroyedEnemies;
 
         //player information
         this.playerHealth = data.playerHp || 100;
-        this.playerName = data.playerName;
+        this.playerName = data.playerName || "Player";
         this.playerPrevPos = data.playerPrevPos;
 
         this.currentScene = data.currentScene;
@@ -38,7 +38,7 @@ class FightScene extends Phaser.Scene {
         //create grid for layout guide
         const line = new AddLine(this, width, height);
 
-        const visible = 0;
+        const visible = 0.3;
 
         //line guides
         const first_Vline = line.createVerticalLine(0.25, visible);
@@ -50,10 +50,10 @@ class FightScene extends Phaser.Scene {
         const second_Hline = line.createHorizontalLine(0.57, visible);
         const third_Hline = line.createHorizontalLine(0.9, visible);
         const fourth_Hline = line.createHorizontalLine(0.51, visible);
-        const topUi_Hline = line.createHorizontalLine(0.05, visible)
-        const enemyAndPlayer_Hline = line.createHorizontalLine(0.4, visible)
-        const healthbar_Hline = line.createHorizontalLine(0.12, visible)
-        const healthbar_Vline = line.createVerticalLine(0.6, visible)
+        const topUi_Hline = line.createHorizontalLine(0.05, visible);
+        const enemyAndPlayer_Hline = line.createHorizontalLine(0.4, visible);
+        const healthbar_Hline = line.createHorizontalLine(0.12, visible);
+        const healthbar_Vline = line.createVerticalLine(0.6, visible);
 
         //obj layers 
         this.playerAndEnemy = this.add.container(0, enemyAndPlayer_Hline.PosY);
@@ -65,17 +65,17 @@ class FightScene extends Phaser.Scene {
         const deselectBtn = this.add.container(first_Vline.PosX, third_Hline.PosY);
         const cards = this.add.container(third_Vline.PosX, second_Hline.PosY);
         const attemptsUi = this.add.container(third_Vline.PosX, fourth_Hline.PosY);
-        const topUiLeft = this.add.container(topUi_Vline.PosX, topUi_Hline.PosY);
-        const topUiRight = this.add.container(third_Vline.PosX, topUi_Hline.PosY);
+        const topUiRight = this.add.container(topUi_Vline.PosX, topUi_Hline.PosY);
+        const topUiLeft = this.add.container(third_Vline.PosX, topUi_Hline.PosY);
 
         //enemy health bar
-        this.enemyHpBar = new HealthBar(this, healthbar_Vline.PosX, healthbar_Hline.PosY, 100);
+        this.enemyHpBar = new HealthBar(this, healthbar_Vline.PosX, healthbar_Hline.PosY, this.enemyHealth);
 
-        this.enemyHealthBar = this.add.text(0, 0, `${this.enemyHealth} & ${this.enemyName || "Enemy"}`, { fontSize: "50px", fill: "#fff" });
-        topUiLeft.add(this.enemyHealthBar);
+        this.enemyHealthBar = this.add.text(0, 0, `${this.enemyName}`, { fontSize: "50px", fill: "#fff" });
+        topUiRight.add(this.enemyHealthBar);
 
-        const playerHealthBar = this.add.text(0, 0, `${this.playerHealth} & ${this.playerName || "Player"} `, { fontSize: "50px", fill: "#fff" });
-        topUiRight.add(playerHealthBar);
+        const playerHealthBar = this.add.text(0, 0, `${this.playerName || "Player"} `, { fontSize: "50px", fill: "#fff" });
+        topUiLeft.add(playerHealthBar);
 
         //container for code editor
         const containerDiv = `<div id="codeEditor" style="width: 57.4em; height: 380px; border: 1px solid grey;"></div>`;
@@ -477,11 +477,10 @@ class FightScene extends Phaser.Scene {
                 this.runBtn.setInteractivity(false);
 
                 //damage
-                this.enemyHealth -= this.cardValue;
-                this.enemyHealthBar.setText(`${this.enemyHealth} & ${this.enemyName || "enemy"}`);
+                this.enemyHealthBar.setText(`${this.enemyName}`);
                 this.enemyHpBar.Subtract(this.cardValue);
 
-                if (this.enemyHealth <= 0) {
+                if (this.enemyHpBar.currentHealth <= 0) {
                     console.log("enemy dead");
                     this.enemyBody.destroy(true);
 
