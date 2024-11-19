@@ -476,7 +476,6 @@ class FightScene extends Phaser.Scene {
                 this.runBtn.setInteractivity(false);
 
                 //damage
-                this.enemyHealthBar.setText(`${this.enemyName}`);
                 this.enemyHpBar.Subtract(this.cardValue);
 
                 if (this.enemyHpBar.currentHealth <= 0) {

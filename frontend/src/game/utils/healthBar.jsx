@@ -35,12 +35,14 @@ class HealthBar extends Phaser.GameObjects.Container{
     //add health
     Add(value){
         this.currentHealth +=value;
+        this.healthValue.setText(this.currentHealth);
         this.updateHp();
     };
 
     //subtract health
     Subtract(value){
         this.currentHealth -=value;
+        this.healthValue.setText(this.currentHealth);
         this.updateHp();
         
     };
