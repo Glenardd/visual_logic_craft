@@ -26,7 +26,7 @@ class Player extends Phaser.GameObjects.Rectangle{
         camera.main.setBounds(0, 200, width * 3.3, height);
         camera.main.startFollow(this);
         
-        //so the camera wont start from 0 of x axis going to the position of player when position changes
+        //the camera wont start from 0 of x axis going to the position of player when position changes
         this.scene.time.delayedCall(50, () => {
             camera.main.setLerp(0.1, 0.1);
         });
