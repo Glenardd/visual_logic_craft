@@ -1,9 +1,11 @@
 import PlatformCreate from "../../utils/addPlatforms";
 import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
-import {pauseBtn} from "../../buttons/pauseButton/pauseBtn";
 
+import {pauseBtn} from "../../buttons/pauseButton/pauseBtn";
 import { platformsDataMissionTwo } from "../../objData/platformData";
+import PlayerLivesCount from "../../utils/playerLivesCount";
+import AddLine from "../../utils/addLayoutGuide";
 
 class MissionTwo extends Phaser.Scene {
     constructor() {
@@ -13,6 +15,9 @@ class MissionTwo extends Phaser.Scene {
     create(data) {
 
         console.log("Mission 2");
+
+        //lives count
+        this.livesRemaining = data.livesRemaining !== undefined ? data.livesRemaining : 3;
 
         //enemy names when defeated contained here
         this.destroyedEnemies = data.destroyedEnemies || [];   
@@ -34,6 +39,13 @@ class MissionTwo extends Phaser.Scene {
         //when player returns to this scene
         const playerX = width*-0.4;
         const playerY = 0;
+
+        const visibility = 0;
+
+        const addLine = new AddLine(this, width, height);
+        const lineX = addLine.createVerticalLine(0.07, visibility).PosX; // Full visibility for vertical line
+        const lineY = addLine.createHorizontalLine(0.03, visibility).PosY; // Half visibility for horizontal line
+        this.livesCount = new PlayerLivesCount(this, lineX, lineY, this.livesRemaining);
 
         this.player = new Player(this, playerX,playerY, 90, 90, 0xed5f5f, "Player 1");
         this.player.addPhysics();
@@ -61,6 +73,10 @@ class MissionTwo extends Phaser.Scene {
         pauseBtn(this, this.Width, this.Height, this.destroyedEnemies);
         this.player.setCameraOffset(this.cameras, this.Width);
         this.player.setPlayerMovement();
+
+        if(this.player.y >= 700){
+            this.livesCount.Subtract(1);
+        };
     };
 };
 
