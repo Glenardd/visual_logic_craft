@@ -485,7 +485,6 @@ class FightScene extends Phaser.Scene {
                     //saves the original position of the player
                     this.scene.launch(`${this.currentScene}`, {
                         enemyNewHp: this.enemyHealth,
-                        playerNewPos: this.playerPrevPos,
                         enemyName: this.enemyName,
                         destroyedEnemies: [...this.destroyedEnemies, this.enemyName]
                     });

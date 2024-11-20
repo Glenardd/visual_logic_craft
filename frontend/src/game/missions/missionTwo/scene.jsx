@@ -19,7 +19,6 @@ class MissionTwo extends Phaser.Scene {
         
         const enemyNewHp = data.enemyNewHp;
         const enemyName = data.enemyName;
-        const playerNewPos = data.playerNewPos;
 
         //camera area
         this.Width = this.cameras.main.width;
@@ -33,8 +32,8 @@ class MissionTwo extends Phaser.Scene {
         const container = this.add.container(width/2, height / 2);
         
         //when player returns to this scene
-        const playerX = playerNewPos === undefined ? width*-0.4 : playerNewPos.x;
-        const playerY = playerNewPos === undefined ? 0 : playerNewPos.y;
+        const playerX = width*-0.4;
+        const playerY = 0;
 
         this.player = new Player(this, playerX,playerY, 90, 90, 0xed5f5f, "Player 1");
         this.player.addPhysics();
