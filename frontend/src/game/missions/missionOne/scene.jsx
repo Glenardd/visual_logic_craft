@@ -4,6 +4,8 @@ import Player from "../../utils/Player";
 
 import { platformsDataMissionOne } from "../../objData/platformData";
 import { pauseBtn } from "../../buttons/pauseButton/pauseBtn";
+import PlayerLivesCount from "../../utils/playerLivesCount";
+import AddLine from "../../utils/addLayoutGuide";
 
 class MissionOne extends Phaser.Scene {
     constructor() {
@@ -30,10 +32,17 @@ class MissionOne extends Phaser.Scene {
 
         //container
         const container = this.add.container(width/ 2, height / 2);
-
+        
         //when player returns to this scene
         const playerX =  width*-0.4;
         const playerY =  0;
+
+        const visibility = 0.2;
+
+        const addLine = new AddLine(this, width, height);
+        const lineX = addLine.createVerticalLine(0.07, visibility).PosX; // Full visibility for vertical line
+        const lineY = addLine.createHorizontalLine(0.03, visibility).PosY; // Half visibility for horizontal line
+        this.livesCount = new PlayerLivesCount(this, lineX, lineY, 3);
 
         this.player = new Player(this, playerX,playerY, 90, 90, 0xed5f5f, "Player 1");
         this.player.addPhysics();
