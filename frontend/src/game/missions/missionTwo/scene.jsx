@@ -74,6 +74,7 @@ class MissionTwo extends Phaser.Scene {
         this.player.setCameraOffset(this.cameras, this.Width);
         this.player.setPlayerMovement();
 
+        //if player falls subtract the lives
         if(this.player.y >= 700){
             this.livesCount.Subtract(1);
         };
