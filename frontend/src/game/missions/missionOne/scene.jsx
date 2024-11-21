@@ -20,7 +20,9 @@ class MissionOne extends Phaser.Scene {
         this.livesRemaining = data.livesRemaining !== undefined ? data.livesRemaining : 3;
 
         //enemy names when defeated contained here
-        this.destroyedEnemies = data.destroyedEnemies || [];   
+        this.destroyedEnemies = data.destroyedEnemies || [];
+
+        console.log(this.destroyedEnemies)
         
         const enemyNewHp = data.enemyNewHp;
         const enemyName = data.enemyName;
@@ -37,8 +39,8 @@ class MissionOne extends Phaser.Scene {
         const container = this.add.container(width/ 2, height / 2);
         
         //when player returns to this scene
-        const playerX =  width*-0.4;
-        const playerY =  0;
+        const playerX =  data.playerPrevPos?.x || width*-0.4;
+        const playerY =  data.playerPrevPos?.y || 0;
 
         const visibility = 0;
 

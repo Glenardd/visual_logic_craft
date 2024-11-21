@@ -67,8 +67,6 @@ class FightScene extends Phaser.Scene {
         const deselectBtn = this.add.container(first_Vline.PosX, third_Hline.PosY);
         const cards = this.add.container(third_Vline.PosX, second_Hline.PosY);
         const attemptsUi = this.add.container(third_Vline.PosX, fourth_Hline.PosY);
-        // const topUiRight = this.add.container(topUi_Vline.PosX, topUi_Hline.PosY);
-        // const topUiLeft = this.add.container(third_Vline.PosX, topUi_Hline.PosY);
 
         //enemy health bar
         this.enemyHpBar = new HealthBar(this, enemyHealthbar_Vline.PosX, enemyHealthbar_Hline.PosY, this.enemyHealth, "enemy", "Enemy");
@@ -482,10 +480,11 @@ class FightScene extends Phaser.Scene {
                     console.log("enemy dead");
                     this.enemyBody.destroy(true);
 
-                    //saves the original position of the player
+                    //this saves the enemies player defeated
                     this.scene.launch(`${this.currentScene}`, {
                         enemyNewHp: this.enemyHealth,
                         enemyName: this.enemyName,
+                        playerPrevPos: this.playerPrevPos,
                         destroyedEnemies: [...this.destroyedEnemies, this.enemyName]
                     });
                     this.scene.stop("fightScene");

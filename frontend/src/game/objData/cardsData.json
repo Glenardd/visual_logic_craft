@@ -284,7 +284,7 @@
       }
     ],
     "effect": "Deal 5 damage to the enemy.",
-    "value": 5
+    "value": 100
   },{
     "card_name": "Array Antelope",
     "concept": "Arrays",
