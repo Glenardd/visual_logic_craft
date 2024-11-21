@@ -1,5 +1,5 @@
 class PlayerLivesCount extends Phaser.GameObjects.Container {
-    constructor(scene, x, y, currentLives, maxLives) {
+    constructor(scene, x, y, currentLives, maxLives, destroyedEnemies) {
         super(scene, x, y);
 
         this.scene = scene;
@@ -8,6 +8,7 @@ class PlayerLivesCount extends Phaser.GameObjects.Container {
 
         this.drawLives();
         this.scene.add.existing(this);
+        this.destroyedEnemies = destroyedEnemies;
     }
 
     Subtract(value) {
@@ -18,7 +19,7 @@ class PlayerLivesCount extends Phaser.GameObjects.Container {
             this.currentLives = this.lives; // Reset lives for next session
         } else {
             // Restart the current scene with remaining lives
-            this.scene.scene.restart({ livesRemaining: this.currentLives });
+            this.scene.scene.restart({ livesRemaining: this.currentLives, destroyedEnemies: this.destroyedEnemies });
         };
     };
 
