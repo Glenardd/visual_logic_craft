@@ -69,11 +69,11 @@ class MissionOne extends Phaser.Scene {
                 enemyGroup.destroyEnemy(enemyName);
             };
         });
+
+        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies);
     };
 
     update() {
-
-        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies);
         this.player.setCameraOffset(this.cameras, this.Width);
         this.player.setPlayerMovement();
 
