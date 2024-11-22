@@ -11,7 +11,7 @@ class PauseMenu extends Phaser.Scene{
         
         console.log("prev: ",data.previousScene);
 
-        const visibility = 0.5;
+        const visibility = 0;
 
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
@@ -20,18 +20,39 @@ class PauseMenu extends Phaser.Scene{
         const lineX = addLine.createVerticalLine(0.5, visibility).PosX; // Full visibility for vertical line
         const lineY = addLine.createHorizontalLine(0.5, visibility).PosY; // Half visibility for horizontal line
 
-        this.scene.pause(data.previousScene);
+        this.previousScene = data.previousScene;
+
+        this.scene.pause(this.previousScene);
         this.cameras.main.setBackgroundColor("#74874e");
 
+        this.layout = this.add.container(lineX, lineY);
+        
+        this.resumeBtn();
+        this.LevelSelectBtn();
+    };
+
+    resumeBtn(){
         const resumeEvent = () =>{
-            console.log("resume: ",`${data.previousScene}` );
-            this.scene.resume(`${data.previousScene}`);
+            console.log("resume: ",`${this.previousScene}` );
+            this.scene.resume(this.previousScene);
             this.scene.stop("pauseMenu");
         };
 
-        this.add.container(lineX, lineY).add(new ButtonCreate(this,0,0, "Resume", 25, 50, 150, 0xe85f5f,0x914c4c, resumeEvent, true).setCenter());
-
+        const resumeBtn = new ButtonCreate(this,0,-50, "Resume", 25, 100, 300, 0xe85f5f,0x914c4c, resumeEvent, true).setCenter();
+        this.layout.add(resumeBtn);
     };
+
+    LevelSelectBtn(){
+        const goLevelSelect = () =>{
+            console.log("resume: ",`${this.previousScene}` );
+            this.scene.start("levelSelect");
+            this.scene.stop("pauseMenu");
+            this.scene.stop(this.previousScene);
+        };
+
+        const levelSelectBtn = new ButtonCreate(this,0,100, "Quit", 25, 100, 300, 0xe85f5f,0x914c4c, goLevelSelect, true).setCenter();
+        this.layout.add(levelSelectBtn);
+    }
 };
 
 export default PauseMenu;
