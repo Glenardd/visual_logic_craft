@@ -1,9 +1,9 @@
 import ButtonCreate from "../../utils/addButton";
 import AddLine from "../../utils/addLayoutGuide";
 
-export const pauseBtn = (scene, width, height, destroyedEnemies) =>{
+export const pauseBtn = (scene, width, height, destroyedEnemies, lives) =>{
     const returnEvent = () =>{
-        scene.scene.launch("pauseMenu", {previousScene: scene.scene.key, destroyedEnemies: destroyedEnemies});
+        scene.scene.launch("pauseMenu", {previousScene: scene.scene.key, destroyedEnemies: destroyedEnemies, lives: lives});
     };
 
     const visibility = 0;

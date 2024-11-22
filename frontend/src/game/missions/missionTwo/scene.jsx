@@ -67,7 +67,7 @@ class MissionTwo extends Phaser.Scene {
                 enemyGroup.destroyEnemy(enemyName);
             };
         });
-        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies);
+        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives);
     };  
 
     update() {

@@ -70,7 +70,7 @@ class MissionOne extends Phaser.Scene {
             };
         });
 
-        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies);
+        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives);
     };
 
     update() {

@@ -21,6 +21,7 @@ class PauseMenu extends Phaser.Scene{
         const lineY = addLine.createHorizontalLine(0.5, visibility).PosY; // Half visibility for horizontal line
 
         this.previousScene = data.previousScene;
+        this.lives = data.lives;
 
         this.scene.pause(this.previousScene);
         this.cameras.main.setBackgroundColor("#74874e");
@@ -44,8 +45,8 @@ class PauseMenu extends Phaser.Scene{
 
     LevelSelectBtn(){
         const goLevelSelect = () =>{
-            console.log("resume: ",`${this.previousScene}` );
-            this.scene.start("levelSelect");
+            console.log("quit: ",`${this.previousScene}` );
+            this.scene.start("levelSelect", {livesRemaining: this.lives, destroyedEnemies: []});
             this.scene.stop("pauseMenu");
             this.scene.stop(this.previousScene);
         };

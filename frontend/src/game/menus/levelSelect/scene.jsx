@@ -7,7 +7,10 @@ class LevelSelect extends Phaser.Scene{
         this.changeScene = this.changeScene.bind(this);
     };
 
-    create(){
+    create(data){
+
+        this.livesRemaining = data.livesRemaining;
+        this.destroyedEnemies = data.destroyedEnemies;
 
         this.Width = this.scale.width;
         this.Height = this.scale.height
@@ -26,19 +29,19 @@ class LevelSelect extends Phaser.Scene{
 
     levelSelectbtn(){
 
-        const missionOneBtn = new ButtonCreate(this,0,0, "Mission One",25, 100,200, 0x88d17b,0x5e9654, ()=>this.changeScene("missionOne"),true);
+        const missionOneBtn = new ButtonCreate(this,0,0, "Mission One",25, 100,200, 0x88d17b,0x5e9654, ()=>this.changeScene("missionOne", this.livesRemaining),true);
         missionOneBtn.setInteractivity(true);
         missionOneBtn.setCenter();
         this.levelSelection.add(missionOneBtn);
 
-        const missionTwoBtn = new ButtonCreate(this,0,100, "Mission Two",25, 100,200 ,0x88d17b,0x5e9654, ()=>this.changeScene("missionTwo"),true);
+        const missionTwoBtn = new ButtonCreate(this,0,100, "Mission Two",25, 100,200 ,0x88d17b,0x5e9654, ()=>this.changeScene("missionTwo", this.livesRemaining),true);
         missionTwoBtn.setInteractivity(true);
         missionTwoBtn.setCenter();
         this.levelSelection.add(missionTwoBtn);
     };
 
-    changeScene(sceneName){
-        this.scene.start(sceneName); 
+    changeScene(sceneName, livesRemaining, destroyedEnemies){
+        this.scene.start(sceneName, {livesRemaining:livesRemaining, destroyedEnemies, destroyedEnemies}); 
         this.scene.stop("levelSelect");
     };
 };
