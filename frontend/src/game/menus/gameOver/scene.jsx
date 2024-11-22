@@ -31,6 +31,7 @@ class GameOver extends Phaser.Scene{
 
         this.layout.add(this.gameOverText);
         this.restartBtn();
+        this.levelSelectBtn();
     };
 
     restartBtn(){
@@ -39,7 +40,15 @@ class GameOver extends Phaser.Scene{
         restartBtn.setInteractivity(true)
         restartBtn.setCenter();
         this.layout.add(restartBtn);
-    }
+    };
+
+    levelSelectBtn(){
+        //go back to level select
+        const levelSelect = new ButtonCreate(this, 0, 120, "Level Select", 25, 80, 200, 0x88d17b, 0x5e9654, ()=>this.changeScene("levelSelect"), true);
+        levelSelect.setInteractivity(true)
+        levelSelect.setCenter();
+        this.layout.add(levelSelect);
+    };
 
     //changes scene
     changeScene(sceneName){
