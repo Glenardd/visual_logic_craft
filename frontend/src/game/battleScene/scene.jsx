@@ -488,7 +488,8 @@ class FightScene extends Phaser.Scene {
                         enemyNewHp: this.enemyHealth,
                         enemyName: this.enemyName,
                         playerPrevPos: this.playerPrevPos,
-                        destroyedEnemies: [...this.destroyedEnemies, this.enemyName]
+                        destroyedEnemies: [...this.destroyedEnemies, this.enemyName],
+                        livesRemaining: this.livesRemaining,
                     });
                     this.scene.stop("fightScene");
                 };
