@@ -21,7 +21,6 @@ class FightScene extends Phaser.Scene {
     create(data) {
         //the player current lives count
         this.livesRemaining = data.livesRemaining;
-        console.log(this.livesRemaining);
         
         //enemy information
         this.enemyHealth = data.enemyHp || 100;
