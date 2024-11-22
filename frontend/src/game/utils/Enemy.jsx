@@ -47,6 +47,8 @@ class Enemy extends Phaser.GameObjects.Rectangle{
         });
         this.nameText.setOrigin(0.5, 0.5);
 
+        this.nameText.setVisible(false);
+
         // Link the text's position to the enemy's position
         scene.add.existing(this.nameText);
         //add the rect to the scene
