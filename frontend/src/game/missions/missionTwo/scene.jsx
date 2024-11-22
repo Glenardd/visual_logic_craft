@@ -37,15 +37,15 @@ class MissionTwo extends Phaser.Scene {
         const container = this.add.container(width/2, height / 2);
         
         //when player returns to this scene
-        const playerX = width*-0.4;
-        const playerY = 0;
+        const playerX =  data.playerPrevPos?.x || width*-0.4;
+        const playerY =  data.playerPrevPos?.y || 0;
 
         const visibility = 0;
 
         const addLine = new AddLine(this, width, height);
         const lineX = addLine.createVerticalLine(0.07, visibility).PosX; // Full visibility for vertical line
         const lineY = addLine.createHorizontalLine(0.03, visibility).PosY; // Half visibility for horizontal line
-        this.livesCount = new PlayerLivesCount(this, lineX, lineY, this.livesRemaining);
+        this.livesCount = new PlayerLivesCount(this, lineX, lineY, this.livesRemaining, 3, this.destroyedEnemies);
 
         this.player = new Player(this, playerX,playerY, 90, 90, 0xed5f5f, "Player 1");
         this.player.addPhysics();
@@ -58,9 +58,9 @@ class MissionTwo extends Phaser.Scene {
         addNewPlatform.addPlatforms();
 
         const platform = addNewPlatform.platformGroup.children.entries;
-        const platformEnemy1 = new EnemyCreate(this, platform[1], 2, this.player, "group 1", this.destroyedEnemies);
-        const platformEnemy2 = new EnemyCreate(this, platform[2], 1, this.player, "group 2", this.destroyedEnemies);
-        const platformEnemy3 = new EnemyCreate(this, platform[4], 2, this.player, "group 3", this.destroyedEnemies);
+        const platformEnemy1 = new EnemyCreate(this, platform[1], 1, this.player, "group 1", this.destroyedEnemies, this.livesRemaining);
+        const platformEnemy2 = new EnemyCreate(this, platform[2], 1, this.player, "group 2", this.destroyedEnemies, this.livesRemaining);
+        const platformEnemy3 = new EnemyCreate(this, platform[4], 1, this.player, "group 3", this.destroyedEnemies, this.livesRemaining);
 
         [platformEnemy1, platformEnemy2, platformEnemy3].forEach(enemyGroup => {
             if(enemyNewHp === 0){
