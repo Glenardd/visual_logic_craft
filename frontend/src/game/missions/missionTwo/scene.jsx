@@ -3,7 +3,7 @@ import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
 //background
-import background from "../../../assets/background/Hills_Layer_01.png";
+import background from "../../../assets/background_mission_two/Hills_Layer_01.png";
 
 import {pauseBtn} from "../../buttons/pauseButton/pauseBtn";
 import { platformsDataMissionTwo } from "../../objData/platformData";
