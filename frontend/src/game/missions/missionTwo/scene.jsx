@@ -2,6 +2,8 @@ import PlatformCreate from "../../utils/addPlatforms";
 import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
+//background
+
 import {pauseBtn} from "../../buttons/pauseButton/pauseBtn";
 import { platformsDataMissionTwo } from "../../objData/platformData";
 import PlayerLivesCount from "../../utils/playerLivesCount";
