@@ -3,6 +3,7 @@ import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
 //background
+import background from "../../../assets/background/Hills_Layer_01.png";
 
 import {pauseBtn} from "../../buttons/pauseButton/pauseBtn";
 import { platformsDataMissionTwo } from "../../objData/platformData";
@@ -12,6 +13,10 @@ import AddLine from "../../utils/addLayoutGuide";
 class MissionTwo extends Phaser.Scene {
     constructor() {
         super({ key: "missionTwo" });
+    };
+
+    preload(){
+        this.load.image('background', background);
     };
 
     create(data) {
@@ -35,6 +40,12 @@ class MissionTwo extends Phaser.Scene {
         const width = this.Width;
         const height = this.Height;
 
+        //add the bg
+        this.backGround = this.add.image(0,0, 'background')
+        this.backGround.setScrollFactor(0);
+        this.backGround.setOrigin(0);
+        this.backGround.setDisplaySize(width, height);
+        
         //container
         const container = this.add.container(width/2, height / 2);
         
