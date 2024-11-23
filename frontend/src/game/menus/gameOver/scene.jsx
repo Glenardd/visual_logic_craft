@@ -15,7 +15,7 @@ class GameOver extends Phaser.Scene{
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
 
-        const visibility = 0.2;
+        const visibility = 0;
 
         const addLine = new AddLine(this, width, height);
         const lineX = addLine.createVerticalLine(0.5, visibility).PosX;

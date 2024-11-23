@@ -2,11 +2,6 @@ import PlatformCreate from "../../utils/addPlatforms";
 import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
-//background
-import background from "../../../assets/background_mission_one/cloud_bg.png";
-import foreground from "../../../assets/background_mission_one/cloud_fg.png";
-import foreground_two from "../../../assets/background_mission_one/cloud_fg_two.png"
-
 import { platformsDataMissionOne } from "../../objData/platformData";
 import { pauseBtn } from "../../buttons/pauseButton/pauseBtn";
 import PlayerLivesCount from "../../utils/playerLivesCount";
@@ -15,12 +10,6 @@ import AddLine from "../../utils/addLayoutGuide";
 class MissionOne extends Phaser.Scene {
     constructor() {
         super({ key: "missionOne" });
-    };
-
-    preload(){
-        this.load.image("background_1", background);
-        this.load.image("foreground_1", foreground);
-        this.load.image("foreground_two_1", foreground_two);
     };
 
     create(data) {
@@ -47,10 +36,11 @@ class MissionOne extends Phaser.Scene {
         const height = this.Height;
 
         //json the preloaded assets
+        const assetLoad = data.assetImg;
         const assets = {
-            background: "background_1",
-            foreground: "foreground_1",
-            foreground_two: "foreground_two_1",
+            background: assetLoad.background,
+            foreground: assetLoad.foreground,
+            foreground_two: assetLoad.foreGround_two,
         };
 
         //add the bg

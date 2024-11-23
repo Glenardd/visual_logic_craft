@@ -39,7 +39,7 @@ class FightScene extends Phaser.Scene {
         const height = this.scale.height;
 
         //background data
-        const asset = data.assetImg;
+        this.asset = data.assetImg;
 
         //create grid for layout guide
         const line = new AddLine(this, width, height);
@@ -73,7 +73,7 @@ class FightScene extends Phaser.Scene {
         const attemptsUi = this.add.container(third_Vline.PosX, fourth_Hline.PosY);
 
         //load the background images
-        const bg =this.add.image(0,0, asset.background);
+        const bg =this.add.image(0,0, this.asset.background);
         bg.setScrollFactor(0);
         bg.setOrigin(0);
         bg.setDisplaySize(width,height/2+80);
@@ -498,6 +498,7 @@ class FightScene extends Phaser.Scene {
                         playerPrevPos: this.playerPrevPos,
                         destroyedEnemies: [...this.destroyedEnemies, this.enemyName],
                         livesRemaining: this.livesRemaining,
+                        assetImg: this.asset,
                     });
                     this.scene.stop("fightScene");
                 };
