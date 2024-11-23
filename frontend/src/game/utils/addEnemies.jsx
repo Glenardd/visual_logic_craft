@@ -1,6 +1,6 @@
 import Enemy from "./Enemy";
 class EnemyCreate{
-    constructor(scene ,ground, numberOfEnemies, player,tags, destroyedEnemies, playerRemainingLives){
+    constructor(scene ,ground, numberOfEnemies, player,tags, destroyedEnemies, playerRemainingLives, assetImg){
 
         this.player = player;
         this.scene = scene;
@@ -30,6 +30,7 @@ class EnemyCreate{
             this.allEnemies.push(this.enemy);
         };  
 
+        //this will initiate fight scene
         const hit = (player, enemy) => {
             this.scene.scene.launch("fightScene", {
                 enemyName: enemy.name, 
@@ -44,6 +45,7 @@ class EnemyCreate{
                 },
                 livesRemaining: playerRemainingLives,
                 currentScene: this.scene.scene.key,
+                assetImg: assetImg,
             });
             this.scene.scene.stop("missionOne");
             this.scene.scene.stop("missionTwo");

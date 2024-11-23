@@ -4,7 +4,7 @@ import AddLine from "../utils/addLayoutGuide.jsx";
 import CreateCard from "../utils/addCards.jsx";
 import HealthBar from "../utils/healthBar.jsx";
 import { pauseBtn } from "../buttons/pauseButton/pauseBtn.jsx";
-
+  
 class FightScene extends Phaser.Scene {
     constructor() {
         super({ key: "fightScene" });
@@ -19,6 +19,7 @@ class FightScene extends Phaser.Scene {
     };
 
     create(data) {
+
         //the player current lives count
         this.livesRemaining = data.livesRemaining;
         
@@ -36,6 +37,9 @@ class FightScene extends Phaser.Scene {
 
         const width = this.scale.width;
         const height = this.scale.height;
+
+        //background data
+        const asset = data.assetImg;
 
         //create grid for layout guide
         const line = new AddLine(this, width, height);
@@ -69,6 +73,14 @@ class FightScene extends Phaser.Scene {
         const deselectBtn = this.add.container(first_Vline.PosX, third_Hline.PosY);
         const cards = this.add.container(third_Vline.PosX, second_Hline.PosY);
         const attemptsUi = this.add.container(third_Vline.PosX, fourth_Hline.PosY);
+
+        //load the background images
+        //background
+        const bg =this.add.image(0,5, asset.background);
+        bg.setScrollFactor(0);
+        bg.setOrigin(0);
+        bg.setDisplaySize(width,height/2);
+        bg.setDepth(-1);
 
         //enemy health bar
         this.enemyHpBar = new HealthBar(this, enemyHealthbar_Vline.PosX, enemyHealthbar_Hline.PosY, this.enemyHealth, "enemy", "Enemy");
