@@ -2,6 +2,11 @@ import PlatformCreate from "../../utils/addPlatforms";
 import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
+//background
+import background from "../../../assets/background_mission_one/cloud_bg.png";
+import foreground from "../../../assets/background_mission_one/cloud_fg.png";
+import foreground_two from "../../../assets/background_mission_one/cloud_fg_two.png"
+
 import { platformsDataMissionOne } from "../../objData/platformData";
 import { pauseBtn } from "../../buttons/pauseButton/pauseBtn";
 import PlayerLivesCount from "../../utils/playerLivesCount";
@@ -13,7 +18,9 @@ class MissionOne extends Phaser.Scene {
     };
 
     preload(){
-
+        this.load.image("background", background);
+        this.load.image("foreground", foreground);
+        this.load.image("foreground_two", foreground_two);
     };
 
     create(data) {
