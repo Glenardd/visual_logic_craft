@@ -73,7 +73,7 @@ class MissionOne extends Phaser.Scene {
         const addLine = new AddLine(this, width, height);
         const lineX = addLine.createVerticalLine(0.07, visibility).PosX; // Full visibility for vertical line
         const lineY = addLine.createHorizontalLine(0.03, visibility).PosY; // Half visibility for horizontal line
-        this.livesCount = new PlayerLivesCount(this, lineX, lineY, this.livesRemaining, 3, this.destroyedEnemies);
+        this.livesCount = new PlayerLivesCount(this, lineX, lineY, this.livesRemaining, 3, this.destroyedEnemies, assets);
 
         this.player = new Player(this, playerX,playerY, 90, 90, 0xed5f5f, "Player 1");
         this.player.addPhysics();

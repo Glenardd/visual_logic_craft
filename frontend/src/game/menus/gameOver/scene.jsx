@@ -8,7 +8,8 @@ class GameOver extends Phaser.Scene{
 
     create(data){
         console.log("Game over");
-
+        
+        this.assets = data.assetImg;
         this.lives = data.lives;
         this.previousScene = data.previousScene;
         
@@ -52,7 +53,7 @@ class GameOver extends Phaser.Scene{
 
     //changes scene
     changeScene(sceneName){
-        this.scene.start(sceneName, {livesRemaining: this.lives}); 
+        this.scene.start(sceneName, {livesRemaining: this.lives, assetImg: this.assets}); 
         this.scene.stop("gameOver");
     };
 };

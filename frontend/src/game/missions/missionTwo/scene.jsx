@@ -3,9 +3,9 @@ import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
 //background
-import background from "../../../assets/background_mission_two/Hills_Layer_01.png";
-import foreground from "../../../assets/background_mission_two/Hills_Layer_02.png";
-import foreground_two from "../../../assets/background_mission_two/Hills_Layer_03.png"
+// import background from "../../../assets/background_mission_two/Hills_Layer_01.png";
+// import foreground from "../../../assets/background_mission_two/Hills_Layer_02.png";
+// import foreground_two from "../../../assets/background_mission_two/Hills_Layer_03.png"
 
 import {pauseBtn} from "../../buttons/pauseButton/pauseBtn";
 import { platformsDataMissionTwo } from "../../objData/platformData";
@@ -17,12 +17,12 @@ class MissionTwo extends Phaser.Scene {
         super({ key: "missionTwo" });
     };
 
-    preload(){
-        //backgrounds
-        this.load.image("background_2", background);
-        this.load.image("foreground_2", foreground);
-        this.load.image("foreground_two_2", foreground_two);
-    };
+    // preload(){
+    //     //backgrounds
+    //     this.load.image("background_2", background);
+    //     this.load.image("foreground_2", foreground);
+    //     this.load.image("foreground_two_2", foreground_two);
+    // };
 
     create(data) {
 
@@ -46,11 +46,12 @@ class MissionTwo extends Phaser.Scene {
         const height = this.Height;
 
          //json the preloaded assets
-         const assets = {
-            background: "background_2",
-            foreground: "foreground_2",
-            foreground_two: "foreground_two_2",
-        };
+        const assetLoad = data.assetImg;
+        const assets = {
+            background: assetLoad.background,
+            foreground: assetLoad.foreground,
+            foreground_two: assetLoad.foreGround_two,
+        }; 
 
         //add the bg
         this.backGround = this.add.image(0,0, assets.background);
@@ -82,7 +83,7 @@ class MissionTwo extends Phaser.Scene {
         const addLine = new AddLine(this, width, height);
         const lineX = addLine.createVerticalLine(0.07, visibility).PosX; // Full visibility for vertical line
         const lineY = addLine.createHorizontalLine(0.03, visibility).PosY; // Half visibility for horizontal line
-        this.livesCount = new PlayerLivesCount(this, lineX, lineY, this.livesRemaining, 3, this.destroyedEnemies);
+        this.livesCount = new PlayerLivesCount(this, lineX, lineY, this.livesRemaining, 3, this.destroyedEnemies, assets);
 
         this.player = new Player(this, playerX,playerY, 90, 90, 0xed5f5f, "Player 1");
         this.player.addPhysics();
