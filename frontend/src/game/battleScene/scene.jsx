@@ -50,13 +50,11 @@ class FightScene extends Phaser.Scene {
         const first_Vline = line.createVerticalLine(0.25, visible);
         const second_Vline = line.createVerticalLine(0.48, visible);
         const third_Vline = line.createVerticalLine(0.07, visible);
-        const topUi_Vline = line.createVerticalLine(0.6, visible);
 
         const first_Hline = line.createHorizontalLine(0.55, visible);
         const second_Hline = line.createHorizontalLine(0.57, visible);
         const third_Hline = line.createHorizontalLine(0.9, visible);
         const fourth_Hline = line.createHorizontalLine(0.51, visible);
-        const topUi_Hline = line.createHorizontalLine(0.05, visible);
         const enemyAndPlayer_Hline = line.createHorizontalLine(0.4, visible);
         const enemyHealthbar_Hline = line.createHorizontalLine(0.12, visible);
         const enemyHealthbar_Vline = line.createVerticalLine(0.58, visible);
