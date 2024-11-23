@@ -46,6 +46,24 @@ class MissionOne extends Phaser.Scene {
         const width = this.Width;
         const height = this.Height;
 
+        //add the bg
+        this.backGround = this.add.image(0,0, 'background');
+        this.backGround.setScrollFactor(0);
+        this.backGround.setOrigin(0);
+        this.backGround.setDisplaySize(width, height);
+
+        //add the fg
+        this.foreGround = this.add.tileSprite(0,0,width,0, 'foreground');
+        this.foreGround.setScrollFactor(0.25);
+        this.foreGround.setOrigin(0);
+        this.foreGround.setScale(5);
+
+        //add second fg
+        this.foreGround_two = this.add.tileSprite(0,100,width,0, 'foreground_two');
+        this.foreGround_two.setScrollFactor(0.5);
+        this.foreGround_two.setOrigin(0);
+        this.foreGround_two.setScale(5);
+
         //container
         const container = this.add.container(width/ 2, height / 2);
         
