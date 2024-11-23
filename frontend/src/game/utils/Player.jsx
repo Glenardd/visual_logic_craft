@@ -39,16 +39,17 @@ class Player extends Phaser.GameObjects.Rectangle{
 
     setPlayerMovement(){
         // Handle keydown events
-        
         this.scene.input.keyboard.on('keydown', (event) => {
             // Move Right
             if (event.key === "d" || event.key === "D" ) {
                 this.body.setVelocityX(360);
+                
             }
             // Move Left
             else if (event.key === "a" || event.key === "A") {
                 this.body.setVelocityX(-360);
-            }
+                
+            };
 
             // Jump
             if ((event.key === "w" || event.key === "W") && this.body.touching.down) {

@@ -4,6 +4,8 @@ import Player from "../../utils/Player";
 
 //background
 import background from "../../../assets/background_mission_two/Hills_Layer_01.png";
+import foreground from "../../../assets/background_mission_two/Hills_Layer_02.png";
+import foreground_two from "../../../assets/background_mission_two/Hills_Layer_03.png"
 
 import {pauseBtn} from "../../buttons/pauseButton/pauseBtn";
 import { platformsDataMissionTwo } from "../../objData/platformData";
@@ -16,7 +18,10 @@ class MissionTwo extends Phaser.Scene {
     };
 
     preload(){
-        this.load.image('background', background);
+        //backgrounds
+        this.load.image("background", background);
+        this.load.image("foreground", foreground);
+        this.load.image("foreground_two", foreground_two);
     };
 
     create(data) {
@@ -41,10 +46,22 @@ class MissionTwo extends Phaser.Scene {
         const height = this.Height;
 
         //add the bg
-        this.backGround = this.add.image(0,0, 'background')
+        this.backGround = this.add.image(0,0, 'background');
         this.backGround.setScrollFactor(0);
         this.backGround.setOrigin(0);
         this.backGround.setDisplaySize(width, height);
+
+        //add the fg
+        this.foreGround = this.add.tileSprite(0,0,width,0, 'foreground');
+        this.foreGround.setScrollFactor(0.25);
+        this.foreGround.setOrigin(0);
+        this.foreGround.setScale(5);
+
+        //add second fg
+        this.foreGround_two = this.add.tileSprite(0,100,width,0, 'foreground_two');
+        this.foreGround_two.setScrollFactor(0.5);
+        this.foreGround_two.setOrigin(0);
+        this.foreGround_two.setScale(5);
         
         //container
         const container = this.add.container(width/2, height / 2);
@@ -85,7 +102,7 @@ class MissionTwo extends Phaser.Scene {
 
     update() {
         this.player.setCameraOffset(this.cameras, this.Width);
-        this.player.setPlayerMovement();
+        this.player.setPlayerMovement(this.foreGround);
 
         //if player falls subtract the lives
         if(this.player.y >= 700){
