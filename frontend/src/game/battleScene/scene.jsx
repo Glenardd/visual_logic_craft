@@ -75,11 +75,10 @@ class FightScene extends Phaser.Scene {
         const attemptsUi = this.add.container(third_Vline.PosX, fourth_Hline.PosY);
 
         //load the background images
-        //background
-        const bg =this.add.image(0,5, asset.background);
+        const bg =this.add.image(0,0, asset.background);
         bg.setScrollFactor(0);
         bg.setOrigin(0);
-        bg.setDisplaySize(width,height/2);
+        bg.setDisplaySize(width,height/2+80);
         bg.setDepth(-1);
 
         //enemy health bar
