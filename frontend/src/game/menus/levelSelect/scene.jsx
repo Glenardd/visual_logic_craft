@@ -41,7 +41,7 @@ class LevelSelect extends Phaser.Scene{
     };
 
     changeScene(sceneName, livesRemaining, destroyedEnemies){
-        this.scene.start(sceneName, {livesRemaining:livesRemaining, destroyedEnemies, destroyedEnemies}); 
+        this.scene.start(sceneName, {livesRemaining:livesRemaining, destroyedEnemies}); 
         this.scene.stop("levelSelect");
     };
 };
