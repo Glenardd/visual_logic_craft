@@ -12,6 +12,10 @@ class MissionOne extends Phaser.Scene {
         super({ key: "missionOne" });
     };
 
+    preload(){
+
+    };
+
     create(data) {
 
         console.log("Mission 1");
