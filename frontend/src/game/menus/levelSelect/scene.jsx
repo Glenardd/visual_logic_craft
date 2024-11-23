@@ -34,7 +34,7 @@ class LevelSelect extends Phaser.Scene{
         missionOneBtn.setCenter();
         this.levelSelection.add(missionOneBtn);
 
-        const missionTwoBtn = new ButtonCreate(this,0,100, "Mission Two",25, 100,200 ,0x88d17b,0x5e9654, ()=>this.changeScene("missionTwo", this.livesRemaining),true);
+        const missionTwoBtn = new ButtonCreate(this,0,70, "Mission Two",25, 100,200 ,0x88d17b,0x5e9654, ()=>this.changeScene("missionTwo", this.livesRemaining),true);
         missionTwoBtn.setInteractivity(true);
         missionTwoBtn.setCenter();
         this.levelSelection.add(missionTwoBtn);
