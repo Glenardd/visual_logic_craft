@@ -30,8 +30,10 @@ class PauseMenu extends Phaser.Scene{
         
         this.resumeBtn();
         this.LevelSelectBtn();
+        this.toggleMusic();
     };
 
+    //resume button
     resumeBtn(){
         const resumeEvent = () =>{
             console.log("resume: ",`${this.previousScene}` );
@@ -43,6 +45,16 @@ class PauseMenu extends Phaser.Scene{
         this.layout.add(resumeBtn);
     };
 
+    toggleMusic(){
+        const music = () =>{
+            console.log("music playing");
+        };
+
+        const toggleMusicBtn = new ButtonCreate(this,0,25, "music", 25, 100, 300, 0xe85f5f,0x914c4c, music, true).setCenter()
+        this.layout.add(toggleMusicBtn);
+    };
+
+    //go back to level selection
     LevelSelectBtn(){
         const goLevelSelect = () =>{
             console.log("quit: ",`${this.previousScene}` );
