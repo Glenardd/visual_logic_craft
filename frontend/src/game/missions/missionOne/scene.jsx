@@ -84,7 +84,7 @@ class MissionOne extends Phaser.Scene {
         const platform = addNewPlatform.platformGroup.children.entries;
         const platformEnemy1 = new EnemyCreate(this, platform[1], 1, this.player, "Enemy 1", this.destroyedEnemies, this.livesRemaining, assets);
         const platformEnemy2 = new EnemyCreate(this, platform[2], 1, this.player, "Enemy 2", this.destroyedEnemies, this.livesRemaining, assets);
-        const platformEnemy3 = new EnemyCreate(this, platform[4], 2, this.player, "Enemy 3", this.destroyedEnemies, this.livesRemaining, assets);
+        const platformEnemy3 = new EnemyCreate(this, platform[4], 1, this.player, "Enemy 3", this.destroyedEnemies, this.livesRemaining, assets);
 
         [platformEnemy1, platformEnemy2, platformEnemy3].forEach(enemyGroup => {
             if(enemyNewHp === 0){
@@ -95,9 +95,7 @@ class MissionOne extends Phaser.Scene {
         //checks if all enemies are destroyed empty
         const allEmpty = [platformEnemy1, platformEnemy2, platformEnemy3].every(platform => platform.allEnemies.length === 0);
         if(allEmpty){
-            addNewPlatform.door(5);
-
-            //missionAccomplish scene here
+            addNewPlatform.door(5, this.livesCount.lives, assets);
         };
 
         const x = data.playerPrevPos?.x || platform[0].width/2 + platform[0].x;

@@ -27,9 +27,6 @@ class GameOver extends Phaser.Scene{
         this.gameOverText = this.add.text(0,0,"GAME OVER", {fontSize: "80px"});
         this.gameOverText.setOrigin(0.5); 
 
-        
-        //go to level select
-
         this.layout.add(this.gameOverText);
         this.restartBtn();
         this.levelSelectBtn();

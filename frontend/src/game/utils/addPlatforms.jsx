@@ -31,7 +31,7 @@ class PlatformCreate {
     };
     
     //door exit
-    door(index){
+    door(index, livesRemaining, assetImg){
         console.log(this.platforms[index]);
 
         const platformIndex = this.platforms[index];
@@ -40,7 +40,7 @@ class PlatformCreate {
         const doorX = platformIndex.width/2 + platformIndex.x;
 
         const collideDoor = () =>{
-            this.scene.scene.start("missionFinish");
+            this.scene.scene.start("missionFinish", {previousScene: this.scene.scene.key ,destroyedEnemies: [], livesRemaining: livesRemaining, assetImg: assetImg});
             //stop the current scene
             this.scene.scene.stop();
         };
