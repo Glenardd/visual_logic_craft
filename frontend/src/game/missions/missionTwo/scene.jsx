@@ -2,7 +2,7 @@ import PlatformCreate from "../../utils/addPlatforms";
 import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
-import {pauseBtn} from "../../buttons/pauseButton/pauseBtn";
+import {pauseBtn} from "../../ui/pauseButton/pauseBtn";
 import { platformsDataMissionTwo } from "../../objData/platformData";
 import PlayerLivesCount from "../../utils/playerLivesCount";
 import AddLine from "../../utils/addLayoutGuide";

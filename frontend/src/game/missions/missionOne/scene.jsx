@@ -3,7 +3,7 @@ import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
 import { platformsDataMissionOne } from "../../objData/platformData";
-import { pauseBtn } from "../../buttons/pauseButton/pauseBtn";
+import { pauseBtn } from "../../ui/pauseButton/pauseBtn";
 import PlayerLivesCount from "../../utils/playerLivesCount";
 import AddLine from "../../utils/addLayoutGuide";
 
