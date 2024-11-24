@@ -12,6 +12,7 @@ class EnemyCreate{
         this.groundX = this.groundObj.x;
         this.groundY = this.groundObj.y;
         this.groundWidth = this.groundObj.width;
+        this.groundHeight = this.groundObj.height;
         this.spacing = this.groundWidth / (this.numberOfEnemies + 1);
 
         this.allEnemies =[];
@@ -23,9 +24,10 @@ class EnemyCreate{
             if (this.destroyedEnemies.includes(enemyName)) continue;
 
             this.enemyX = this.groundX - this.groundWidth / 2 + (i + 2) * this.spacing;
-            this.enemyY = this.groundY - 500;
+            this.enemyY = this.groundY - this.groundHeight/2;
 
             this.enemy = new Enemy(this.scene, this.enemyX, this.enemyY, 100,120, 0x39cc8a, ground,enemyName);
+            this.enemy.setOrigin(0.5,1);
             this.enemy.health = 100;
             this.allEnemies.push(this.enemy);
         };  
