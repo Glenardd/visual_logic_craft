@@ -96,6 +96,8 @@ class MissionOne extends Phaser.Scene {
         const allEmpty = [platformEnemy1, platformEnemy2, platformEnemy3].every(platform => platform.allEnemies.length === 0);
         if(allEmpty){
             addNewPlatform.door(5);
+
+            //missionAccomplish scene here
         };
 
         const x = data.playerPrevPos?.x || platform[0].width/2 + platform[0].x;
