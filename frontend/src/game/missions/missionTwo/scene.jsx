@@ -94,6 +94,7 @@ class MissionTwo extends Phaser.Scene {
         this.platformGroup = this.physics.add.staticGroup();
         const addNewPlatform = new PlatformCreate(this, this.player, this.platformGroup, platformsDataMissionTwo, 0xc9a85b);
         addNewPlatform.addPlatforms();
+        addNewPlatform.door(0);
 
         const platform = addNewPlatform.platformGroup.children.entries;
         const platformEnemy1 = new EnemyCreate(this, platform[1], 2, this.player, "Enemy 1", this.destroyedEnemies, this.livesRemaining, assets);
