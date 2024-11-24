@@ -38,7 +38,7 @@ class MissionTwo extends Phaser.Scene {
         const assets = {
             background: assetLoad.background,
             foreground: assetLoad.foreground,
-            foreground_two: assetLoad.foreGround_two,
+            foreground_two: assetLoad.foreground_two,
         }; 
 
         //add the bg
