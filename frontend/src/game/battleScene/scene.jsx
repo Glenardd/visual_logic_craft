@@ -38,6 +38,8 @@ class FightScene extends Phaser.Scene {
         const width = this.scale.width;
         const height = this.scale.height;
 
+        const groundColor = data.groundColor;
+
         //background data
         this.asset = data.assetImg;
 
@@ -231,7 +233,7 @@ class FightScene extends Phaser.Scene {
         };
 
         //grass line obj
-        const groundObj = this.add.rectangle(0, 0, width, 100, 0x537d3b);
+        const groundObj = this.add.rectangle(0, 0, width, 100, groundColor);
         groundObj.setStrokeStyle(4, 0x0000)
         groundObj.setOrigin(0);
         groundPos.add(groundObj);

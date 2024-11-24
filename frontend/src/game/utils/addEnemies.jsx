@@ -1,6 +1,6 @@
 import Enemy from "./Enemy";
 class EnemyCreate{
-    constructor(scene ,ground, numberOfEnemies, player,tags, destroyedEnemies, playerRemainingLives, assetImg){
+    constructor(scene ,ground, numberOfEnemies, player,tags, destroyedEnemies, playerRemainingLives, assetImg, groundColor){
 
         this.player = player;
         this.scene = scene;
@@ -48,6 +48,7 @@ class EnemyCreate{
                 livesRemaining: playerRemainingLives,
                 currentScene: this.scene.scene.key,
                 assetImg: assetImg,
+                groundColor: groundColor,
             });
             this.scene.scene.stop("missionOne");
             this.scene.scene.stop("missionTwo");
