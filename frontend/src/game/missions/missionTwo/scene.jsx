@@ -102,7 +102,7 @@ class MissionTwo extends Phaser.Scene {
             addNewPlatform.door(5, this.livesCount.lives, assets);
         };
 
-        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives);
+        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives, assetLoad);
     };  
 
     update() {

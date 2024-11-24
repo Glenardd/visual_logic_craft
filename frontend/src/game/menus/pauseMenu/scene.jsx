@@ -22,9 +22,24 @@ class PauseMenu extends Phaser.Scene{
 
         this.previousScene = data.previousScene;
         this.lives = data.lives;
+        
+        const assets ={
+            background: data.assetImg.background,
+            foreground: data.assetImg.foreground,
+        };
+
+        //background
+        this.bg = this.add.image(0,0,assets.background);
+        this.bg.setScrollFactor(0);
+        this.bg.setOrigin(0);
+        this.bg.setScale(5);
+
+        //foreground
+        this.fg = this.add.tileSprite(0,0,width,0,assets.foreground);
+        this.fg.setOrigin(0);
+        this.fg.setScale(5);
 
         this.scene.pause(this.previousScene);
-        this.cameras.main.setBackgroundColor("#74874e");
 
         this.layout = this.add.container(lineX, lineY);
         
@@ -85,7 +100,11 @@ class PauseMenu extends Phaser.Scene{
         
         const levelSelectBtn = new ButtonCreate(this,0,125, "Exit", 25, 100, 300, 0xe85f5f,0x914c4c, goLevelSelect, true).setCenter();
         this.layout.add(levelSelectBtn);
-    }
+    };
+
+    update(){
+        this.fg.tilePositionX += 0.25;
+    };
 };
 
 export default PauseMenu;

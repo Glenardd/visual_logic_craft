@@ -105,7 +105,7 @@ class MissionOne extends Phaser.Scene {
         this.player.x = x 
         this.player.y = y; 
 
-        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives);
+        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives, assetLoad);
     };
 
     update() {
