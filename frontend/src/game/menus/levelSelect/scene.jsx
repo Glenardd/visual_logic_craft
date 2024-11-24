@@ -10,7 +10,7 @@ import foreground_two_1 from "../../../assets/background_mission_one/cloud_fg_tw
 //mission two
 import background_2 from "../../../assets/background_mission_two/Hills_Layer_01.png";
 import foreground_2 from "../../../assets/background_mission_two/Hills_Layer_02.png";
-import foreground_two_2 from "../../../assets/background_mission_two/Hills_Layer_03.png"
+import foreground_two_2 from "../../../assets/background_mission_two/Hills_Layer_03.png";
 
 class LevelSelect extends Phaser.Scene{
     constructor(){
