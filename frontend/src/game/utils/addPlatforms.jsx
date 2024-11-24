@@ -21,13 +21,24 @@ class PlatformCreate {
         const bridgeY2 = height * 0.9;
 
         // Fetch from the platform data
-        const platforms = this.missionMap(width, platformY, bridgeY1, bridgeY2, platformHeight);
+        this.platforms = this.missionMap(width, platformY, bridgeY1, bridgeY2, platformHeight);
 
         // Loop through the platform data and create platforms
-        platforms.forEach(p => {
+        this.platforms.forEach(p => {
             const platform = new Platform(this.scene, p.x, p.y, p.width, p.height, this.platformColor, this.player);
             this.platformGroup.add(platform);
         });
+    };
+
+    door(index){
+        console.log(this.platforms[index]);
+
+        const platformIndex = this.platforms[index];
+
+        const doorY  = platformIndex.y - platformIndex.height/2;
+        const doorX = platformIndex.width/2 + platformIndex.x;
+
+        this.scene.add.rectangle(doorX, doorY, 100, 100, 0xba7854).setOrigin(0.5, 1);
     };
 };
 
