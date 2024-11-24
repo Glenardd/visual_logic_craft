@@ -7,8 +7,8 @@ class Player extends Phaser.GameObjects.Rectangle{
         this.x = x;
         this.y = y;
         this.scene = scene;
+        this.setOrigin(0.5,1);
         this.playerName = playerName;
-
         this.setStrokeStyle(4, 0x0000);
         this.scene.add.existing(this);
 
@@ -34,7 +34,7 @@ class Player extends Phaser.GameObjects.Rectangle{
 
     //the position of the camera
     setCameraOffset(camera, width){
-        camera.main.followOffset.x =-width/ 2;
+        camera.main.followOffset.x =width/2;
     };
 
     setPlayerMovement(){

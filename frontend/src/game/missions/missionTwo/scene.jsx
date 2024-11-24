@@ -2,11 +2,6 @@ import PlatformCreate from "../../utils/addPlatforms";
 import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
-//background
-// import background from "../../../assets/background_mission_two/Hills_Layer_01.png";
-// import foreground from "../../../assets/background_mission_two/Hills_Layer_02.png";
-// import foreground_two from "../../../assets/background_mission_two/Hills_Layer_03.png"
-
 import {pauseBtn} from "../../buttons/pauseButton/pauseBtn";
 import { platformsDataMissionTwo } from "../../objData/platformData";
 import PlayerLivesCount from "../../utils/playerLivesCount";
@@ -16,13 +11,6 @@ class MissionTwo extends Phaser.Scene {
     constructor() {
         super({ key: "missionTwo" });
     };
-
-    // preload(){
-    //     //backgrounds
-    //     this.load.image("background_2", background);
-    //     this.load.image("foreground_2", foreground);
-    //     this.load.image("foreground_two_2", foreground_two);
-    // };
 
     create(data) {
 
@@ -71,11 +59,8 @@ class MissionTwo extends Phaser.Scene {
         this.foreGround_two.setOrigin(0);
         this.foreGround_two.setScale(5);
         
-        //container
-        const container = this.add.container(width/2, height / 2);
-        
         //when player returns to this scene
-        const playerX =  data.playerPrevPos?.x || width*-0.4;
+        const playerX =  data.playerPrevPos?.x || 0;
         const playerY =  data.playerPrevPos?.y || 0;
 
         const visibility = 0;
@@ -88,7 +73,6 @@ class MissionTwo extends Phaser.Scene {
         this.player = new Player(this, playerX,playerY, 90, 90, 0xed5f5f, "Player 1");
         this.player.addPhysics();
         this.player.setCamera(this.cameras, width, height);
-        container.add(this.player);
 
         //create the object platform class
         this.platformGroup = this.physics.add.staticGroup();
@@ -107,6 +91,11 @@ class MissionTwo extends Phaser.Scene {
         });
         pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives);
 
+        const x = platform[0].width/2 + platform[0].x;
+        const y = platform[0].y - platform[0].height/2 ;
+        this.player.x = x 
+        this.player.y = y; 
+
         //checks if all enemies are destroyed empty
         const allEmpty = [platformEnemy1, platformEnemy2, platformEnemy3].every(platform => platform.allEnemies.length === 0);
         if(allEmpty){
@@ -121,7 +110,7 @@ class MissionTwo extends Phaser.Scene {
         this.player.setPlayerMovement(this.foreGround);
 
         //if player falls subtract the lives
-        if(this.player.y >= 700){
+        if(this.player.y > this.Height){
             this.livesCount.Subtract(1);
         };
     };
