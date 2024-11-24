@@ -108,7 +108,7 @@ class MissionOne extends Phaser.Scene {
     };
 
     update() {
-        this.player.setCameraOffset(this.cameras, this.Width);
+        this.player.setCameraOffset(this.cameras);
         this.player.setPlayerMovement();
 
         //if player falls subtract the lives

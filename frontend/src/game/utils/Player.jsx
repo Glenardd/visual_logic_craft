@@ -33,8 +33,8 @@ class Player extends Phaser.GameObjects.Rectangle{
     };
 
     //the position of the camera
-    setCameraOffset(camera, width){
-        camera.main.followOffset.x =width/2;
+    setCameraOffset(camera){
+        camera.main.followOffset.set(0,0);
     };
 
     setPlayerMovement(){
