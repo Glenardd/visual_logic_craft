@@ -34,7 +34,7 @@ class EnemyCreate{
 
         //this will initiate fight scene
         const hit = (player, enemy) => {
-            this.scene.scene.launch("fightScene", {
+            this.scene.scene.start("fightScene", {
                 enemyName: enemy.name, 
                 enemyHp: enemy.health,
                 playerName: player.playerName,

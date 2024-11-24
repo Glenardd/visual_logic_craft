@@ -23,9 +23,10 @@ class PauseMenu extends Phaser.Scene{
         this.previousScene = data.previousScene;
         this.lives = data.lives;
         
+        const assetLoad = data?.assetImg;
         const assets ={
-            background: data.assetImg.background,
-            foreground: data.assetImg.foreground,
+            background: assetLoad.background,
+            foreground: assetLoad.foreground,
         };
 
         //background
