@@ -84,18 +84,23 @@ class MissionOne extends Phaser.Scene {
         this.platformGroup = this.physics.add.staticGroup();
         const addNewPlatform = new PlatformCreate(this, this.player, this.platformGroup, platformsDataMissionOne, 0x5e8c51);
         addNewPlatform.addPlatforms();
-        addNewPlatform.door(0);
 
         const platform = addNewPlatform.platformGroup.children.entries;
         const platformEnemy1 = new EnemyCreate(this, platform[1], 1, this.player, "Enemy 1", this.destroyedEnemies, this.livesRemaining, assets);
         const platformEnemy2 = new EnemyCreate(this, platform[2], 1, this.player, "Enemy 2", this.destroyedEnemies, this.livesRemaining, assets);
-        const platformEnemy3 = new EnemyCreate(this, platform[4], 1, this.player, "Enemy 3", this.destroyedEnemies, this.livesRemaining, assets);
+        const platformEnemy3 = new EnemyCreate(this, platform[4], 2, this.player, "Enemy 3", this.destroyedEnemies, this.livesRemaining, assets);
 
         [platformEnemy1, platformEnemy2, platformEnemy3].forEach(enemyGroup => {
             if(enemyNewHp === 0){
                 enemyGroup.destroyEnemy(enemyName);
             };
         });
+
+        //checks if all enemies are destroyed empty
+        const allEmpty = [platformEnemy1, platformEnemy2, platformEnemy3].every(platform => platform.allEnemies.length === 0);
+        if(allEmpty){
+            addNewPlatform.door(5);
+        };
 
         pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives);
     };

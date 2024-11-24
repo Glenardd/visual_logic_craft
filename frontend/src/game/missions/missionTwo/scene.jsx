@@ -94,7 +94,6 @@ class MissionTwo extends Phaser.Scene {
         this.platformGroup = this.physics.add.staticGroup();
         const addNewPlatform = new PlatformCreate(this, this.player, this.platformGroup, platformsDataMissionTwo, 0xc9a85b);
         addNewPlatform.addPlatforms();
-        addNewPlatform.door(0);
 
         const platform = addNewPlatform.platformGroup.children.entries;
         const platformEnemy1 = new EnemyCreate(this, platform[1], 2, this.player, "Enemy 1", this.destroyedEnemies, this.livesRemaining, assets);
@@ -106,6 +105,14 @@ class MissionTwo extends Phaser.Scene {
                 enemyGroup.destroyEnemy(enemyName);
             };
         });
+        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives);
+
+        //checks if all enemies are destroyed empty
+        const allEmpty = [platformEnemy1, platformEnemy2, platformEnemy3].every(platform => platform.allEnemies.length === 0);
+        if(allEmpty){
+            addNewPlatform.door(5);
+        };
+
         pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives);
     };  
 
