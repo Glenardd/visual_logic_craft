@@ -83,7 +83,7 @@ class PauseMenu extends Phaser.Scene{
             this.scene.start("levelSelect", {livesRemaining: this.lives, destroyedEnemies: []});
         };
         
-        const levelSelectBtn = new ButtonCreate(this,0,125, "Quit", 25, 100, 300, 0xe85f5f,0x914c4c, goLevelSelect, true).setCenter();
+        const levelSelectBtn = new ButtonCreate(this,0,125, "Exit", 25, 100, 300, 0xe85f5f,0x914c4c, goLevelSelect, true).setCenter();
         this.layout.add(levelSelectBtn);
     }
 };

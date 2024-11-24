@@ -99,7 +99,7 @@ class MissionTwo extends Phaser.Scene {
         //checks if all enemies are destroyed empty
         const allEmpty = [platformEnemy1, platformEnemy2, platformEnemy3].every(platform => platform.allEnemies.length === 0);
         if(allEmpty){
-            addNewPlatform.door(5);
+            addNewPlatform.door(5, this.livesCount.lives, assets);
         };
 
         pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives);
