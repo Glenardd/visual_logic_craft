@@ -31,6 +31,7 @@ class PauseMenu extends Phaser.Scene{
         this.resumeBtn();
         this.LevelSelectBtn();
         this.toggleMusic();
+        this.guideBtn();
     };
 
     //resume button
@@ -41,8 +42,17 @@ class PauseMenu extends Phaser.Scene{
             this.scene.stop("pauseMenu");
         };
 
-        const resumeBtn = new ButtonCreate(this,0,-50, "Resume", 25, 100, 300, 0xe85f5f,0x914c4c, resumeEvent, true).setCenter();
+        const resumeBtn = new ButtonCreate(this,0,-100, "Resume", 25, 100, 300, 0xe85f5f,0x914c4c, resumeEvent, true).setCenter();
         this.layout.add(resumeBtn);
+    };
+
+    guideBtn(){
+        const music = () =>{
+            console.log("music playing");
+        };
+
+        const toggleMusicBtn = new ButtonCreate(this,0,-25, "How to play", 25, 100, 300, 0xe85f5f,0x914c4c, music, true).setCenter()
+        this.layout.add(toggleMusicBtn);
     };
 
     toggleMusic(){
@@ -50,7 +60,7 @@ class PauseMenu extends Phaser.Scene{
             console.log("music playing");
         };
 
-        const toggleMusicBtn = new ButtonCreate(this,0,25, "music", 25, 100, 300, 0xe85f5f,0x914c4c, music, true).setCenter()
+        const toggleMusicBtn = new ButtonCreate(this,0,50, "music", 25, 100, 300, 0xe85f5f,0x914c4c, music, true).setCenter()
         this.layout.add(toggleMusicBtn);
     };
 
@@ -63,7 +73,7 @@ class PauseMenu extends Phaser.Scene{
             this.scene.start("levelSelect", {livesRemaining: this.lives, destroyedEnemies: []});
         };
 
-        const levelSelectBtn = new ButtonCreate(this,0,100, "Quit", 25, 100, 300, 0xe85f5f,0x914c4c, goLevelSelect, true).setCenter();
+        const levelSelectBtn = new ButtonCreate(this,0,125, "Quit", 25, 100, 300, 0xe85f5f,0x914c4c, goLevelSelect, true).setCenter();
         this.layout.add(levelSelectBtn);
     }
 };
