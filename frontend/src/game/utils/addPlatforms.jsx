@@ -12,10 +12,11 @@ class PlatformCreate {
     addPlatforms() {
         const width = this.scene.cameras.main.width;
         const height = this.scene.cameras.main.height;
-
+        
         const platformHeight = 700;
         const platformY = height * 1.2;
-        
+    
+        //bridge height spacing
         const bridgeY1 = height * 0.8;
         const bridgeY2 = height * 0.9;
 
