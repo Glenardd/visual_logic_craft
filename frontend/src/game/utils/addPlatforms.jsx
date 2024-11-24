@@ -29,7 +29,8 @@ class PlatformCreate {
             this.platformGroup.add(platform);
         });
     };
-
+    
+    //door exit
     door(index){
         console.log(this.platforms[index]);
 
@@ -38,7 +39,18 @@ class PlatformCreate {
         const doorY  = platformIndex.y - platformIndex.height/2;
         const doorX = platformIndex.width/2 + platformIndex.x;
 
-        this.scene.add.rectangle(doorX, doorY, 100, 100, 0xba7854).setOrigin(0.5, 1);
+        const collideDoor = () =>{
+            this.scene.scene.start("levelSelect");
+            //stop the current scene
+            this.scene.scene.stop();
+        };
+
+        //door object
+        const doorObj = this.scene.add.rectangle(doorX, doorY, 100, 150, 0xba7854).setOrigin(0.5, 1);
+        doorObj.setStrokeStyle(4, 0x0000);
+        this.scene.physics.add.existing(doorObj);
+        //door collision
+        this.scene.physics.add.overlap(this.player, doorObj, collideDoor, null , this.scene);
     };
 };
 
