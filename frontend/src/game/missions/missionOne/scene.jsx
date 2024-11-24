@@ -98,9 +98,8 @@ class MissionOne extends Phaser.Scene {
             addNewPlatform.door(5);
         };
 
-        
-        const x = platform[0].width/2 + platform[0].x;
-        const y = platform[0].y - platform[0].height/2 ;
+        const x = data.playerPrevPos?.x || platform[0].width/2 + platform[0].x;
+        const y = data.playerPrevPos?.y || platform[0].y - platform[0].height/2;
         this.player.x = x 
         this.player.y = y; 
 

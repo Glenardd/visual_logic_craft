@@ -40,7 +40,7 @@ class PlatformCreate {
         const doorX = platformIndex.width/2 + platformIndex.x;
 
         const collideDoor = () =>{
-            this.scene.scene.start("levelSelect");
+            this.scene.scene.start("missionFinish");
             //stop the current scene
             this.scene.scene.stop();
         };

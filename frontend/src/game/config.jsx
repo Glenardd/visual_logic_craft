@@ -8,6 +8,7 @@ import MissionTwo from "./missions/missionTwo/scene";
 import LevelSelect from "./menus/levelSelect/scene";
 import PauseMenu from "./menus/pauseMenu/scene";
 import GameOver from "./menus/gameOver/scene";
+import MissionAccomplish from "./menus/missionAccomplish/scene";
 
 function App() {
 
@@ -32,7 +33,7 @@ function App() {
         autoCenter: Phaser.Scale.CENTER_BOTH
       },
       parent: ".game",
-      scene: [LevelSelect,MissionTwo, MissionOne,GameOver, FightScene, PauseMenu], //LevelSelect,MissionTwo, MissionOne, FightScene, PauseMenu, GameOver
+      scene: [LevelSelect,MissionTwo, MissionOne,GameOver, FightScene, PauseMenu, MissionAccomplish], //LevelSelect,MissionTwo, MissionOne, FightScene, PauseMenu, GameOver
     };
 
     const game = new Phaser.Game(config);
