@@ -30,6 +30,17 @@ class LevelSelect extends Phaser.Scene{
 
     create(data){
 
+        //check if some scene i still running
+        /*
+            isPause()
+            isSleeping()
+            isVisible()
+            isActive()
+        */ 
+        this.scene.manager.scenes.forEach(scene =>{
+            console.log(`${scene.sys.config.key}: ${scene.sys.isPaused()}`);
+        });
+
         this.livesRemaining = data.livesRemaining;
         this.destroyedEnemies = data.destroyedEnemies;
 
@@ -74,7 +85,7 @@ class LevelSelect extends Phaser.Scene{
     };
 
     changeScene(sceneName, livesRemaining, assetImg){
-        this.scene.start(sceneName, {livesRemaining:livesRemaining, assetImg: assetImg}); 
+        this.scene.launch(sceneName, {livesRemaining:livesRemaining, assetImg: assetImg}); 
         this.scene.stop("levelSelect");
     };
 };
