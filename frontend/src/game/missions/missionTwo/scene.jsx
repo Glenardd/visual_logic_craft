@@ -89,7 +89,7 @@ class MissionTwo extends Phaser.Scene {
                 enemyGroup.destroyEnemy(enemyName);
             };
         });
-        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives);
+        new PauseButton(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount, assetLoad)
 
         const x = data.playerPrevPos?.x || platform[0].width/2 + platform[0].x;
         const y = data.playerPrevPos?.y || platform[0].y - platform[0].height/2;
