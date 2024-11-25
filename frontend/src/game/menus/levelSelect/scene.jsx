@@ -121,7 +121,7 @@ class LevelSelect extends Phaser.Scene{
                 forest_bg.y = y / textureHeight + this.Height
             };
 
-            this.bg.push({ sprite: forest_bg, speed: (i + 1) * 0.1 })
+            this.bg.push({ sprite: forest_bg, speed: (i + 1) * 0.03 })
             forest_bg.setDepth(-1);
         });
 
