@@ -3,7 +3,7 @@ import ButtonCreate from "../utils/addButton";
 import AddLine from "../utils/addLayoutGuide.jsx";
 import CreateCard from "../utils/addCards.jsx";
 import HealthBar from "../utils/healthBar.jsx";
-import { pauseBtn } from "../ui/pauseButton/pauseBtn.jsx";
+import PauseButton from "../ui/pauseButton/pauseBtn.jsx";
   
 class FightScene extends Phaser.Scene {
     constructor() {
@@ -380,7 +380,8 @@ class FightScene extends Phaser.Scene {
         this.countAttempts = this.add.text(0, 5, `Attempts: 0`, { fontSize: "40px" });
         attemptsUi.add(this.countAttempts);
 
-        pauseBtn(this, width, height,this.destroyedEnemies,this.livesRemaining,this.asset);
+        // pauseBtn(this, width, height,this.destroyedEnemies,this.livesRemaining,this.asset);
+        new PauseButton(this, width, height, this.destroyedEnemies, this.livesCount, this.asset);
     };
 
     addFloatingAnimation(object) {

@@ -2,7 +2,7 @@ import PlatformCreate from "../../utils/addPlatforms";
 import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
-import {pauseBtn} from "../../ui/pauseButton/pauseBtn";
+import PauseButton from "../../ui/pauseButton/pauseBtn";
 import { platformsDataMissionTwo } from "../../objData/platformData";
 import PlayerLivesCount from "../../utils/playerLivesCount";
 import AddLine from "../../utils/addLayoutGuide";
@@ -102,7 +102,7 @@ class MissionTwo extends Phaser.Scene {
             addNewPlatform.door(5, this.livesCount.lives, assets);
         };
 
-        pauseBtn(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount.lives, assetLoad);
+        new PauseButton(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount, assetLoad)
     };  
 
     update() {

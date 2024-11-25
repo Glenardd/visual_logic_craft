@@ -1,16 +1,39 @@
 import ButtonCreate from "../../utils/addButton";
 import AddLine from "../../utils/addLayoutGuide";
 
-export const pauseBtn = (scene, width, height, destroyedEnemies, lives, assetImg) =>{
-    const returnEvent = () =>{
-        scene.scene.launch("pauseMenu", {previousScene: scene.scene.key, destroyedEnemies: destroyedEnemies, lives: lives, assetImg: assetImg});
-    };
+class PauseButton extends Phaser.GameObjects.Container {
+    constructor(scene, width, height, destroyedEnemies, lives, assetImg) {
+        super(scene);
 
-    const visibility = 0;
+        this.scene = scene;
+        this.width = width;
+        this.height = height;
+        this.destroyedEnemies = destroyedEnemies;
+        this.lives = lives;
+        this.assetImg = assetImg;
 
-    const addLine = new AddLine(scene, width, height);
-    const lineX = addLine.createVerticalLine(0.85, visibility).PosX; // Full visibility for vertical line
-    const lineY = addLine.createHorizontalLine(0.03, visibility).PosY; // Half visibility for horizontal line
+        this.createPauseButton();
+    }
 
-    scene.add.container(lineX, lineY).add(new ButtonCreate(scene,0,0, "Menu", 25, 50, 150, 0xe85f5f,0x914c4c, returnEvent,true));
+    createPauseButton() {
+        const returnEvent = () => {
+            this.scene.scene.launch("pauseMenu", {
+                previousScene: this.scene.scene.key,
+                destroyedEnemies: this.destroyedEnemies,
+                lives: this.lives,
+                assetImg: this.assetImg
+            });
+        };
+
+        const visibility = 0;
+
+        const addLine = new AddLine(this.scene, this.width, this.height);
+        const lineX = addLine.createVerticalLine(0.85, visibility).PosX; // Full visibility for vertical line
+        const lineY = addLine.createHorizontalLine(0.03, visibility).PosY; // Half visibility for horizontal line
+
+        const pause = new ButtonCreate(this.scene, 0, 0, "Menu", 25, 50, 150, 0xe85f5f, 0x914c4c, returnEvent, true);
+        this.scene.add.container(lineX, lineY).add(pause);
+    }
 };
+
+export default PauseButton;

@@ -32,19 +32,20 @@ class ButtonCreate extends Phaser.GameObjects.Container{
     };
 
     setInteractivity(turnOn) {
-        const [buttonPadding, btnText] = this.list; // Retrieve the this.buttonPadding rectangle
+        // Ensure no duplicate listeners
+        this.buttonPadding.removeAllListeners();
 
-        buttonPadding.removeAllListeners();// remove existing event listeners to avoid duplication
-        buttonPadding.setInteractive({ useHandCursor: turnOn });
-        buttonPadding.setAlpha(turnOn ? 1 : 0);
-        btnText.setAlpha(turnOn ? 1 : 0);
+        if (turnOn) {
+            this.buttonPadding.setInteractive({ useHandCursor: true });
+            this.buttonPadding
+                .on("pointerdown", () => this.func())
+                .on("pointerover", () => this.buttonPadding.setFillStyle(this.foregroundColor))
+                .on("pointerout", () => this.buttonPadding.setFillStyle(this.backgroundColor));
+        } else {
+            this.buttonPadding.disableInteractive();
+        }
 
-        // Handle pointer events on the rectangle
-        this.buttonPadding.on("pointerdown", () => {this.func()});
-
-        this.buttonPadding.on("pointerover", () => this.buttonPadding.setFillStyle(this.foregroundColor));
-        this.buttonPadding.on("pointerout", () => this.buttonPadding.setFillStyle(this.backgroundColor));
-        return this
+        return this;
     };
 
     setCenter(){
@@ -54,6 +55,13 @@ class ButtonCreate extends Phaser.GameObjects.Container{
         btnText.y = btnText.y - this.buttonPadding.height/2;
         return this;
     };
+
+    destroyButton() {
+        // Cleanup: remove listeners and destroy elements
+        this.buttonPadding.removeAllListeners();
+        this.removeAll(true);
+        this.destroy(true);
+    }
 };
 
 export default ButtonCreate;
