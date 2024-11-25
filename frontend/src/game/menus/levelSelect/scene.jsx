@@ -13,6 +13,8 @@ import foreground_2 from "../../../assets/background_mission_two/Hills_Layer_02.
 import foreground_two_2 from "../../../assets/background_mission_two/Hills_Layer_03.png";
 
 //level select bg
+import forestJson from "../../../assets/background_levelSelect/pixel_art_forest.json";
+import forestBg from "../../../assets/background_levelSelect/pixel_art_forest.png"
 
 class LevelSelect extends Phaser.Scene{
     constructor(){
@@ -30,6 +32,8 @@ class LevelSelect extends Phaser.Scene{
         this.load.image("background_2", background_2);
         this.load.image("foreground_2", foreground_2);
         this.load.image("foreground_two_2", foreground_two_2);
+
+        this.load.atlas("forest_bg", forestBg, forestJson);
     };
 
     create(data){
