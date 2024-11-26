@@ -20,6 +20,8 @@ class FightScene extends Phaser.Scene {
 
     create(data) {
 
+        console.log(data);
+
         //the player current lives count
         this.livesRemaining = data.livesRemaining;
         
@@ -484,7 +486,7 @@ class FightScene extends Phaser.Scene {
                     },
                 });
 
-                this.endturnbtn.setInteractivity(true);
+                this.endturnbtn.setInteractivity(false);
                 this.runBtn.setInteractivity(false);
 
                 //damage

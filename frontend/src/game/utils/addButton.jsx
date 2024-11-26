@@ -32,17 +32,13 @@ class ButtonCreate extends Phaser.GameObjects.Container{
     };
 
     setInteractivity(turnOn) {
-        if (turnOn) {
-            this.buttonPadding.setInteractive({ useHandCursor: true });
-            this.buttonPadding
-                .on("pointerdown", () => this.func())
-                .on("pointerover", () => this.buttonPadding.setFillStyle(this.foregroundColor))
-                .on("pointerout", () => this.buttonPadding.setFillStyle(this.backgroundColor));
-        } else {
-            this.buttonPadding.disableInteractive();
-        }
-
-        return this;
+        const [buttonPadding, btnText] = this.list;
+        buttonPadding.setInteractive({ useHandCursor: turnOn });
+        buttonPadding.setAlpha(turnOn ? 1 : 0);
+        btnText.setAlpha(turnOn ? 1 : 0);
+        this.buttonPadding.on("pointerdown", () => {this.func()});
+        this.buttonPadding.on("pointerover", () => this.buttonPadding.setFillStyle(this.foregroundColor));
+        this.buttonPadding.on("pointerout", () => this.buttonPadding.setFillStyle(this.backgroundColor));
     };
     
     //for scenes that is paused only

@@ -107,9 +107,9 @@ class MissionOne extends Phaser.Scene {
 
         const pause = new PauseButton(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount, assetLoad);
 
-        this.events.on('resume', () => {
-            pause.stopListener();
-        });
+        // this.events.on('resume', () => {
+        //     pause.stopListener();
+        // });
     };
 
     update() {
