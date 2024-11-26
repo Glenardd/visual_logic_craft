@@ -50,7 +50,7 @@ class LevelSelect extends Phaser.Scene{
 
         const line = new AddLine(this, this.Width, this.Height);
 
-        this.visibility = 0.5;
+        this.visibility = 0;
 
         this.levelSelection = this.add.container(
             line.createVerticalLine(0.5,this.visibility).PosX,
