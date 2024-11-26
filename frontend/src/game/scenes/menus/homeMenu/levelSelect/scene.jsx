@@ -11,6 +11,7 @@ import foreground_two_1 from "../../../../../assets/background_mission_one/cloud
 import background_2 from "../../../../../assets/background_mission_two/Hills_Layer_01.png";
 import foreground_2 from "../../../../../assets/background_mission_two/Hills_Layer_02.png";
 import foreground_two_2 from "../../../../../assets/background_mission_two/Hills_Layer_03.png";
+import ReturnButton from "../../../../utils/returnBtn";
 
 class LevelSelect extends Phaser.Scene{
     constructor(){
@@ -29,6 +30,7 @@ class LevelSelect extends Phaser.Scene{
     };
 
     create(data){
+
         //check if some scene i still running
         /*
             isPause()
@@ -48,11 +50,11 @@ class LevelSelect extends Phaser.Scene{
 
         const line = new AddLine(this, this.Width, this.Height);
 
-        const visibility = 0;
+        this.visibility = 0.5;
 
         this.levelSelection = this.add.container(
-            line.createVerticalLine(0.5,visibility).PosX,
-            line.createHorizontalLine(0.5,visibility).PosY,
+            line.createVerticalLine(0.5,this.visibility).PosX,
+            line.createHorizontalLine(0.5,this.visibility).PosY,
         );
 
         this.assetsOne = {
@@ -68,6 +70,15 @@ class LevelSelect extends Phaser.Scene{
         };
 
         this.levelSelectbtn();
+        this.returnHome();
+    };
+
+    returnHome(){
+        const line = new AddLine(this, this.Width, this.Height);
+        const lineX = line.createVerticalLine(0.03,this.visibility).PosX;
+        const lineY = line.createHorizontalLine(0.03,this.visibility).PosY;
+
+        new ReturnButton(this, lineX, lineY, "titleScreen");
     };
 
     levelSelectbtn(){
