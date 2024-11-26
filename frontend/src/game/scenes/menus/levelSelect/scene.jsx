@@ -86,6 +86,7 @@ class LevelSelect extends Phaser.Scene{
     changeScene(sceneName, livesRemaining, assetImg){
         this.scene.launch(sceneName, {livesRemaining:livesRemaining, assetImg: assetImg}); 
         this.scene.stop("levelSelect");
+        this.scene.stop("forestBackground");
     };
 };
 
