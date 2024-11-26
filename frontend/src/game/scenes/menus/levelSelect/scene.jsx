@@ -12,10 +12,6 @@ import background_2 from "../../../../assets/background_mission_two/Hills_Layer_
 import foreground_2 from "../../../../assets/background_mission_two/Hills_Layer_02.png";
 import foreground_two_2 from "../../../../assets/background_mission_two/Hills_Layer_03.png";
 
-//level select bg
-import forestJson from "../../../../assets/background_levelSelect/pixel_art_forest.json";
-import forestBg from "../../../../assets/background_levelSelect/pixel_art_forest.png"
-
 class LevelSelect extends Phaser.Scene{
     constructor(){
         super({key: "levelSelect"});
@@ -32,11 +28,12 @@ class LevelSelect extends Phaser.Scene{
         this.load.image("background_2", background_2);
         this.load.image("foreground_2", foreground_2);
         this.load.image("foreground_two_2", foreground_two_2);
-
-        this.load.atlas("forest_bg", forestBg, forestJson);
     };
 
     create(data){
+
+        //preloaded bg from titleScreen
+        const forest_bg_frames = data.forest_bg_frames;
 
         //check if some scene i still running
         /*
@@ -77,7 +74,6 @@ class LevelSelect extends Phaser.Scene{
         };
 
         //for level select bg
-        const forest_bg_frames = this.textures.get('forest_bg').getFrameNames().sort().reverse();
         forest_bg_frames.map((forest,i) =>{
             const x = this.textures.get('forest_bg').get(forest).x + this.Width/2;
             const y = this.textures.get('forest_bg').get(forest).y + this.Height/2 - 450;
@@ -142,7 +138,7 @@ class LevelSelect extends Phaser.Scene{
     };
 
     changeScene(sceneName, livesRemaining, assetImg){
-        this.scene.start(sceneName, {livesRemaining:livesRemaining, assetImg: assetImg}); 
+        this.scene.launch(sceneName, {livesRemaining:livesRemaining, assetImg: assetImg}); 
         this.scene.stop("levelSelect");
     };
 
