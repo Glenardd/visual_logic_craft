@@ -3,7 +3,7 @@ import ButtonCreate from "../utils/addButton";
 import AddLine from "../utils/addLayoutGuide.jsx";
 import CreateCard from "../utils/addCards.jsx";
 import HealthBar from "../utils/healthBar.jsx";
-import PauseButton from "../ui/pauseButton/pauseBtn.jsx";
+import PauseButton from "../utils/pauseBtn.jsx";
   
 class FightScene extends Phaser.Scene {
     constructor() {

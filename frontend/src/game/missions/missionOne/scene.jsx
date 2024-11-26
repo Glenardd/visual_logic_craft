@@ -3,7 +3,7 @@ import EnemyCreate from "../../utils/addEnemies";
 import Player from "../../utils/Player";
 
 import { platformsDataMissionOne } from "../../objData/platformData";
-import PauseButton from "../../ui/pauseButton/pauseBtn";
+import PauseButton from "../../utils/pauseBtn";
 import PlayerLivesCount from "../../utils/playerLivesCount";
 import AddLine from "../../utils/addLayoutGuide";
 
@@ -105,7 +105,11 @@ class MissionOne extends Phaser.Scene {
         this.player.x = x 
         this.player.y = y; 
 
-        new PauseButton(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount, assetLoad)
+        const pause = new PauseButton(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount, assetLoad);
+
+        this.events.on('resume', () => {
+            pause.stopListener();
+        });
     };
 
     update() {

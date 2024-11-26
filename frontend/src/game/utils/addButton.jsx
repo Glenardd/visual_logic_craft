@@ -32,9 +32,6 @@ class ButtonCreate extends Phaser.GameObjects.Container{
     };
 
     setInteractivity(turnOn) {
-        // Ensure no duplicate listeners
-        this.buttonPadding.removeAllListeners();
-
         if (turnOn) {
             this.buttonPadding.setInteractive({ useHandCursor: true });
             this.buttonPadding
@@ -47,6 +44,11 @@ class ButtonCreate extends Phaser.GameObjects.Container{
 
         return this;
     };
+    
+    //for scenes that is paused only
+    DisableListners(){
+        this.buttonPadding.setFillStyle(this.backgroundColor);
+    };
 
     setCenter(){
         const [buttonPadding, btnText] = this.list;
@@ -55,13 +57,6 @@ class ButtonCreate extends Phaser.GameObjects.Container{
         btnText.y = btnText.y - this.buttonPadding.height/2;
         return this;
     };
-
-    destroyButton() {
-        // Cleanup: remove listeners and destroy elements
-        this.buttonPadding.removeAllListeners();
-        this.removeAll(true);
-        this.destroy(true);
-    }
 };
 
 export default ButtonCreate;

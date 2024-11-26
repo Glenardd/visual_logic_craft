@@ -1,5 +1,5 @@
-import ButtonCreate from "../../utils/addButton";
-import AddLine from "../../utils/addLayoutGuide";
+import ButtonCreate from "./addButton";
+import AddLine from "./addLayoutGuide";
 
 class PauseButton extends Phaser.GameObjects.Container {
     constructor(scene, width, height, destroyedEnemies, lives, assetImg) {
@@ -31,9 +31,14 @@ class PauseButton extends Phaser.GameObjects.Container {
         const lineX = addLine.createVerticalLine(0.85, visibility).PosX; // Full visibility for vertical line
         const lineY = addLine.createHorizontalLine(0.03, visibility).PosY; // Half visibility for horizontal line
 
-        const pause = new ButtonCreate(this.scene, 0, 0, "Menu", 25, 50, 150, 0xe85f5f, 0x914c4c, returnEvent, true);
-        this.scene.add.container(lineX, lineY).add(pause);
-    }
+        this.pause = new ButtonCreate(this.scene, 0, 0, "Menu", 25, 50, 150, 0xe85f5f, 0x914c4c, returnEvent, true);
+        this.scene.add.container(lineX, lineY).add(this.pause);
+    };
+
+    //stop event
+    stopListener(){
+        this.pause.DisableListners();
+    };
 };
 
 export default PauseButton;
