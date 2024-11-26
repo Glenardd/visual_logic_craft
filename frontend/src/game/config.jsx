@@ -10,6 +10,7 @@ import PauseMenu from "./scenes/menus/pauseMenu/scene";
 import GameOver from "./scenes/menus/gameOver/scene";
 import MissionAccomplish from "./scenes/menus/missionAccomplish/scene";
 import TitleScreen from "./scenes/menus/titleScreen/scene";
+import ForestBackGround from "./scenes/forestBg/scene";
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
       },
       parent: ".game",
       scene: [
+        ForestBackGround,
         TitleScreen,
         LevelSelect,
         MissionTwo, 
@@ -42,7 +44,7 @@ function App() {
         GameOver, 
         FightScene, 
         PauseMenu, 
-        MissionAccomplish
+        MissionAccomplish,
       ], //LevelSelect,MissionTwo, MissionOne, FightScene, PauseMenu, GameOver
     };
 

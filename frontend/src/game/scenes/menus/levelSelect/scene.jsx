@@ -16,8 +16,6 @@ class LevelSelect extends Phaser.Scene{
     constructor(){
         super({key: "levelSelect"});
         this.changeScene = this.changeScene.bind(this);
-
-        this.bg = [];
     };
 
     preload(){
@@ -31,10 +29,6 @@ class LevelSelect extends Phaser.Scene{
     };
 
     create(data){
-
-        //preloaded bg from titleScreen
-        this.forest_bg_frames = data.forest_bg_frames;
-
         //check if some scene i still running
         /*
             isPause()
@@ -73,54 +67,6 @@ class LevelSelect extends Phaser.Scene{
             foreground_two: "foreground_two_2",
         };
 
-        //for level select bg
-        this.forest_bg_frames.map((forest,i) =>{
-            const x = this.textures.get('forest_bg').get(forest).x + this.Width/2;
-            const y = this.textures.get('forest_bg').get(forest).y + this.Height/2 - 450;
-            const textureWidth = this.textures.get('forest_bg').get(forest).width + this.Width;
-            const textureHeight = this.textures.get('forest_bg').get(forest).height;
-
-            const forest_bg = this.add.tileSprite(x,y,textureWidth ,textureHeight, "forest_bg", forest);
-
-            if(forest ===this.forest_bg_frames[2]){
-                forest_bg.setScale(3.7);
-            };
-            if(forest ===this.forest_bg_frames[3]){
-                forest_bg.setScale(3.7);
-            };
-            if(forest ===this.forest_bg_frames[4]){
-                forest_bg.setScale(3.7);
-            };
-            if(forest ===this.forest_bg_frames[5]){
-                forest_bg.setScale(3.7);
-            };
-            if(forest ===this.forest_bg_frames[6]){
-                forest_bg.setScale(3.7);
-            };
-            if(forest ===this.forest_bg_frames[7]){
-                forest_bg.setScale(3.7);
-            };
-            if(forest ===this.forest_bg_frames[8]){
-                forest_bg.setScale(3.7);
-                
-            };
-            if(forest ===this.forest_bg_frames[9]){
-                forest_bg.setScale(3.7);
-                forest_bg.y = -200
-            };
-            if(forest ===this.forest_bg_frames[10]){
-                forest_bg.setScale(3.7);
-                forest_bg.y = y / textureHeight + this.Height
-            };
-            if(forest ===this.forest_bg_frames[11]){
-                forest_bg.setScale(3.7);
-                forest_bg.y = y / textureHeight + this.Height
-            };
-
-            this.bg.push({ sprite: forest_bg, speed: (i + 1) * 0.03 })
-            forest_bg.setDepth(-1);
-        });
-
         this.levelSelectbtn();
     };
 
@@ -140,10 +86,6 @@ class LevelSelect extends Phaser.Scene{
     changeScene(sceneName, livesRemaining, assetImg){
         this.scene.launch(sceneName, {livesRemaining:livesRemaining, assetImg: assetImg, forest_bg_frames: fore}); 
         this.scene.stop("levelSelect");
-    };
-
-    update(){
-        this.bg.forEach(bg => { bg.sprite.tilePositionX += bg.speed; });
     };
 };
 
