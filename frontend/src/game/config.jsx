@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import Phaser from "phaser";
 
 //scenes
-import MissionOne from "./missions/missionOne/scene";
-import FightScene from "./battleScene/scene";
-import MissionTwo from "./missions/missionTwo/scene";
-import LevelSelect from "./menus/levelSelect/scene";
-import PauseMenu from "./menus/pauseMenu/scene";
-import GameOver from "./menus/gameOver/scene";
-import MissionAccomplish from "./menus/missionAccomplish/scene";
+import MissionOne from "./scenes/missions/missionOne/scene";
+import FightScene from "./scenes/battleScene/scene";
+import MissionTwo from "./scenes/missions/missionTwo/scene";
+import LevelSelect from "./scenes/menus/levelSelect/scene";
+import PauseMenu from "./scenes/menus/pauseMenu/scene";
+import GameOver from "./scenes/menus/gameOver/scene";
+import MissionAccomplish from "./scenes/menus/missionAccomplish/scene";
 
 function App() {
 

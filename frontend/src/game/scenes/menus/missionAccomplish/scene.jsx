@@ -1,5 +1,5 @@
-import ButtonCreate from "../../utils/addButton";
-import AddLine from "../../utils/addLayoutGuide";
+import ButtonCreate from "../../../utils/addButton";
+import AddLine from "../../../utils/addLayoutGuide";
 
 class MissionAccomplish extends Phaser.Scene{
     constructor(){
