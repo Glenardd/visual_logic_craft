@@ -42,7 +42,12 @@ class MissionAccomplish extends Phaser.Scene{
 
     levelSelectBtn(){
         //go back to level select
-        const levelSelect = new ButtonCreate(this, 0, 120, "Exit", 25, 80, 200, 0x88d17b, 0x5e9654, ()=>this.changeScene("levelSelect"), true);
+        const exit = () =>{
+            this.scene.launch("levelSelect");
+            this.scene.start("forestBackground");
+        };
+
+        const levelSelect = new ButtonCreate(this, 0, 120, "Exit", 25, 80, 200, 0x88d17b, 0x5e9654, exit, true);
         levelSelect.setInteractivity(true)
         levelSelect.setCenter();
         this.layout.add(levelSelect);
