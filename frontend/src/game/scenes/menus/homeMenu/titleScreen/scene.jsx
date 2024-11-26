@@ -22,7 +22,13 @@ class TitleScreen extends Phaser.Scene{
 
         this.levelSelect();
         this.customizeCards();
+        this.gameTitle();
         this.logout();
+    };
+
+    gameTitle(){
+        const titleGame = this.add.text(0,-200, "VISUAL LOGIC CRAFT", { fontSize: 100 }).setOrigin(0.5);
+        this.container.add(titleGame);
     };
 
     levelSelect(){
@@ -52,11 +58,11 @@ class TitleScreen extends Phaser.Scene{
             console.log("logout");
         };
 
-        const lougoutBtn = new ButtonCreate(this, 0,105, "logout", 20, 100, 200,0x88d17b,0x5e9654,()=> logout());
-        lougoutBtn.setInteractivity(true);
-        lougoutBtn.setCenter();
+        const logoutBtn = new ButtonCreate(this, 0,105, "logout", 20, 100, 200,0x88d17b,0x5e9654,()=> logout());
+        logoutBtn.setInteractivity(true);
+        logoutBtn.setCenter();
         
-        this.container.add(lougoutBtn);
+        this.container.add(logoutBtn);
     };
 
     changeScene(sceneName){
