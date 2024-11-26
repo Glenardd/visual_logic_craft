@@ -4,7 +4,7 @@ class HomeManager extends Phaser.Scene{
     };
 
     create(){
-        this.scene.launch("titleScreen");
+        this.scene.start("titleScreen");
         this.scene.start("forestBackground");
     };
 };

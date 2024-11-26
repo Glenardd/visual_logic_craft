@@ -381,8 +381,7 @@ class FightScene extends Phaser.Scene {
 
         this.countAttempts = this.add.text(0, 5, `Attempts: 0`, { fontSize: "40px" });
         attemptsUi.add(this.countAttempts);
-
-        // pauseBtn(this, width, height,this.destroyedEnemies,this.livesRemaining,this.asset);
+        
         new PauseButton(this, width, height, this.destroyedEnemies, this.livesCount, this.asset);
     };
 

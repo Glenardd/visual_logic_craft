@@ -69,6 +69,7 @@ class MissionTwo extends Phaser.Scene {
         const lineX = addLine.createVerticalLine(0.07, visibility).PosX; // Full visibility for vertical line
         const lineY = addLine.createHorizontalLine(0.03, visibility).PosY; // Half visibility for horizontal line
         this.livesCount = new PlayerLivesCount(this, lineX, lineY, this.livesRemaining, 3, this.destroyedEnemies, assets);
+        this.maxLives = this.livesCount.lives;
 
         this.player = new Player(this, playerX,playerY, 90, 90, 0xed5f5f, "Player 1");
         this.player.addPhysics();
@@ -99,10 +100,10 @@ class MissionTwo extends Phaser.Scene {
         //checks if all enemies are destroyed empty
         const allEmpty = [platformEnemy1, platformEnemy2, platformEnemy3].every(platform => platform.allEnemies.length === 0);
         if(allEmpty){
-            addNewPlatform.door(5, this.livesCount.lives, assets);
+            addNewPlatform.door(5, this.maxLives, assets);
         };
 
-        const pause = new PauseButton(this, this.Width, this.Height, this.destroyedEnemies, this.livesCount, assetLoad);
+        const pause = new PauseButton(this, this.Width, this.Height, this.destroyedEnemies, this.maxLives, assetLoad);
 
         this.events.on("resume", () => {
             pause.stopListener();

@@ -60,7 +60,7 @@ class TitleScreen extends Phaser.Scene{
     };
 
     changeScene(sceneName){
-        this.scene.launch(sceneName, {forest_bg_frames: this.forest_bg_frames}); 
+        this.scene.launch(sceneName); 
         this.scene.stop("titleScreen");
     };
 };
