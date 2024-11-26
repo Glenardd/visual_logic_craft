@@ -1,16 +1,16 @@
-import AddLine from "../../../utils/addLayoutGuide";
-import ButtonCreate from "../../../utils/addButton";
+import AddLine from "../../../../utils/addLayoutGuide";
+import ButtonCreate from "../../../../utils/addButton";
 
 //backgrounds
 //Mission one
-import background_1 from "../../../../assets/background_mission_one/cloud_bg.png";
-import foreground_1 from "../../../../assets/background_mission_one/cloud_fg.png";
-import foreground_two_1 from "../../../../assets/background_mission_one/cloud_fg_two.png"
+import background_1 from "../../../../../assets/background_mission_one/cloud_bg.png";
+import foreground_1 from "../../../../../assets/background_mission_one/cloud_fg.png";
+import foreground_two_1 from "../../../../../assets/background_mission_one/cloud_fg_two.png"
 
 //mission two
-import background_2 from "../../../../assets/background_mission_two/Hills_Layer_01.png";
-import foreground_2 from "../../../../assets/background_mission_two/Hills_Layer_02.png";
-import foreground_two_2 from "../../../../assets/background_mission_two/Hills_Layer_03.png";
+import background_2 from "../../../../../assets/background_mission_two/Hills_Layer_01.png";
+import foreground_2 from "../../../../../assets/background_mission_two/Hills_Layer_02.png";
+import foreground_two_2 from "../../../../../assets/background_mission_two/Hills_Layer_03.png";
 
 class LevelSelect extends Phaser.Scene{
     constructor(){

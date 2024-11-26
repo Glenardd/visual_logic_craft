@@ -1,6 +1,6 @@
 //title screen and level select bg
-import forestJson from "../../../assets/background_levelSelect/pixel_art_forest.json";
-import forestBg from "../../../assets/background_levelSelect/pixel_art_forest.png"
+import forestJson from "../../../../../assets/background_levelSelect/pixel_art_forest.json";
+import forestBg from "../../../../../assets/background_levelSelect/pixel_art_forest.png"
 
 class ForestBackGround extends Phaser.Scene{
     constructor(){
@@ -64,9 +64,6 @@ class ForestBackGround extends Phaser.Scene{
             this.bg.push({ sprite: forest_bg, speed: (i + 1) * 0.03 });
             forest_bg.setDepth(-1);
         });
-
-        //launch the title screen first
-        this.scene.launch("titleScreen");
     };
 
     update(){

@@ -5,12 +5,13 @@ import Phaser from "phaser";
 import MissionOne from "./scenes/missions/missionOne/scene";
 import FightScene from "./scenes/battleScene/scene";
 import MissionTwo from "./scenes/missions/missionTwo/scene";
-import LevelSelect from "./scenes/menus/levelSelect/scene";
+import LevelSelect from "./scenes/menus/homeMenu/levelSelect/scene";
 import PauseMenu from "./scenes/menus/pauseMenu/scene";
 import GameOver from "./scenes/menus/gameOver/scene";
 import MissionAccomplish from "./scenes/menus/missionAccomplish/scene";
-import TitleScreen from "./scenes/menus/titleScreen/scene";
-import ForestBackGround from "./scenes/forestBg/scene";
+import TitleScreen from "./scenes/menus/homeMenu/titleScreen/scene";
+import ForestBackGround from "./scenes/menus/homeMenu/forestBg/scene";
+import HomeManager from "./scenes/menus/homeMenu/homeManager/scene";
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
       },
       parent: ".game",
       scene: [
+        HomeManager,
         ForestBackGround,
         TitleScreen,
         LevelSelect,
