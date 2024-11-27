@@ -40,15 +40,26 @@ class CardCustomization extends Phaser.Scene{
 
     panel(width, height){
         const line = new AddLine(this, width, height);
-        const lineX = line.createVerticalLine(0.5,this.visibility).PosX;
+        const lineX = line.createVerticalLine(0.6,this.visibility).PosX;
         const lineY = line.createHorizontalLine(0.5,this.visibility).PosY;
         
         const layout = this.add.container(lineX, lineY);
 
-        const panel = this.add.rectangle(0,0, width/2 + 600, height/2 + 300, 0x698a84);
-        panel.setStrokeStyle(4, 0x0000);
-        layout.add(panel);
+        //container of cards
+        const panelOne= this.add.rectangle(0,0, 800, height/2 + 300, 0x698a84);
+        panelOne.setStrokeStyle(4, 0x0000);
+        panelOne.setOrigin(1,0.5);
+        layout.add(panelOne);
+
+        //where cards will be placed
+        const panelTwo= this.add.rectangle(50,0, 400, height/2 + 300, 0x698a84);
+        panelTwo.setStrokeStyle(4, 0x0000);
+        panelTwo.setOrigin(0,0.5);
+        layout.add(panelTwo);
+        
     };
+
+    
 
 };
 
