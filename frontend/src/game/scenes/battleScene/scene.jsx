@@ -170,7 +170,7 @@ class FightScene extends Phaser.Scene {
             this.selectedCase = [""];
             this.selectedCaseOutput = [""];
 
-
+            // all cards can be pressed or interacted with this function
             cards.list.map(card =>{
                 card.setInteractivity(true);
             });

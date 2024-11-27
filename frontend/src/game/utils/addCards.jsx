@@ -50,13 +50,13 @@ class CreateCard extends Phaser.GameObjects.Container {
             this.cardPadding.on("pointerdown", () => {
                 for (let card of cardData) {
                     if (card.card_name === this.cardName) {
-                        this.index++;
                         if (card.concept) {
                             this.cardConcept = card.concept;
                             this.cardQuestion = card.challenge_rotation[this.index].question;
                             this.cardAnswer = card.challenge_rotation[this.index].answers;
                             this.cardValue = card.value;
                         };
+                        this.index++;
                     };
 
                     if (this.index === card.challenge_rotation.length) {
