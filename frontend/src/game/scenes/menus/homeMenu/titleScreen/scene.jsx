@@ -42,7 +42,8 @@ class TitleScreen extends Phaser.Scene{
     customizeCards(){
 
         const customizeCards = () =>{
-            console.log("custom cards scene");
+            this.scene.launch("cardCustomization");
+            this.scene.stop("titleScreen");
         };
 
         const customizeCardsBtn = new ButtonCreate(this, 0,40, "Customize Cards", 20, 100, 200,0x88d17b,0x5e9654,()=> customizeCards());
