@@ -12,25 +12,44 @@ class CreateCard extends Phaser.GameObjects.Container {
         this.backgroundColor = backgroundColor;
         this.foregroundColor = foregroundColor;
 
-        this.cardPadding = this.scene.add.rectangle(0, 0, width, height, this.backgroundColor);
-        this.cardPadding.setStrokeStyle(4, 0x00000);
-        this.cardPadding.setOrigin(0);
+        //size
+        this.width = width;
+        this.height = height;
 
-        const cardText = this.scene.add.text(width / 2, height / 2, this.cardName, {
-            fontSize: '50px',
-            color: '#000',
-            align: "center",
-            wordWrap: { width: width, useAdvancedWrap: true }
-        });
-        
-        cardText.setOrigin(0.5, 0.5);
+        //coordinates
+        this.x = x;
+        this.y = y;
 
-        this.add([this.cardPadding, cardText]);
-        this.setSize(width, height);
-        this.setPosition(x, y);
-        this.scene.add.existing(this);
+        this.showCard(this.cardName);
+    };
 
-        this.setInteractivity(this.interactivity);
+    //this will show the card if the string being search is available
+    showCard(cardName){
+
+        const cardFound = cardData.find(cards => cards.card_name === cardName);
+
+        //if card found
+        if(cardFound){
+            this.cardPadding = this.scene.add.rectangle(0, 0, this.width, this.height, this.backgroundColor);
+            this.cardPadding.setStrokeStyle(4, 0x00000);
+            this.cardPadding.setOrigin(0);
+
+            const cardText = this.scene.add.text(this.width / 2, this.height / 2, this.cardName, {
+                fontSize: '50px',
+                color: '#000',
+                align: "center",
+                wordWrap: { width: this.width, useAdvancedWrap: true }
+            });
+            
+            cardText.setOrigin(0.5, 0.5);
+
+            this.add([this.cardPadding, cardText]);
+            this.setSize(this.width, this.height);
+            this.setPosition(this.x, this.y);
+            this.scene.add.existing(this);
+
+            this.setInteractivity(this.interactivity);
+        };
     };
 
     setInteractivity(turnOn) {

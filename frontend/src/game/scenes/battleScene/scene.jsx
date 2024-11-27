@@ -316,6 +316,8 @@ class FightScene extends Phaser.Scene {
 
         cardView.add([viewCard, this.viewCardInstructions, this.viewCardName, this.viewCardConcept, this.viewCardValue, this.viewCardOutput, this.selectACardMessage]);
 
+        const card = ["Conditional Cobra","Variable Vulture", "Function Falcon", "Array Antelope"];
+
         this.card1 = new CreateCard(
             this,
             0,
@@ -324,7 +326,7 @@ class FightScene extends Phaser.Scene {
             300,
             0xdbb77d,
             0xA88A5A,
-            "Variable Vulture",
+            card[0],
             true,
             select
         );
@@ -337,7 +339,7 @@ class FightScene extends Phaser.Scene {
             300,
             0xdbb77d,
             0xA88A5A,
-            "Conditional Cobra",
+            card[1],
             true,
             select
         );
@@ -350,7 +352,7 @@ class FightScene extends Phaser.Scene {
             300,
             0xdbb77d,
             0xA88A5A,
-            "Array Antelope",
+            card[2],
             true,
             select
         );
@@ -363,7 +365,7 @@ class FightScene extends Phaser.Scene {
             300,
             0xdbb77d,
             0xA88A5A,
-            "Function Falcon",
+            card[3],
             true,
             select
         );
