@@ -12,6 +12,7 @@ import MissionAccomplish from "./scenes/menus/missionAccomplish/scene";
 import TitleScreen from "./scenes/menus/homeMenu/titleScreen/scene";
 import ForestBackGround from "./scenes/menus/homeMenu/forestBg/scene";
 import HomeManager from "./scenes/menus/homeMenu/homeManager/scene";
+import CardCustomization from "./scenes/menus/cardsCustomization/scene";
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
         ForestBackGround,
         TitleScreen,
         LevelSelect,
+        CardCustomization,
         MissionTwo, 
         MissionOne,
         GameOver, 
