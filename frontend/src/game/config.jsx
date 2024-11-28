@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Phaser from "phaser";
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 
 //scenes
 import MissionOne from "./scenes/missions/missionOne/scene";
@@ -50,6 +51,13 @@ function App() {
         PauseMenu, 
         MissionAccomplish,
       ], //LevelSelect,MissionTwo, MissionOne, FightScene, PauseMenu, GameOver
+      plugins:{
+        scene:[{
+          key: "rexUI",
+          plugin: RexUIPlugin,
+          mapping: "rexUI"
+        }]
+      },
     };
 
     const game = new Phaser.Game(config);
