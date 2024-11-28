@@ -24,7 +24,36 @@ class CardCustomization extends Phaser.Scene {
 
     panels(width, height) {
 
-        const panels = this.rexUI.add.splitPanels({
+        //left panel contents
+        const leftPanel = this.rexUI.add.sizer({
+            orientation: 1,      
+        }).addBackground(
+            this.rexUI.add.roundRectangle(0, 0, 10, 10, 0, 0x698a84).setStrokeStyle(4, 0x0000)
+        ).add(
+            this.rexUI.add.label({
+                text: this.add.text(0,0, 'Cards', {
+                    fontSize: '24px'
+                }),
+                space: { top: 10, bottom: 10 }
+            })
+        );
+
+        //right panel contents
+        const rightPanel = this.rexUI.add.sizer({
+            orientation: 1,      
+        }).addBackground(
+            this.rexUI.add.roundRectangle(0, 0, 10, 10, 0, 0x698a84).setStrokeStyle(4, 0x0000)
+        ).add(
+            this.rexUI.add.label({
+                text: this.add.text(0,0, 'Cards Equiped', {
+                    fontSize: '24px'
+                }),
+                space: { top: 10, bottom: 10 }
+            })
+        );
+
+        //split panels
+        this.rexUI.add.splitPanels({
             x: width / 2,
             y: height / 2,
             width: width / 2 + 500,
@@ -34,8 +63,8 @@ class CardCustomization extends Phaser.Scene {
                 item: 10
             },
 
-            leftPanel: this.add.rectangle(0, 0, 1, 1, 0x698a84).setStrokeStyle(4, 0x0000),
-            rightPanel: this.add.rectangle(0, 0, 1, 1, 0x698a84).setStrokeStyle(4, 0x0000),
+            leftPanel: leftPanel,
+            rightPanel: rightPanel,
             splitter: this.add.rectangle(0, 0, 15, 1),
 
             minLeftPanelWidth: 200,
