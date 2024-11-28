@@ -55,8 +55,8 @@ function App() {
         scene:[{
           key: "rexUI",
           plugin: RexUIPlugin,
-          mapping: "rexUI"
-        }]
+          mapping: "rexUI",
+        }],
       },
     };
 
