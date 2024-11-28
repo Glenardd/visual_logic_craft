@@ -24,18 +24,36 @@ class CardCustomization extends Phaser.Scene {
 
     panels(width, height) {
 
-        //left panel contents
-        const leftPanel = this.rexUI.add.sizer({
-            orientation: 1,      
+        const RandomInt = Phaser.Math.Between;
+
+        const cards = () => {
+            const card = this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, RandomInt(0, 0x1000000)).setStrokeStyle(4, 0x0000)
+            
+            card.setInteractive({useHandCursor: true})
+            .on("pointerover", ()=>{
+                card.setFillStyle(0xffffff);
+            }).on("pointerout", () =>{
+                card.setFillStyle(RandomInt(0, 0x1000000));
+            });
+            
+            return card;
+        };
+
+        // left panel where cards contained
+        const leftPanel = this.rexUI.add.gridSizer({
+            width: 400, height: 400,
+            column: 4, row: 3,
+            columnProportions: 1, rowProportions: 1,
+            space: {
+                // top: 20, bottom: 20, left: 10, right: 10,
+                column: 20, row: 20
+            },
+
+            createCellContainerCallback: cards,
         }).addBackground(
-            this.rexUI.add.roundRectangle(0, 0, 10, 10, 0, 0x698a84).setStrokeStyle(4, 0x0000)
-        ).add(
-            this.rexUI.add.label({
-                text: this.add.text(0,0, 'Cards', {
-                    fontSize: '24px'
-                }),
-                space: { top: 10, bottom: 10 }
-            })
+            this.rexUI.add.roundRectangle(0, 0, 400, 400, 0, 0x698a84)
+            .setStrokeStyle(4, 0x000000)
+            .setDepth(-1)
         );
 
         //right panel contents
