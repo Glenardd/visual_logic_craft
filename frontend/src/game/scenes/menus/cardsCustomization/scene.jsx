@@ -22,6 +22,7 @@ class CardCustomization extends Phaser.Scene {
         // this.panelTwo(width, height);
 
         this.panels(width, height);
+        this.cardEquipped();
     };
 
     panels(width, height) {
@@ -36,10 +37,10 @@ class CardCustomization extends Phaser.Scene {
         const rows = Math.ceil(totalItems / maxColumns); // Calculate required rows
 
         //saves the cards available
-        this.plugins.get("DataPlugin").set("cardList", this.cardsEquipped);
+        this.plugins.get("DataPlugin")?.set("cardList", this.cardsEquipped);
         
         //cards interactivity and label
-        const cards = (cell, colIndex, rowIndex) => {
+        const cardsLeft = (cell, colIndex, rowIndex) => {
             const index = rowIndex * maxColumns + colIndex;
 
             //if it reaches the required rows, stop
@@ -94,29 +95,72 @@ class CardCustomization extends Phaser.Scene {
         };
 
         // left panel where cards contained 
-        const grid = this.rexUI.add.gridSizer({
+        const gridLeft = this.rexUI.add.gridSizer({
             column: maxColumns, 
             row: rows,
             columnProportions: 1, 
             rowProportions: 1,
             space: {
                 top: 100, 
-                bottom: 125, 
+                bottom: 105, 
                 left: 100, 
                 right: 100,
                 
                 column: 50, 
-                row: 50
+                row: 50,
             },
 
-            createCellContainerCallback: cards,
+            createCellContainerCallback: cardsLeft,
+        });
+
+        const cardRight = (cell, colIndex, rowIndex) =>{
+            const activeCards = this.plugins.get("DataPlugin")?.get("cardList");
+            const index = rowIndex * 1 + colIndex;
+
+            return this.rexUI.add.sizer({
+                orientation: 1,
+                width: 150,
+                height: 200,
+                space:{
+                    top: 100
+                },
+            }).add(
+                this.rexUI.add.label({
+                    text: this.add.text(0, 0, activeCards[index], {
+                        fontSize: '15px',
+                        wordWrap: {width: 100, useAdvanceWrap: true},
+                    }).setDepth(2),
+                }),
+                { align: 'center' }
+            ).addBackground(
+                this.rexUI.add.roundRectangle(0, 0, 10, 10, 0, 0x349e8c).setStrokeStyle(4, 0x0000).setDepth(1)
+            );
+        };
+
+        // left panel where cards contained 
+        const gridRight = this.rexUI.add.gridSizer({
+            column: 1, 
+            row: 4,
+            columnProportions: 1, 
+            rowProportions: 1,
+            space: {
+                top: 50, 
+                bottom: 50, 
+                left: 100, 
+                right: 100,
+                
+                column: 20, 
+                row: 20,
+            },
+
+            createCellContainerCallback: cardRight,
         });
 
         //left panel
         const leftPanel = this.rexUI.add.sizer({
             orientation:1,
         }).add(
-            grid
+            gridLeft
         ).addBackground(
             this.rexUI.add.roundRectangle(0, 0, 400, 400, 0, 0x698a84)
                 .setStrokeStyle(4, 0x000000)
@@ -135,6 +179,8 @@ class CardCustomization extends Phaser.Scene {
                 }),
                 space: { top: 10, bottom: 10 }
             })
+        ).add(
+            gridRight
         );
 
         //split panels
@@ -158,53 +204,16 @@ class CardCustomization extends Phaser.Scene {
             splitRatio: 0.75,
         }).layout();
 
-        //left panel
-        // const leftPanel = this.rexUI.add.sizer({
-        //     orientation: 1,
-        //     x: width * 0.40,
-        //     y: height/2,
-        //     width: width/2 -100,
-        //     height: height/2 + 100,            
-        // });
+              
+    };
 
-        // const backgroundPanelOne = leftPanel.addBackground(
-        //     this.rexUI.add.roundRectangle(0, 0, 10, 10, 0, 0x698a84).setStrokeStyle(4, 0x0000)
-        // );
+    cardEquipped(){
 
-        // const contentsPanelOne = backgroundPanelOne.add(
-        //     this.rexUI.add.label({
-        //       text: this.add.text(0,0, 'Cards', {
-        //         fontSize: '24px'
-        //       }),
-        //       space: { top: 10, bottom: 10 }
-        //     })
-        // );
+        const activeCards = this.plugins.get("DataPlugin")?.get("cardList");
 
-        // contentsPanelOne.layout();
-
-        //   // Create right panel
-        // const rightPanel = this.rexUI.add.sizer({
-        //     orientation: 1,
-        //     x: width * 0.75,
-        //     y: height/2,
-        //     width: width/2 -700,
-        //     height: height/2 + 100,
-        // })
-
-        // const backgroundPanelTwo = rightPanel.addBackground(
-        //     this.rexUI.add.roundRectangle(0, 0, 10, 10, 0, 0x698a84).setStrokeStyle(4, 0x0000)
-        // );
-
-        // const contentsPanelTwo = backgroundPanelTwo.add(
-        //     this.rexUI.add.label({
-        //       text: this.add.text(0, 0, 'Right Panel', {
-        //         fontSize: '24px'
-        //       }),
-        //       space: { top: 10, bottom: 10 }
-        //     })
-        // );
-
-        // contentsPanelTwo.layout();      
+        this.input.on("pointerdown", ()=>{
+            console.log(activeCards);
+        });
     };
 
     returnHome(width, height) {
