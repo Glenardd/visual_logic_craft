@@ -6,6 +6,8 @@ class CardCustomization extends Phaser.Scene {
 
     constructor() {
         super({ key: "cardCustomization" });
+
+        this.cardsEquipped = [];
     };
 
     create() {
@@ -33,6 +35,9 @@ class CardCustomization extends Phaser.Scene {
         const maxItems = maxColumns * maxRows;
         const rows = Math.ceil(totalItems / maxColumns); // Calculate required rows
 
+        //saves the cards available
+        this.plugins.get("DataPlugin").set("cardList", this.cardsEquipped);
+
         //cards interactivity
         const cards = (cell, colIndex, rowIndex) => {
             const index = rowIndex * maxColumns + colIndex;
@@ -57,7 +62,8 @@ class CardCustomization extends Phaser.Scene {
                 }).on("pointerout", () => {
                     card.setFillStyle(RandomInt(0, 0x1000000));
                 }).on("pointerdown", () =>{
-                    console.log(cardName[index]);
+                    //when card is pressed its going selected in the equiped cards
+                    this.cardsEquipped.push(cardName[index]);
                 })
             ).add(
                 this.rexUI.add.label({

@@ -4,7 +4,7 @@ import AddLine from "../../utils/addLayoutGuide.jsx";
 import CreateCard from "../../utils/addCards.jsx";
 import HealthBar from "../../utils/healthBar.jsx";
 import PauseButton from "../../utils/pauseBtn.jsx";
-  
+
 class FightScene extends Phaser.Scene {
     constructor() {
         super({ key: "fightScene" });
@@ -16,11 +16,14 @@ class FightScene extends Phaser.Scene {
         this.enemyHealth = 0;
         this.enemyName = "";
         this.currentScene = "";
+        
+        this.cardsAvailable = "";
     };
 
     create(data) {
 
-        console.log(data);
+        this.cardsAvailable = this.plugins.get("DataPlugin").get("cardList");
+        console.log(this.cardsAvailable);
 
         //the player current lives count
         this.livesRemaining = data.livesRemaining;

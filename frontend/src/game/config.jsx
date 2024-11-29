@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Phaser from "phaser";
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import DataPlugin from "./utils/dataPlugin";
 
 //scenes
 import MissionOne from "./scenes/missions/missionOne/scene";
@@ -14,6 +15,7 @@ import TitleScreen from "./scenes/menus/homeMenu/titleScreen/scene";
 import ForestBackGround from "./scenes/menus/homeMenu/forestBg/scene";
 import HomeManager from "./scenes/menus/homeMenu/homeManager/scene";
 import CardCustomization from "./scenes/menus/cardsCustomization/scene";
+
 
 function App() {
 
@@ -53,10 +55,15 @@ function App() {
       ], //LevelSelect,MissionTwo, MissionOne, FightScene, PauseMenu, GameOver
       plugins:{
         scene:[{
-          key: "rexUI",
-          plugin: RexUIPlugin,
-          mapping: "rexUI",
-        }],
+            key: "rexUI",
+            plugin: RexUIPlugin,
+            mapping: "rexUI",
+          }],
+          global: [{ 
+            key: 'DataPlugin', 
+            plugin: DataPlugin, 
+            start: true 
+          }],
       },
     };
 
