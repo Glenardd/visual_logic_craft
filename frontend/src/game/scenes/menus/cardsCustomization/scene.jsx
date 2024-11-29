@@ -26,17 +26,40 @@ class CardCustomization extends Phaser.Scene {
 
         const RandomInt = Phaser.Math.Between;
 
-        const cards = () => {
+        const list = [1,2,3,4,5,6,7,8,9,10,11,12];
+
+        //cards interactivity
+        const cards = (cell, colIndex, rowIndex) => {
+            const index = rowIndex * 4 + colIndex;
+            
+            //card rectangle
             const card = this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, RandomInt(0, 0x1000000)).setStrokeStyle(4, 0x0000)
             
+            //make the card clickable
             card.setInteractive({useHandCursor: true})
             .on("pointerover", ()=>{
                 card.setFillStyle(0xffffff);
             }).on("pointerout", () =>{
                 card.setFillStyle(RandomInt(0, 0x1000000));
             });
+
+            //container
+            return this.rexUI.add.sizer({
+                orientation: 1,
+                width: 200,
+                height: 250,
+                space: { top: 250/2 }
+            }).addBackground(
+                card
+            ).add(
+                this.rexUI.add.label({
+                    text: this.add.text(0,0, list[index], {
+                        fontSize: '24px',
+                    }),
+                }),
+                {align: 'center' }
+            );
             
-            return card;
         };
 
         // left panel where cards contained
@@ -45,8 +68,8 @@ class CardCustomization extends Phaser.Scene {
             column: 4, row: 3,
             columnProportions: 1, rowProportions: 1,
             space: {
-                // top: 20, bottom: 20, left: 10, right: 10,
-                column: 20, row: 20
+                top: 30, bottom: 30, left: 30, right: 30,
+                // column: 5, row: 5
             },
 
             createCellContainerCallback: cards,
