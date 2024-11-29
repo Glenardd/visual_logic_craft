@@ -29,7 +29,7 @@ class CardCustomization extends Phaser.Scene {
         const RandomInt = Phaser.Math.Between;
 
         const cardName = cardData.map(cards => cards.card_name);
-        const totalItems = cardName.length;
+        const totalItems = 12;
         const maxColumns = 4;
         const maxRows = 3;
         const maxItems = maxColumns * maxRows;
@@ -37,20 +37,33 @@ class CardCustomization extends Phaser.Scene {
 
         //saves the cards available
         this.plugins.get("DataPlugin").set("cardList", this.cardsEquipped);
-
-        //cards interactivity
+        
+        //cards interactivity and label
         const cards = (cell, colIndex, rowIndex) => {
             const index = rowIndex * maxColumns + colIndex;
 
+            //if it reaches the required rows, stop
             if (index >= maxItems || index >= cardName.length) {
-                return null;
-            }
+                return this.rexUI.add.sizer({ 
+                    orientation: 1, 
+                    width: 200, 
+                    height: 250 
+                }).addBackground(
+                    this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956)
+                );
+            };
+
+            // do not render if card is already equipped
+            if(this.cardsEquipped.includes(cardName[index])){
+                // Return an empty placeholder to maintain grid structure 
+                return this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956);
+            };
 
             //card rectangle
             const card = this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, RandomInt(0, 0x1000000)).setStrokeStyle(4, 0x0000)
 
             //container
-            return this.rexUI.add.sizer({
+            const containerCard = this.rexUI.add.sizer({
                 orientation: 1,
                 width: 200,
                 height: 250,
@@ -64,6 +77,8 @@ class CardCustomization extends Phaser.Scene {
                 }).on("pointerdown", () =>{
                     //when card is pressed its going selected in the equiped cards
                     this.cardsEquipped.push(cardName[index]);
+                    containerCard.clear(true); 
+                    containerCard.addBackground( this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956) ).layout();
                 })
             ).add(
                 this.rexUI.add.label({
@@ -75,8 +90,9 @@ class CardCustomization extends Phaser.Scene {
                 { align: 'center' }
             );
 
+            return containerCard;
         };
-        
+
         // left panel where cards contained 
         const grid = this.rexUI.add.gridSizer({
             column: maxColumns, 
