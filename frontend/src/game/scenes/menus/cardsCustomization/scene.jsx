@@ -28,57 +28,74 @@ class CardCustomization extends Phaser.Scene {
 
         const cardName = cardData.map(cards => cards.card_name);
         const totalItems = cardName.length;
-        const maxColumns = 4; // Maximum columns in the grid
+        const maxColumns = 4;
+        const maxRows = 3;
+        const maxItems = maxColumns * maxRows;
         const rows = Math.ceil(totalItems / maxColumns); // Calculate required rows
 
         //cards interactivity
         const cards = (cell, colIndex, rowIndex) => {
             const index = rowIndex * maxColumns + colIndex;
 
-            if (index < totalItems) {
-                //card rectangle
-                const card = this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, RandomInt(0, 0x1000000)).setStrokeStyle(4, 0x0000)
+            if (index >= maxItems || index >= cardName.length) {
+                return null;
+            }
 
-                //container
-                return this.rexUI.add.sizer({
-                    orientation: 1,
-                    width: 200,
-                    height: 250,
-                    space: { top: 250 / 2 }
-                }).addBackground(
-                    card.setInteractive({ useHandCursor: true })
-                    .on("pointerover", () => {
-                        card.setFillStyle(0xffffff);
-                    }).on("pointerout", () => {
-                        card.setFillStyle(RandomInt(0, 0x1000000));
-                    })
-                ).add(
-                    this.rexUI.add.label({
-                        text: this.add.text(0, 0, cardName[index], {
-                            fontSize: '24px',
-                            wordWrap: {width: 200, useAdvanceWrap: true},
-                        }),
+            //card rectangle
+            const card = this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, RandomInt(0, 0x1000000)).setStrokeStyle(4, 0x0000)
+
+            //container
+            return this.rexUI.add.sizer({
+                orientation: 1,
+                width: 200,
+                height: 250,
+                space: { top: 250 / 2 }
+            }).addBackground(
+                card.setInteractive({ useHandCursor: true })
+                .on("pointerover", () => {
+                    card.setFillStyle(0xffffff);
+                }).on("pointerout", () => {
+                    card.setFillStyle(RandomInt(0, 0x1000000));
+                }).on("pointerdown", () =>{
+                    console.log(cardName[index]);
+                })
+            ).add(
+                this.rexUI.add.label({
+                    text: this.add.text(0, 0, cardName[index], {
+                        fontSize: '24px',
+                        wordWrap: {width: 200, useAdvanceWrap: true},
                     }),
-                    { align: 'center' }
-                );
-            };
-
-            return null; // Leave empty cells blank
+                }),
+                { align: 'center' }
+            );
 
         };
         
-        // left panel where cards contained
-        const leftPanel = this.rexUI.add.gridSizer({
-            width: 400, height: 400,
-            column: maxColumns, row: rows,
-            columnProportions: 1, rowProportions: 1,
+        // left panel where cards contained 
+        const grid = this.rexUI.add.gridSizer({
+            column: maxColumns, 
+            row: rows,
+            columnProportions: 1, 
+            rowProportions: 1,
             space: {
-                top: 30, bottom: 30, left: 30, right: 30,
-                // column: 5, row: 5
+                top: 100, 
+                bottom: 125, 
+                left: 100, 
+                right: 100,
+                
+                column: 50, 
+                row: 50
             },
 
             createCellContainerCallback: cards,
-        }).addBackground(
+        });
+
+        //left panel
+        const leftPanel = this.rexUI.add.sizer({
+            orientation:1,
+        }).add(
+            grid
+        ).addBackground(
             this.rexUI.add.roundRectangle(0, 0, 400, 400, 0, 0x698a84)
                 .setStrokeStyle(4, 0x000000)
                 .setDepth(-1)
@@ -92,7 +109,7 @@ class CardCustomization extends Phaser.Scene {
         ).add(
             this.rexUI.add.label({
                 text: this.add.text(0, 0, 'Cards Equiped', {
-                    fontSize: '24px'
+                    fontSize: "24px",
                 }),
                 space: { top: 10, bottom: 10 }
             })
