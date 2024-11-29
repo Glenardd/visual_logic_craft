@@ -16,9 +16,7 @@ class ReturnButton extends Phaser.GameObjects.Container{
         };
 
         const returnbtn = new ButtonCreate(this.scene,0,0, "Return", 25, 50, 150, 0xe85f5f, 0x914c4c,returnEvent, true);
-        returnbtn.setInteractivity(true);
         this.add(returnbtn);
-
         this.scene.add.existing(this);
     };
 };

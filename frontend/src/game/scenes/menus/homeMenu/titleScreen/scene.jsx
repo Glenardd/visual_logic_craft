@@ -32,8 +32,7 @@ class TitleScreen extends Phaser.Scene{
     };
 
     levelSelect(){
-        const levelSelectBtn = new ButtonCreate(this, 0,-25, "Level Select", 25, 100, 200,0x88d17b,0x5e9654,()=> this.changeScene("levelSelect"));
-        levelSelectBtn.setInteractivity(true);
+        const levelSelectBtn = new ButtonCreate(this, 0,-25, "Level Select", 25, 100, 200,0x88d17b,0x5e9654,()=> this.changeScene("levelSelect"), true);
         levelSelectBtn.setCenter();
         
         this.container.add(levelSelectBtn);
@@ -46,8 +45,7 @@ class TitleScreen extends Phaser.Scene{
             this.scene.stop("titleScreen");
         };
 
-        const customizeCardsBtn = new ButtonCreate(this, 0,40, "Customize Cards", 20, 100, 200,0x88d17b,0x5e9654,()=> customizeCards());
-        customizeCardsBtn.setInteractivity(true);
+        const customizeCardsBtn = new ButtonCreate(this, 0,40, "Customize Cards", 20, 100, 200,0x88d17b,0x5e9654,()=> customizeCards(), true);
         customizeCardsBtn.setCenter();
         
         this.container.add(customizeCardsBtn);
@@ -59,8 +57,7 @@ class TitleScreen extends Phaser.Scene{
             console.log("logout");
         };
 
-        const logoutBtn = new ButtonCreate(this, 0,105, "logout", 20, 100, 200,0x88d17b,0x5e9654,()=> logout());
-        logoutBtn.setInteractivity(true);
+        const logoutBtn = new ButtonCreate(this, 0,105, "logout", 20, 100, 200,0x88d17b,0x5e9654,()=> logout(), true);
         logoutBtn.setCenter();
         
         this.container.add(logoutBtn);
