@@ -26,8 +26,8 @@ class CardCustomization extends Phaser.Scene {
 
         const RandomInt = Phaser.Math.Between;
 
-        const list = [1, 2, 3, 4, 5, 6, 7, 10, 11];
-        const totalItems = list.length;
+        const cardName = cardData.map(cards => cards.card_name);
+        const totalItems = cardName.length;
         const maxColumns = 4; // Maximum columns in the grid
         const rows = Math.ceil(totalItems / maxColumns); // Calculate required rows
 
@@ -54,8 +54,9 @@ class CardCustomization extends Phaser.Scene {
                     })
                 ).add(
                     this.rexUI.add.label({
-                        text: this.add.text(0, 0, list[index], {
+                        text: this.add.text(0, 0, cardName[index], {
                             fontSize: '24px',
+                            wordWrap: {width: 200, useAdvanceWrap: true},
                         }),
                     }),
                     { align: 'center' }
