@@ -218,7 +218,6 @@ class CardCustomization extends Phaser.Scene {
                                 fontSize: "24px",
                                 wordWrap: { width: 200, useAdvanceWrap: true }
                             }),
-                            space: { top: 10, bottom: 10 }
                         }).setDepth(2)
                     ).addBackground(
                         this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956).setDepth(1)
