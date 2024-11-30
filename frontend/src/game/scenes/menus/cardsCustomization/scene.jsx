@@ -171,7 +171,23 @@ class CardCustomization extends Phaser.Scene {
         // do not render if card is already equipped
         if (this.cardsEquipped.includes(cardName[index])) {
             // Return an empty placeholder to maintain grid structure 
-            return this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956);
+            return this.rexUI.add.sizer({
+                orientation: 1,
+                width: 200,
+                height: 250,
+                space: { top: 250 / 2 }
+            }).add(
+                this.rexUI.add.label({
+                    text: this.add.text(0, 0, cardName[index], {
+                        fontSize: "24px",
+                        wordWrap: { width: 200, useAdvanceWrap: true }
+                    }),
+                    space: { top: 10, bottom: 10 }
+                }).setDepth(2)
+            ).addBackground(
+                this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956)
+            );
+            
         };
 
         //card rectangle
@@ -191,10 +207,22 @@ class CardCustomization extends Phaser.Scene {
                     card.setFillStyle(0x9c7962);
                 }).on("pointerdown", () => {
                     //when card is pressed its going selected in the equiped cards
-                    card.setAlpha(0);
+                    // card.setAlpha(0.5);
                     this.cardsEquipped.push(cardName[index]);
                     containerCard.clear(true);
-                    containerCard.addBackground(this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956).setDepth(1)).layout();
+                    
+                    //add blanks after clicking the cards
+                    containerCard.add(
+                        this.rexUI.add.label({
+                            text: this.add.text(0, 0, cardName[index], {
+                                fontSize: "24px",
+                                wordWrap: { width: 200, useAdvanceWrap: true }
+                            }),
+                            space: { top: 10, bottom: 10 }
+                        }).setDepth(2)
+                    ).addBackground(
+                        this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956).setDepth(1)
+                    ).layout();
                     
                     this.refreshRightPanel();
                 }),
