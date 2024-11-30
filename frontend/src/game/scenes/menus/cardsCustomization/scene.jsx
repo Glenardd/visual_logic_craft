@@ -65,6 +65,13 @@ class CardCustomization extends Phaser.Scene {
         return this.rexUI.add.sizer({
             orientation: 1,
         }).add(
+            this.rexUI.add.label({
+                text: this.add.text(0, 0, 'All Cards', {
+                    fontSize: "24px",
+                }),
+                space: { top: 10, bottom: 10 }
+            }),
+        ).add(
             this.gridLeft()
         ).addBackground(
             this.rexUI.add.roundRectangle(0, 0, 400, 400, 0, 0x698a84)
@@ -103,8 +110,8 @@ class CardCustomization extends Phaser.Scene {
             columnProportions: 1,
             rowProportions: 1,
             space: {
-                top: 100,
-                bottom: 105,
+                top: 50,
+                bottom: 100,
                 left: 100,
                 right: 100,
 
