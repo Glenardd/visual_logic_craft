@@ -8,6 +8,9 @@ class CardCustomization extends Phaser.Scene {
         super({ key: "cardCustomization" });
 
         this.cardsEquipped = [];
+        this.cardsUneqiupped = [];
+
+        cardData.map(cards => this.cardsUneqiupped.push(cards.card_name));
     };
 
     create() {
@@ -21,6 +24,8 @@ class CardCustomization extends Phaser.Scene {
         // this.panelOne(width, height);
         // this.panelTwo(width, height);
 
+        console.log(this.cardEquipped.length);
+
         this.panels(width, height);
         this.cardEquipped();
     };
@@ -29,7 +34,7 @@ class CardCustomization extends Phaser.Scene {
 
         const RandomInt = Phaser.Math.Between;
 
-        const cardName = cardData.map(cards => cards.card_name);
+        const cardName = this.cardsUneqiupped
         const totalItems = 12;
         const maxColumns = 4;
         const maxRows = 3;
@@ -77,9 +82,10 @@ class CardCustomization extends Phaser.Scene {
                     card.setFillStyle(RandomInt(0, 0x1000000));
                 }).on("pointerdown", () =>{
                     //when card is pressed its going selected in the equiped cards
+                    card.setAlpha(0);
                     this.cardsEquipped.push(cardName[index]);
                     containerCard.clear(true); 
-                    containerCard.addBackground( this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956) ).layout();
+                    containerCard.addBackground( this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956)).layout();
                 })
             ).add(
                 this.rexUI.add.label({
@@ -113,9 +119,18 @@ class CardCustomization extends Phaser.Scene {
             createCellContainerCallback: cardsLeft,
         });
 
+        const cardRightName = this.cardsEquipped;
+        const maxRightCols = 1;
+        const maxRightRows = 4;
+        const rowsRight = Math.ceil(maxRightRows / maxRightCols);
+        const totalRightItems = maxRightCols * maxRightRows;
+
         const cardRight = (cell, colIndex, rowIndex) =>{
-            const activeCards = this.plugins.get("DataPlugin")?.get("cardList");
             const index = rowIndex * 1 + colIndex;
+            
+            if(index >= totalRightItems || index >= cardRightName.length){
+                return this.rexUI.add.roundRectangle(0, 0, 150, 200, 0, 0x475956).setDepth(1);
+            };
 
             return this.rexUI.add.sizer({
                 orientation: 1,
@@ -126,7 +141,7 @@ class CardCustomization extends Phaser.Scene {
                 },
             }).add(
                 this.rexUI.add.label({
-                    text: this.add.text(0, 0, activeCards[index], {
+                    text: this.add.text(0, 0, this.cardsEquipped[index], {
                         fontSize: '15px',
                         wordWrap: {width: 100, useAdvanceWrap: true},
                     }).setDepth(2),
@@ -140,7 +155,7 @@ class CardCustomization extends Phaser.Scene {
         // left panel where cards contained 
         const gridRight = this.rexUI.add.gridSizer({
             column: 1, 
-            row: 4,
+            row: rowsRight,
             columnProportions: 1, 
             rowProportions: 1,
             space: {
