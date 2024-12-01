@@ -57,6 +57,7 @@ class PauseMenu extends Phaser.Scene{
             console.log("resume: ",`${this.previousScene}` );
             this.scene.resume(this.previousScene);
             this.scene.stop("pauseMenu");
+            this.scene.stop("forestBackground");
         };
 
         const resumeBtn = new ButtonCreate(this,0,-100, "Resume", 25, 100, 300, 0xe85f5f,0x914c4c, resumeEvent, true).setCenter();
@@ -64,11 +65,12 @@ class PauseMenu extends Phaser.Scene{
     };
 
     guideBtn(){
-        const music = () =>{
-            console.log("music playing");
+        const howToPlay = () =>{
+            this.scene.start("howToPlay");
+            this.scene.stop("pauseMenu");
         };
 
-        const toggleMusicBtn = new ButtonCreate(this,0,-25, "How to play", 25, 100, 300, 0xe85f5f,0x914c4c, music, true).setCenter();
+        const toggleMusicBtn = new ButtonCreate(this,0,-25, "How to play", 25, 100, 300, 0xe85f5f,0x914c4c, ()=> howToPlay(), true).setCenter();
         this.layout.add(toggleMusicBtn);
     };
 
