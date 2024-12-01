@@ -6,7 +6,9 @@ class HowToPlay extends Phaser.Scene{
         super({key: "howToPlay"});
     };
 
-    create(){
+    create(data){
+
+        this.previousScene = data.previousScene;
 
         this.Width = this.cameras.main.width;
         this.Height = this.cameras.main.height;
@@ -18,7 +20,7 @@ class HowToPlay extends Phaser.Scene{
         console.log("how to play scene");
         
         this.scene.launch("forestBackground");
-        this.scene.sendToBack("missionOne");
+        this.scene.sendToBack(this.previousScene);
     };
 
     returnHome(){
