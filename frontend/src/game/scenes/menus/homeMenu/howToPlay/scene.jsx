@@ -8,19 +8,17 @@ class HowToPlay extends Phaser.Scene{
 
     create(data){
 
-        this.previousScene = data.previousScene;
+        this.previousScene = data?.previousScene;
 
         this.Width = this.cameras.main.width;
         this.Height = this.cameras.main.height;
 
-        this.visibility = 0;
-
-        this.returnHome();
-
+        this.visibility = 1;
         console.log("how to play scene");
         
         this.scene.launch("forestBackground");
-        this.scene.sendToBack(this.previousScene);
+
+        this.returnHome();
     };
 
     returnHome(){
@@ -28,9 +26,8 @@ class HowToPlay extends Phaser.Scene{
         const lineX = line.createVerticalLine(0.03,this.visibility).PosX;
         const lineY = line.createHorizontalLine(0.03,this.visibility).PosY;
 
-        new ReturnButton(this, lineX, lineY, "pauseMenu");
+        new ReturnButton(this, lineX, lineY, this.previousScene);
     };
-
 };
 
 export default HowToPlay;

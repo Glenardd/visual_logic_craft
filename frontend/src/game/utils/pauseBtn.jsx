@@ -23,6 +23,7 @@ class PauseButton extends Phaser.GameObjects.Container {
                 lives: this.lives,
                 assetImg: this.assetImg
             });
+            this.scene.scene.sendToBack();
         };
 
         const visibility = 0;

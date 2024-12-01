@@ -61,7 +61,7 @@ class TitleScreen extends Phaser.Scene{
 
     howToPlay(){
         const howToPlay = () =>{
-            this.scene.launch("howToPlay");
+            this.scene.launch("howToPlay",{previousScene: this.scene.key});
             this.scene.stop("titleScreen");
         };
 

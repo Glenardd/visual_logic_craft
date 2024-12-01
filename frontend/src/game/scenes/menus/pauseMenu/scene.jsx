@@ -66,7 +66,7 @@ class PauseMenu extends Phaser.Scene{
 
     guideBtn(){
         const howToPlay = () =>{
-            this.scene.start("howToPlay", {previousScene: this.previousScene});
+            this.scene.start("howToPlay", {previousScene: this.scene.key});
             this.scene.stop("pauseMenu");
         };
 
