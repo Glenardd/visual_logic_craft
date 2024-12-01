@@ -7,7 +7,7 @@ class CardCustomization extends Phaser.Scene {
     constructor() {
         super({ key: "cardCustomization" });
 
-        this.cardsEquipped = [];
+        this.cardsEquipped = ["","","",""];
         this.cardsUneqiupped = [];
 
         cardData.map(cards => this.cardsUneqiupped.push(cards.card_name));
@@ -28,7 +28,7 @@ class CardCustomization extends Phaser.Scene {
         //prints the sise of the equipped cards
         console.log(this.cardEquipped.length);
         this.cardEquipped();
-        this.splitPanels(width, height)
+        this.splitPanels();
     };
 
     //split panels
@@ -206,24 +206,29 @@ class CardCustomization extends Phaser.Scene {
                 }).on("pointerout", () => {
                     card.setFillStyle(0x9c7962);
                 }).on("pointerdown", () => {
-                    //when card is pressed its going selected in the equiped cards
-                    // card.setAlpha(0.5);
-                    this.cardsEquipped.push(cardName[index]);
-                    containerCard.clear(true);
-                    
-                    //add blanks after clicking the cards
-                    containerCard.add(
-                        this.rexUI.add.label({
-                            text: this.add.text(0, 0, cardName[index], {
-                                fontSize: "24px",
-                                wordWrap: { width: 200, useAdvanceWrap: true }
-                            }),
-                        }).setDepth(2)
-                    ).addBackground(
-                        this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956).setDepth(1)
-                    ).layout();
-                    
-                    this.refreshRightPanel();
+
+                    // get the first index of the blank string
+                    const blankIndex = this.cardsEquipped.indexOf("");
+
+                    if(blankIndex !== -1){
+                        //change the blanks with card names
+                        this.cardsEquipped[blankIndex] = cardName[index];
+                        // this.cardsUneqiuppedpped[index] =  "";
+                        //remove card when clicked
+                        containerCard.clear(true)
+                        containerCard.add(
+                            this.rexUI.add.label({
+                                text: this.add.text(0, 0, cardName[index], {
+                                    fontSize: "24px",
+                                    wordWrap: { width: 200, useAdvanceWrap: true }
+                                }),
+                            }).setDepth(2)
+                        ).addBackground(
+                            this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956).setDepth(1)
+                        ).layout();
+
+                        this.scene.restart();
+                    };
                 }),
         ).add(
             this.rexUI.add.label({
@@ -247,29 +252,13 @@ class CardCustomization extends Phaser.Scene {
         const totalRightItems = maxRightCols * maxRightRows;
     
         // Leave blanks
-        if (index >= totalRightItems || index >= cardRightName.length) {
+        if (index >= totalRightItems || index >= cardRightName.length || this.cardsEquipped[index] === "") {
             return this.rexUI.add.roundRectangle(0, 0, 150, 200, 0, 0x475956).setDepth(1);
-        }
+        };
     
         const card = this.rexUI.add.roundRectangle(0, 0, 10, 10, 10, 0x349e8c).setStrokeStyle(4, 0x0000).setDepth(1);
     
-        // Create the label with a unique name to avoid duplication
-        const labelName = cardRightName[index];
-        let label = this.children.getByName(labelName);
-        
-        if (!label) {
-            label = this.rexUI.add.label({
-                name: labelName,
-                text: this.add.text(0, 0, this.cardsEquipped[index], {
-                    fontSize: '15px',
-                    wordWrap: { width: 100, useAdvanceWrap: true },
-                }).setDepth(2),
-            });
-        } else {
-            label.getElement('text').setText(this.cardsEquipped[index]);
-        };
-    
-        return this.rexUI.add.sizer({
+        const containerCard = this.rexUI.add.sizer({
             orientation: 1,
             width: 150,
             height: 200,
@@ -277,29 +266,37 @@ class CardCustomization extends Phaser.Scene {
                 top: 100
             },
         }).add(
-            label,
+            this.rexUI.add.label({
+                text: this.add.text(0, 0, this.cardsEquipped[index], {
+                    fontSize: '15px',
+                    wordWrap: { width: 100, useAdvanceWrap: true },
+                }).setDepth(2)
+            }),
             { align: 'center' }
         ).addBackground(
             card.setInteractive({ useHandCursor: true })
                 .on("pointerdown", () => {
-                    // Access the label element when the card is clicked
-                    console.log(this.cardsEquipped[index]);
-                    // Update label to avoid duplication
-                    label.getElement('text').setText(this.cardsEquipped[index]);
+
+                    //empty the cards when click
+                    this.cardsEquipped[index] = "";
+                    containerCard.clear(true);
+
+                    //leave blanks after clicking cards
+                    containerCard.addBackground(
+                        this.rexUI.add.roundRectangle(0, 0, 200, 250, 0, 0x475956).setDepth(1)
+                    ).layout();
+
+                    this.scene.restart();
                 })
         );
-    };
 
-    //for updating the cards in the right
-    refreshRightPanel() {
-        this.splitPanels().getElement("leftPanel").clear(true);
+        return containerCard;
     };
 
     cardEquipped() {
-        const activeCards = this.plugins.get("DataPlugin")?.get("cardList");
-
         this.input.on("pointerdown", () => {
-            console.log(activeCards);
+            console.log(this.cardsEquipped);
+            console.log(this.cardsUneqiupped);
         });
     };
 
