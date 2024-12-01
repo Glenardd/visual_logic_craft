@@ -22,7 +22,7 @@ class FightScene extends Phaser.Scene {
 
     create(data) {
 
-        this.cardsAvailable = this.plugins.get("DataPlugin").get("cardList");
+        this.cardsAvailable = this.plugins?.get("DataPlugin")?.get("cardList") || "";
         console.log(this.cardsAvailable);
 
         //the player current lives count
@@ -174,8 +174,8 @@ class FightScene extends Phaser.Scene {
             this.selectedCaseOutput = [""];
 
             // all cards can be pressed or interacted with this function
-            cards.list.map(card =>{
-                card.setInteractivity(true);
+            cards.list?.map(card =>{
+                card?.setInteractivity(true);
             });
         };
 
@@ -200,8 +200,8 @@ class FightScene extends Phaser.Scene {
             this.cardValue = cardValue;
             this.resultVal.setText("Input your code");
 
-            cards.list.map(card =>{
-                card.setInteractivity(false);
+            cards.list?.map(card =>{
+                card?.setInteractivity(false);
             });
         };
 
@@ -319,61 +319,32 @@ class FightScene extends Phaser.Scene {
 
         cardView.add([viewCard, this.viewCardInstructions, this.viewCardName, this.viewCardConcept, this.viewCardValue, this.viewCardOutput, this.selectACardMessage]);
 
-        const card = ["Conditional Cobra","Variable Vulture", "Function Falcon", "Array Antelope"];
+        //store cards here
+        this.cardsAvailable.map((card, i) =>{
 
-        this.card1 = new CreateCard(
-            this,
-            0,
-            0,
-            250,
-            300,
-            0xdbb77d,
-            0xA88A5A,
-            card[0],
-            true,
-            select
-        );
+            let y = i * 40;
 
-        this.card2 = new CreateCard(
-            this,
-            0,
-            60,
-            250,
-            300,
-            0xdbb77d,
-            0xA88A5A,
-            card[1],
-            true,
-            select
-        );
+            if(card === ""){
+                return null;  
+            };
 
-        this.card3 = new CreateCard(
-            this,
-            0,
-            120,
-            250,
-            300,
-            0xdbb77d,
-            0xA88A5A,
-            card[2],
-            true,
-            select
-        );
+            const cardStore = new CreateCard(
+                this,
+                0,
+                y,
+                250,
+                300,
+                0xdbb77d,
+                0xA88A5A,
+                card,
+                true,
+                select
+            );
 
-        this.card4 = new CreateCard(
-            this,
-            0,
-            175,
-            250,
-            300,
-            0xdbb77d,
-            0xA88A5A,
-            card[3],
-            true,
-            select
-        );
+            cards.add(cardStore);
+        });
 
-        cards.add([this.card1, this.card2, this.card3, this.card4]);
+        console.log(cards.list);
 
         //buttons
         this.deselectCardbtn = new ButtonCreate(this, 100, 0, "Deselect", 25, 50, 200, 0xe85f5f, 0x914c4c, deselect, false);
