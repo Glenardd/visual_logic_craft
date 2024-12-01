@@ -61,8 +61,8 @@ class TitleScreen extends Phaser.Scene{
 
     howToPlay(){
         const howToPlay = () =>{
-            // this.scene.launch("cardCustomization");
-            // this.scene.stop("titleScreen");
+            this.scene.launch("howToPlay");
+            this.scene.stop("titleScreen");
         };
 
         const customizeCardsBtn = new ButtonCreate(this, 0,0, "How to play", 20, 100, 200,0x88d17b,0x5e9654,()=> howToPlay(), true);

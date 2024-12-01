@@ -15,6 +15,7 @@ import TitleScreen from "./scenes/menus/homeMenu/titleScreen/scene";
 import ForestBackGround from "./scenes/menus/homeMenu/forestBg/scene";
 import HomeManager from "./scenes/menus/homeMenu/homeManager/scene";
 import CardCustomization from "./scenes/menus/cardsCustomization/scene";
+import HowToPlay from "./scenes/menus/homeMenu/howToPlay/scene";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         HomeManager,
         ForestBackGround,
         TitleScreen,
+        HowToPlay,
         LevelSelect,
         CardCustomization,
         MissionTwo, 

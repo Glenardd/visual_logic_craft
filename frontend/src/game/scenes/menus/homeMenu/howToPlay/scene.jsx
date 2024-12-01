@@ -4,6 +4,9 @@ class HowToPlay extends Phaser.Scene{
     };
 
     create(){
-        
+        console.log("how to play scene");
     };
+
 };
+
+export default HowToPlay;
