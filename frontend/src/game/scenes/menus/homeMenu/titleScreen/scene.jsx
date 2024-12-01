@@ -20,19 +20,27 @@ class TitleScreen extends Phaser.Scene{
         
         this.container = this.add.container(lineX, lineY);
 
+        this.gameTitle();
         this.levelSelect();
         this.customizeCards();
-        this.gameTitle();
+        this.howToPlay();
         this.logout();
+        
+
+        //dynamically position btn
+        const listOfUi = this.container.list;
+        listOfUi.map((ui, i) =>{
+            ui.y  = i * (40 + 90)-180;
+        }); 
     };
 
     gameTitle(){
-        const titleGame = this.add.text(0,-200, "VISUAL LOGIC CRAFT", { fontSize: 100 }).setOrigin(0.5);
+        const titleGame = this.add.text(0,0, "VISUAL LOGIC CRAFT", { fontSize: 100 }).setOrigin(0.5);
         this.container.add(titleGame);
     };
 
     levelSelect(){
-        const levelSelectBtn = new ButtonCreate(this, 0,-25, "Level Select", 25, 100, 200,0x88d17b,0x5e9654,()=> this.changeScene("levelSelect"), true);
+        const levelSelectBtn = new ButtonCreate(this, 0,0, "Level Select", 25, 100, 200,0x88d17b,0x5e9654,()=> this.changeScene("levelSelect"), true);
         levelSelectBtn.setCenter();
         
         this.container.add(levelSelectBtn);
@@ -45,11 +53,24 @@ class TitleScreen extends Phaser.Scene{
             this.scene.stop("titleScreen");
         };
 
-        const customizeCardsBtn = new ButtonCreate(this, 0,40, "Customize Cards", 20, 100, 200,0x88d17b,0x5e9654,()=> customizeCards(), true);
+        const customizeCardsBtn = new ButtonCreate(this, 0,0, "Customize Cards", 20, 100, 200,0x88d17b,0x5e9654,()=> customizeCards(), true);
         customizeCardsBtn.setCenter();
         
         this.container.add(customizeCardsBtn);
     };
+
+    howToPlay(){
+        const howToPlay = () =>{
+            // this.scene.launch("cardCustomization");
+            // this.scene.stop("titleScreen");
+        };
+
+        const customizeCardsBtn = new ButtonCreate(this, 0,0, "How to play", 20, 100, 200,0x88d17b,0x5e9654,()=> howToPlay(), true);
+        customizeCardsBtn.setCenter();
+        
+        this.container.add(customizeCardsBtn);
+    };  
+
 
     logout(){
 
@@ -57,7 +78,7 @@ class TitleScreen extends Phaser.Scene{
             console.log("logout");
         };
 
-        const logoutBtn = new ButtonCreate(this, 0,105, "logout", 20, 100, 200,0x88d17b,0x5e9654,()=> logout(), true);
+        const logoutBtn = new ButtonCreate(this, 0,0, "logout", 20, 100, 200,0x88d17b,0x5e9654,()=> logout(), true);
         logoutBtn.setCenter();
         
         this.container.add(logoutBtn);
