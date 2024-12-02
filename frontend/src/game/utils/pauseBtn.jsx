@@ -17,6 +17,7 @@ class PauseButton extends Phaser.GameObjects.Container {
 
     createPauseButton() {
         const returnEvent = () => {
+            this.scene.scene.pause();
             this.scene.scene.launch("pauseMenu", {
                 previousScene: this.scene.scene.key,
                 destroyedEnemies: this.destroyedEnemies,

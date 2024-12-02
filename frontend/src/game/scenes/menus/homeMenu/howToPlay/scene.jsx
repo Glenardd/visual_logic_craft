@@ -9,14 +9,17 @@ class HowToPlay extends Phaser.Scene{
     create(data){
 
         this.previousScene = data?.previousScene;
+        this.assetImg = data?.assetImg;
 
         this.Width = this.cameras.main.width;
         this.Height = this.cameras.main.height;
 
         this.visibility = 0;
         console.log("how to play scene");
-        
-        this.scene.launch("forestBackground");
+
+        if(this.scene.isPaused("missionOne")){
+            this.scene.launch("forestBackground");
+        };
 
         this.returnHome();
     };

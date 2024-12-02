@@ -40,8 +40,6 @@ class PauseMenu extends Phaser.Scene{
         this.fg.setOrigin(0);
         this.fg.setScale(5);
 
-        this.scene.pause(this.previousScene);
-
         this.layout = this.add.container(lineX, lineY);
         
         this.resumeBtn();
@@ -66,7 +64,7 @@ class PauseMenu extends Phaser.Scene{
 
     guideBtn(){
         const howToPlay = () =>{
-            this.scene.start("howToPlay", {previousScene: this.scene.key});
+            this.scene.launch("howToPlay", {previousScene: this.scene.key});
             this.scene.stop("pauseMenu");
         };
 
