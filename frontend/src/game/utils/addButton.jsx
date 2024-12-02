@@ -21,24 +21,32 @@ class ButtonCreate extends Phaser.GameObjects.Container{
 
         this.add([this.buttonPadding, btnText]);
 
-        //add container to scene
-        scene.add.existing(this);
-
-        this.setInteractivity(this.interactivity);
-        
+        this.setInteractivity(this.interactivity);  
         this.buttonPadding.setScrollFactor(0);
         btnText.setScrollFactor(0);
 
+        //add container to scene
+        scene.add.existing(this);
     };
 
     setInteractivity(turnOn) {
+        // Clear existing listeners
+        this.buttonPadding.removeAllListeners();
+
         const [buttonPadding, btnText] = this.list;
-        buttonPadding.setInteractive({ useHandCursor: turnOn });
-        buttonPadding.setAlpha(turnOn ? 1 : 0);
-        btnText.setAlpha(turnOn ? 1 : 0);
-        this.buttonPadding.on("pointerdown", () => {this.func()});
-        this.buttonPadding.on("pointerover", () => this.buttonPadding.setFillStyle(this.foregroundColor));
-        this.buttonPadding.on("pointerout", () => this.buttonPadding.setFillStyle(this.backgroundColor));
+
+        if(turnOn === true){
+            buttonPadding.setInteractive({ useHandCursor: turnOn });
+            buttonPadding.setAlpha(turnOn);
+            btnText.setAlpha(turnOn);
+            this.buttonPadding.on("pointerdown", () => {this.func()});
+            this.buttonPadding.on("pointerover", () => this.buttonPadding.setFillStyle(this.foregroundColor));
+            this.buttonPadding.on("pointerout", () => this.buttonPadding.setFillStyle(this.backgroundColor));  
+        }else{
+            buttonPadding.setAlpha(turnOn);
+            btnText.setAlpha(turnOn);
+            buttonPadding.disableInteractive();
+        };
     };
     
     //for scenes that is paused only

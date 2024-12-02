@@ -22,7 +22,7 @@ class FightScene extends Phaser.Scene {
 
     create(data) {
 
-        this.cardsAvailable = this.plugins?.get("DataPlugin")?.get("cardList") || "";
+        this.cardsAvailable = this.plugins.get("DataPlugin")?.get("cardList");
         console.log(this.cardsAvailable);
 
         //the player current lives count
@@ -205,8 +205,11 @@ class FightScene extends Phaser.Scene {
             });
         };
 
+        //enemy turn
         const endTurn = () => {
+
             this.endturnbtn.setInteractivity(false);
+
             this.runBtn.setInteractivity(true);
             //reset turns when turn ended
             this.attempts = 0
@@ -235,6 +238,8 @@ class FightScene extends Phaser.Scene {
                     });
                 },
             });
+            //player damage by the enemy
+            this.playerHpBar.Subtract(1);
         };
 
         //grass line obj
@@ -395,6 +400,7 @@ class FightScene extends Phaser.Scene {
     };
 
     //case tester
+    //player attack
     assertEqual(code, codeExecute) {
 
         //list of the code normalized
@@ -463,6 +469,8 @@ class FightScene extends Phaser.Scene {
 
                 this.endturnbtn.setInteractivity(false);
                 this.runBtn.setInteractivity(false);
+
+                console.log(this.cardValue);
 
                 //damage
                 this.enemyHpBar.Subtract(this.cardValue);

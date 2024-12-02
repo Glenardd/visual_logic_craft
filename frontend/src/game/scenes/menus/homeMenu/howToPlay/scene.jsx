@@ -13,7 +13,7 @@ class HowToPlay extends Phaser.Scene{
         this.Width = this.cameras.main.width;
         this.Height = this.cameras.main.height;
 
-        this.visibility = 1;
+        this.visibility = 0;
         console.log("how to play scene");
         
         this.scene.launch("forestBackground");

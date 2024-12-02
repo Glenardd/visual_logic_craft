@@ -50,7 +50,7 @@ class HealthBar extends Phaser.GameObjects.Container{
     //display the progress bar
     updateHp(){
         this.currentHealth = Phaser.Math.Clamp(this.currentHealth,0, this.maxHealth);
-        let hpPercent = (this.currentHealth / this.maxHealth) * this.healthBarWidth
+        let hpPercent = (this.currentHealth / this.maxHealth) * this.healthBarWidth;
 
         this.healthValue.setText(this.currentHealth);
 
