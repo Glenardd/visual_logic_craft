@@ -102,6 +102,7 @@ class CreateCard extends Phaser.GameObjects.Container {
                             ease: 'Power2',
                             onComplete: () => {
                                 this.scene.deselectCardbtn.setInteractivity(turnOn);
+                                this.scene.hintsBtn.setInteractivity(turnOn);
                             },
                         });
                     },

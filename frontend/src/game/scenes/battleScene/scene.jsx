@@ -160,6 +160,8 @@ class FightScene extends Phaser.Scene {
 
         const deselect = () => {
             this.deselectCardbtn.setInteractivity(false);
+            this.hintsBtn.setInteractivity(false);
+
             console.log("deselect");
 
             //clear view th card challenge
@@ -273,6 +275,10 @@ class FightScene extends Phaser.Scene {
             });
         };
 
+        const hints = () =>{
+            console.log("hints");
+        };
+
         //grass line obj
         const groundObj = this.add.rectangle(0, 0, width, 100, groundColor);
         groundObj.setStrokeStyle(4, 0x0000)
@@ -294,7 +300,7 @@ class FightScene extends Phaser.Scene {
         this.resultVal.x = resultLog.x + resultLog.width / 2;
         this.resultVal.y = resultLog.y + resultLog.height / 2;
 
-        //view card
+        //view card panel
         const viewCard = this.add.rectangle(0, 0, 400, 380, 0x9c8454);
         this.selectACardMessage= this.add.text(0, 0, "Pick a card", {
             fontSize: "50px",
@@ -385,6 +391,9 @@ class FightScene extends Phaser.Scene {
         //buttons
         this.deselectCardbtn = new ButtonCreate(this, 100, 0, "Deselect", 25, 50, 200, 0xe85f5f, 0x914c4c, deselect, false);
         deselectBtn.add(this.deselectCardbtn);
+
+        this.hintsBtn = new ButtonCreate(this, 0, 0, "Hint", 25, 50, 160, 0xe85f5f, 0x914c4c, hints, false);
+        deselectBtn.add(this.hintsBtn);
 
         this.endturnbtn = new ButtonCreate(this, 370, 0, "End\nTurn", 30, 100, 180, 0xe85f5f, 0x914c4c, endTurn, false);
 
