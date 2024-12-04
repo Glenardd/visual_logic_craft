@@ -139,7 +139,9 @@ class FightScene extends Phaser.Scene {
         //execute code
         const runCode = () => {
 
-            if (this.selectedCase === "") {
+            const checkCard = this.selectedCase.every((card) => card === "");
+
+            if (checkCard) {
                 this.resultVal.setText("Pick a card");
                 setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
 
@@ -208,6 +210,31 @@ class FightScene extends Phaser.Scene {
         //enemy turn
         const endTurn = () => {
 
+            //the fetch the api here for machine learning
+            //send to machine learning model
+            const conceptStr = this.viewCardConcept.text.replace(/['"]+/g, '');
+            const concept =  conceptStr === "Variables" ? 3 : conceptStr === "Conditionals" ? 1 : conceptStr === "Arrays" ? 0 : conceptStr === "Functions" ? 2 : "";
+
+            //will return enemy damage
+            const fetchData = async () => {
+                try {
+                    const response = await fetch('http://localhost:5000/predict', {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ "Concept": concept, "Health": this.enemyHpBar.currentHealth}),
+                    });
+                    const data = await response.json();  // Wait for the JSON to be parsed
+                    return data;  // Return the data
+                } catch (error) {
+                    throw new Error("Nothing is fetch: ", error);
+                };
+            };
+
+            //reset every run of the player
+            deselect();
+
             this.endturnbtn.setInteractivity(false);
 
             this.runBtn.setInteractivity(true);
@@ -238,8 +265,12 @@ class FightScene extends Phaser.Scene {
                     });
                 },
             });
+
             //player damage by the enemy
-            this.playerHpBar.Subtract(1);
+            fetchData().then(data =>{
+                console.log(data.damage[0]);
+                this.playerHpBar.Subtract(Math.floor(data.damage[0]));
+            });
         };
 
         //grass line obj
@@ -325,7 +356,7 @@ class FightScene extends Phaser.Scene {
         cardView.add([viewCard, this.viewCardInstructions, this.viewCardName, this.viewCardConcept, this.viewCardValue, this.viewCardOutput, this.selectACardMessage]);
 
         //store cards here
-        this.cardsAvailable.map((card, i) =>{
+        this.cardsAvailable?.map((card, i) =>{
 
             let y = i * 40;
 
@@ -402,7 +433,6 @@ class FightScene extends Phaser.Scene {
     //case tester
     //player attack
     assertEqual(code, codeExecute) {
-
         //list of the code normalized
         const caseAnswers = this.selectedCase.map(answers => {
             return this.codeNormalizer(answers);
@@ -416,7 +446,7 @@ class FightScene extends Phaser.Scene {
         //this will execute the python code
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:5000/', {
+                const response = await fetch("http://localhost:5000/", {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json"
