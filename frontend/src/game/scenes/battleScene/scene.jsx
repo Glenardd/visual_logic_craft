@@ -198,8 +198,6 @@ class FightScene extends Phaser.Scene {
                 this.viewCardOutput.setText(`Output: ${expected.output}`);
             });
 
-            this.selectedCase.map(code => console.log(code));
-
             //card damage
             this.cardValue = cardValue;
             this.resultVal.setText("Input your code");
@@ -275,8 +273,31 @@ class FightScene extends Phaser.Scene {
             });
         };
 
-        const hints = () =>{
-            console.log("hints");
+        let currentStep = 0;
+        let currentAnswer = 0;
+
+        //to section the cases strings answers
+        const hints = () => {
+            
+            if(currentAnswer < this.selectedCase.length){
+                const answers = this.selectedCase[currentAnswer]
+
+                let lines = answers.split('\n').map(line => line.trim());
+                
+                if(currentStep < lines.length){
+                    console.log("ANSWER: ",lines[currentStep]);
+                    currentStep++;
+                }else{
+
+                    //if the first answer is done looping reset
+                    currentStep = 0;
+
+                    //if the first answer is done looping go to next answer
+                    currentAnswer++;
+                };
+            }else{
+                currentAnswer = 0;
+            };
         };
 
         //grass line obj
