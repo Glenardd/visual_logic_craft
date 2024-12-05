@@ -305,7 +305,7 @@ class FightScene extends Phaser.Scene {
                 currentAnswer = 0;
             };
 
-            this.playerHpBar.Subtract(20);
+            this.playerHpBar.Subtract(10);
 
             //check the health of the player
             this.checkPlayerHealth();
