@@ -278,6 +278,7 @@ class FightScene extends Phaser.Scene {
 
         let currentStep = 0;
         let currentAnswer = 0;
+        let codeStr = "";
 
         //to section the cases strings answers
         const hints = () => {
@@ -288,13 +289,15 @@ class FightScene extends Phaser.Scene {
                 let lines = answers.split('\n').map(line => line.trim());
                 
                 if(currentStep < lines.length){
-                    console.log("ANSWER: ",lines[currentStep]);
+
+                    codeStr += lines[currentStep] + '\n';
+
+                    this.editor.setValue(codeStr);
+                    // console.log("ANSWER: ",lines[currentStep]);
                     currentStep++;
                 }else{
-
                     //if the first answer is done looping reset
                     currentStep = 0;
-
                     //if the first answer is done looping go to next answer
                     currentAnswer++;
                 };
@@ -579,6 +582,7 @@ class FightScene extends Phaser.Scene {
         if(this.playerHpBar.currentHealth <= 0){
             console.log("Player is dead");
 
+            //subract to one the lives remaining
             this.scene.launch(`${this.currentScene}`, {
                 enemyNewHp: this.enemyHealth,
                 enemyName: this.enemyName,
