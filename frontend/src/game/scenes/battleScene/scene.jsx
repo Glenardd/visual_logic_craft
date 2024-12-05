@@ -218,7 +218,7 @@ class FightScene extends Phaser.Scene {
             //will return enemy damage
             const fetchData = async () => {
                 try {
-                    const response = await fetch('http://localhost:5000/predict', {
+                    const response = await fetch('https://visual-logic-craft-1.onrender.com/predict', {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json"
@@ -487,7 +487,7 @@ class FightScene extends Phaser.Scene {
         //this will execute the python code
         const fetchData = async () => {
             try {
-                const response = await fetch("http://localhost:5000/", {
+                const response = await fetch("https://visual-logic-craft-1.onrender.com/", {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json"
