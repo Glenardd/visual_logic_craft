@@ -158,7 +158,12 @@ class FightScene extends Phaser.Scene {
             };
         };
 
+        let currentStep = 0;
+        let currentAnswer = 0;
+        let codeStr = "";
+
         const deselect = () => {
+
             this.deselectCardbtn.setInteractivity(false);
             this.hintsBtn.setInteractivity(false);
 
@@ -174,13 +179,17 @@ class FightScene extends Phaser.Scene {
 
             this.resultVal.setText("Please pick a card");
             setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
-            this.selectedCase = [""];
-            this.selectedCaseOutput = [""];
+            this.selectedCase = [];
+            this.selectedCaseOutput = [];
 
             // all cards can be pressed or interacted with this function
             cards.list?.map(card =>{
                 card?.setInteractivity(true);
             });
+
+            currentAnswer = 0;
+            currentStep = 0;
+            codeStr = "";
         };
 
         const select = (cardQuestion, cardAnswer, cardName, cardConcept, cardValue) => {
@@ -209,7 +218,6 @@ class FightScene extends Phaser.Scene {
 
         //enemy turn
         const endTurn = () => {
-
             //the fetch the api here for machine learning
             //send to machine learning model
             const conceptStr = this.viewCardConcept.text.replace(/['"]+/g, '');
@@ -271,44 +279,38 @@ class FightScene extends Phaser.Scene {
                 console.log(data.damage[0]);
                 this.playerHpBar.Subtract(Math.floor(data.damage[0]));
             });
-
-            //check the health of the player
-            this.checkPlayerHealth();
         };
-
-        let currentStep = 0;
-        let currentAnswer = 0;
-        let codeStr = "";
-
-        //to section the cases strings answers
+        
         const hints = () => {
-            
-            if(currentAnswer < this.selectedCase.length){
-                const answers = this.selectedCase[currentAnswer]
 
-                let lines = answers.split('\n').map(line => line.trim());
+            const answer = this.selectedCase;
+
+            console.log(currentAnswer);
+            if(currentAnswer < answer.length){
+                const lines = answer[currentAnswer];
+
+                //split each string by new line
+                let steps = lines.split('\n').map(line => line.trim());
                 
-                if(currentStep < lines.length){
-
-                    codeStr += lines[currentStep] + '\n';
-
+                if(currentStep < steps.length){
+                    codeStr += steps[currentStep] + "\n";
                     this.editor.setValue(codeStr);
-                    // console.log("ANSWER: ",lines[currentStep]);
                     currentStep++;
-                }else{
-                    //if the first answer is done looping reset
-                    currentStep = 0;
-                    //if the first answer is done looping go to next answer
-                    currentAnswer++;
+                    
+                    //damage per hints
+                    this.playerHpBar.Subtract(5);
+
+                    if(currentStep === steps.length){
+                        codeStr = "";
+                        currentStep = 0;
+                        currentAnswer++;
+                    };
                 };
-            }else{
-                currentAnswer = 0;
+
+                if(currentAnswer === answer.length){
+                    currentAnswer = 0;
+                };
             };
-
-            this.playerHpBar.Subtract(10);
-
-            //check the health of the player
-            this.checkPlayerHealth();
         };
 
         //grass line obj
@@ -418,8 +420,6 @@ class FightScene extends Phaser.Scene {
             cards.add(cardStore);
         });
 
-        console.log(cards.list);
-
         //buttons
         this.deselectCardbtn = new ButtonCreate(this, 100, 0, "Deselect", 25, 50, 200, 0xe85f5f, 0x914c4c, deselect, false);
         deselectBtn.add(this.deselectCardbtn);
@@ -509,7 +509,7 @@ class FightScene extends Phaser.Scene {
         fetchData().then(data => {
             //executed result of the python code
             const pythonOutput = data.result;
-            const checkOutput = expectedOutput.some(output => output.toLowerCase() === pythonOutput.toLowerCase());
+            const checkOutput = expectedOutput.some(output => output.toLowerCase() === pythonOutput?.toLowerCase());
 
             //attack enemy if correct
             if (checkOutput && checkAnswer) {
@@ -574,12 +574,18 @@ class FightScene extends Phaser.Scene {
                 this.runBtn.setInteractivity(false);
                 this.attempts = 0;
             };
+
+            if(!checkOutput){
+                this.countAttempts.setText(`Attempts: ${this.attempts}`);
+                this.resultVal.setText("Wrong");
+                setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
+            };
         });
     };
 
     checkPlayerHealth(){
         //check the health of the player
-        if(this.playerHpBar.currentHealth <= 0){
+        if(this.playerHpBar.currentHealth === 0){
             console.log("Player is dead");
 
             //subract to one the lives remaining
@@ -591,6 +597,11 @@ class FightScene extends Phaser.Scene {
             });
             this.scene.stop("fightScene");
         };
+    };
+
+    update(){
+        //check the health of the player
+        this.checkPlayerHealth();
     };
 };
 
