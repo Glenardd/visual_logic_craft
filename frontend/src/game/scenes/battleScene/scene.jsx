@@ -271,6 +271,9 @@ class FightScene extends Phaser.Scene {
                 console.log(data.damage[0]);
                 this.playerHpBar.Subtract(Math.floor(data.damage[0]));
             });
+
+            //check the health of the player
+            this.checkPlayerHealth();
         };
 
         let currentStep = 0;
@@ -298,6 +301,11 @@ class FightScene extends Phaser.Scene {
             }else{
                 currentAnswer = 0;
             };
+
+            this.playerHpBar.Subtract(20);
+
+            //check the health of the player
+            this.checkPlayerHealth();
         };
 
         //grass line obj
@@ -423,7 +431,7 @@ class FightScene extends Phaser.Scene {
 
         this.countAttempts = this.add.text(0, 5, `Attempts: 0`, { fontSize: "40px" });
         attemptsUi.add(this.countAttempts);
-        
+
         new PauseButton(this, width, height, this.destroyedEnemies, this.livesCount, this.asset);
     };
 
@@ -564,6 +572,21 @@ class FightScene extends Phaser.Scene {
                 this.attempts = 0;
             };
         });
+    };
+
+    checkPlayerHealth(){
+        //check the health of the player
+        if(this.playerHpBar.currentHealth <= 0){
+            console.log("Player is dead");
+
+            this.scene.launch(`${this.currentScene}`, {
+                enemyNewHp: this.enemyHealth,
+                enemyName: this.enemyName,
+                livesRemaining: this.livesRemaining-1,
+                assetImg: this.asset,
+            });
+            this.scene.stop("fightScene");
+        };
     };
 };
 
