@@ -141,7 +141,7 @@
       }
     ],
     "effect": "Deal 2 damage to the enemy.",
-    "value": 2
+    "value": 15
   },
   {
     "card_name": "Variable Vulture",
@@ -284,7 +284,7 @@
       }
     ],
     "effect": "Deal 5 damage to the enemy.",
-    "value": 100
+    "value": 8
   },{
     "card_name": "Array Antelope",
     "concept": "Arrays",
@@ -427,7 +427,7 @@
       }
     ],
     "effect": "Deal 4 damage to the enemy.",
-    "value": 4
+    "value": 20
   },{
     "card_name": "Function Falcon",
     "concept": "Functions",
@@ -570,6 +570,6 @@
       }
     ],
     "effect": "Deal 3 damage to the enemy.",
-    "value": 3
+    "value": 11
   }  
 ]
