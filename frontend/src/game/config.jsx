@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import Phaser from "phaser";
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import BBCodeTextPlugin from 'phaser3-rex-plugins/plugins/bbcodetext-plugin.js';
 import DataPlugin from "./utils/dataPlugin";
 
 //scenes
@@ -16,7 +17,6 @@ import ForestBackGround from "./scenes/menus/homeMenu/forestBg/scene";
 import HomeManager from "./scenes/menus/homeMenu/homeManager/scene";
 import CardCustomization from "./scenes/menus/cardsCustomization/scene";
 import HowToPlay from "./scenes/menus/homeMenu/howToPlay/scene";
-
 
 function App() {
 
@@ -65,7 +65,13 @@ function App() {
             key: 'DataPlugin', 
             plugin: DataPlugin, 
             start: true 
-          }],
+          },
+          {
+            key: 'rexBBCodeTextPlugin',
+            plugin: BBCodeTextPlugin,
+            start: true
+          },
+        ],
       },
     };
 
