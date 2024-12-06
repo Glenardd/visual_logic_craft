@@ -39,9 +39,11 @@ class HowToPlay extends Phaser.Scene{
             
             4. Each card has its own difficulty, easiest, easy, medium, and hard.
             
-            5. Each card is categorized by its own concepts, variables, conditionals, arrays, and functions.
+            5. Each card is categorized by its own concepts, 
+               variables, conditionals, arrays, and functions.
             
-            6. You can control the player using W for jumping, A is for going left, D is for going right.
+            6. You can control the player using W for jumping, 
+               A is for going left, D is for going right.
             
             7. Basically the game is similar to Pokémon, but a platformer theme.
             
@@ -57,7 +59,7 @@ class HowToPlay extends Phaser.Scene{
     
             background: this.rexUI.add.roundRectangle(0, 0, 2, 2, 0, 0x75512d).setStrokeStyle(4, 0x0000),
             text: this.add.text(0, 0, content, { 
-                fontSize: '24px', 
+                fontSize: '30px', 
                 color: '#ffffff',
                 wordWrap: { useAdvancedWrap: true }
             }),
