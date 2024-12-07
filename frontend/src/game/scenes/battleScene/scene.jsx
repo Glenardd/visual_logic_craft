@@ -295,7 +295,7 @@ class FightScene extends Phaser.Scene {
                     currentStep++;
                     
                     //damage per hints
-                    this.playerHpBar.Subtract(5);
+                    this.playerHpBar.Subtract(3);
 
                     if(currentStep === steps.length){
                         codeStr = "";  
