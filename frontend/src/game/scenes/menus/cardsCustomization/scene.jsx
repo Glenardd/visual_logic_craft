@@ -23,7 +23,6 @@ class CardCustomization extends Phaser.Scene {
 
         this.visibility = 0;
         this.returnHome(width, height);
-        this.plugins?.get("DataPlugin")?.set("cardList", this.cardsEquipped);
 
         //prints the sise of the equipped cards
         console.log(this.cardEquipped.length);
@@ -229,6 +228,8 @@ class CardCustomization extends Phaser.Scene {
 
                         this.scene.restart();
                     };
+
+                    this.plugins.get("DataPlugin")?.set("cardList", this.cardsEquipped);
                 }),
         ).add(
             this.rexUI.add.label({

@@ -17,6 +17,7 @@ import ForestBackGround from "./scenes/menus/homeMenu/forestBg/scene";
 import HomeManager from "./scenes/menus/homeMenu/homeManager/scene";
 import CardCustomization from "./scenes/menus/cardsCustomization/scene";
 import HowToPlay from "./scenes/menus/homeMenu/howToPlay/scene";
+import Hints from "./scenes/hints/scene";
 
 function App() {
 
@@ -50,8 +51,9 @@ function App() {
         CardCustomization,
         MissionTwo, 
         MissionOne,
-        GameOver, 
+        GameOver,
         FightScene, 
+        Hints,
         PauseMenu, 
         MissionAccomplish,
       ], //LevelSelect,MissionTwo, MissionOne, FightScene, PauseMenu, GameOver

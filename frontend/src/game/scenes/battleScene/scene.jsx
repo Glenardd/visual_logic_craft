@@ -8,7 +8,7 @@ import PauseButton from "../../utils/pauseBtn.jsx";
 class FightScene extends Phaser.Scene {
     constructor() {
         super({ key: "fightScene" });
-        this.editor = null;
+        this.editor = "";
         this.attempts = 0;
         this.selectedCase = [];
         this.selectedCaseOutput = [];
@@ -16,13 +16,11 @@ class FightScene extends Phaser.Scene {
         this.enemyHealth = 0;
         this.enemyName = "";
         this.currentScene = "";
-        
-        this.cardsAvailable = "";
     };
 
     create(data) {
 
-        this.cardsAvailable = this.plugins.get("DataPlugin")?.get("cardList");
+        this.cardsAvailable = this.plugins.get("DataPlugin").get("cardList") || [];
         console.log(this.cardsAvailable);
 
         //the player current lives count
@@ -40,13 +38,13 @@ class FightScene extends Phaser.Scene {
 
         this.currentScene = data.currentScene;
 
-        const width = this.scale.width;
-        const height = this.scale.height;
+        const width = this.cameras.main.width;
+        const height = this.cameras.main.height;
 
         const groundColor = data.groundColor;
 
         //background data
-        this.asset = data.assetImg;
+        this.asset = data?.assetImg;
 
         //create grid for layout guide
         const line = new AddLine(this, width, height);
@@ -80,7 +78,7 @@ class FightScene extends Phaser.Scene {
         const attemptsUi = this.add.container(third_Vline.PosX, fourth_Hline.PosY);
 
         //load the background images
-        const bg =this.add.image(0,0, this.asset.background);
+        const bg =this.add.image(0,0, this.asset?.background);
         bg.setScrollFactor(0);
         bg.setOrigin(0);
         bg.setDisplaySize(width,height/2+80);
@@ -279,10 +277,9 @@ class FightScene extends Phaser.Scene {
                 console.log(data.damage[0]);
                 this.playerHpBar.Subtract(Math.floor(data.damage[0]));
             });
-        };
-        
-        const hints = () => {
+        };        
 
+        const hints =() =>{
             const answer = this.selectedCase;
 
             console.log(currentAnswer);
@@ -294,14 +291,15 @@ class FightScene extends Phaser.Scene {
                 
                 if(currentStep < steps.length){
                     codeStr += steps[currentStep] + "\n";
-                    this.editor.setValue(codeStr);
+                    this.scene.launch("hints", {code: codeStr});
                     currentStep++;
                     
                     //damage per hints
                     this.playerHpBar.Subtract(5);
 
                     if(currentStep === steps.length){
-                        codeStr = "";
+                        codeStr = "";  
+
                         currentStep = 0;
                         currentAnswer++;
                     };
@@ -311,6 +309,8 @@ class FightScene extends Phaser.Scene {
                     currentAnswer = 0;
                 };
             };
+            this.scene.pause();
+            this.hintsBtn.disableInteractive({useHandCursor: false});
         };
 
         //grass line obj
@@ -424,7 +424,7 @@ class FightScene extends Phaser.Scene {
         this.deselectCardbtn = new ButtonCreate(this, 100, 0, "Deselect", 25, 50, 200, 0xe85f5f, 0x914c4c, deselect, false);
         deselectBtn.add(this.deselectCardbtn);
 
-        this.hintsBtn = new ButtonCreate(this, 0, 0, "Hint", 25, 50, 160, 0xe85f5f, 0x914c4c, hints, false);
+        this.hintsBtn = new ButtonCreate(this, 0, 0, "Hint", 25, 50, 160, 0xe85f5f, 0x914c4c,()=> hints(), false);
         deselectBtn.add(this.hintsBtn);
 
         this.endturnbtn = new ButtonCreate(this, 370, 0, "End\nTurn", 30, 100, 180, 0xe85f5f, 0x914c4c, endTurn, false);
