@@ -17,7 +17,7 @@ class HowToPlay extends Phaser.Scene{
         this.visibility = 0;
         console.log("how to play scene");
 
-        if(this.scene.isPaused("missionOne") || this.scene.isPaused("missionTwo")){
+        if(this.scene.isPaused("missionOne") || this.scene.isPaused("missionTwo") || this.scene.isPaused("fightScene")){
             this.scene.launch("forestBackground");
         };
 
