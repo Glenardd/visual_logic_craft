@@ -18,9 +18,13 @@ class Loading extends Phaser.Scene{
         //if api is woke up change scene
         this.wakeUp().then(result =>{
             if(result){
-                this.changeScene();
+                this.wakeUpPredict().then(resultTwo =>{
+                    if(resultTwo){
+                        this.changeScene();
+                    };
+                });
             };
-        })
+        });
     };
 
     loadingText(){
@@ -61,6 +65,29 @@ class Loading extends Phaser.Scene{
             return "Error during API wake-up";
         }
 
+    };
+
+    async wakeUpPredict (){
+        try {
+            const response = await fetch("https://visual-logic-craft-1.onrender.com/predict", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({}), // Empty payload
+            });
+        
+            if (response.ok) {
+              console.log("API woke up successfully.");
+              return "API is ready";
+            } else {
+              console.error("API failed to wake up.");
+              return "API wake-up failed";
+            }
+        } catch (error) {
+            console.error("Error waking up the API:", error.message);
+            return "Error during API wake-up";
+        };
     };
 
     changeScene(){
