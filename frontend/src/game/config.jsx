@@ -18,6 +18,7 @@ import HomeManager from "./scenes/menus/homeMenu/homeManager/scene";
 import CardCustomization from "./scenes/menus/cardsCustomization/scene";
 import HowToPlay from "./scenes/menus/homeMenu/howToPlay/scene";
 import Hints from "./scenes/hints/scene";
+import Loading from "./scenes/menus/homeMenu/loadingScreen/scene";
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
         ForestBackGround,
         TitleScreen,
         HowToPlay,
+        Loading,
         LevelSelect,
         CardCustomization,
         MissionTwo, 
