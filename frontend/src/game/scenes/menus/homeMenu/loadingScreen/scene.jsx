@@ -43,6 +43,7 @@ class Loading extends Phaser.Scene{
         ).layout();
     };
 
+    //wakes up the main route
     async wakeUp (){
         try {
             const response = await fetch("https://visual-logic-craft-1.onrender.com/", {
@@ -67,6 +68,7 @@ class Loading extends Phaser.Scene{
 
     };
 
+    //wakes up the main prediction model route
     async wakeUpPredict (){
         try {
             const response = await fetch("https://visual-logic-craft-1.onrender.com/predict", {
