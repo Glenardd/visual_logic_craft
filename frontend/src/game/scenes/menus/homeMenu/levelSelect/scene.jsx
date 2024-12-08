@@ -83,21 +83,20 @@ class LevelSelect extends Phaser.Scene{
 
     levelSelectbtn(){
 
-        const missionOneBtn = new ButtonCreate(this,0,0, "Mission One",25, 100,200, 0x88d17b,0x5e9654, ()=>this.changeScene("missionOne", this.livesRemaining, this.assetsOne),true);
+        const missionOneBtn = new ButtonCreate(this,0,0, "Mission One",25, 100,200, 0x88d17b,0x5e9654, ()=>this.changeScene("loadingScreen", this.livesRemaining, this.assetsOne, "missionOne"),true);
         missionOneBtn.setInteractivity(true);
         missionOneBtn.setCenter();
         this.levelSelection.add(missionOneBtn);
 
-        const missionTwoBtn = new ButtonCreate(this,0,70, "Mission Two",25, 100,200 ,0x88d17b,0x5e9654, ()=>this.changeScene("missionTwo", this.livesRemaining, this.assetTwo),true);
+        const missionTwoBtn = new ButtonCreate(this,0,70, "Mission Two",25, 100,200 ,0x88d17b,0x5e9654, ()=>this.changeScene("loadingScreen", this.livesRemaining, this.assetTwo, "missionTwo"),true);
         missionTwoBtn.setInteractivity(true);
         missionTwoBtn.setCenter();
         this.levelSelection.add(missionTwoBtn);
     };
 
-    changeScene(sceneName, livesRemaining, assetImg){
-        this.scene.start(sceneName, {livesRemaining:livesRemaining, assetImg: assetImg}); 
+    changeScene(sceneName, livesRemaining, assetImg, destination){
+        this.scene.start(sceneName, {livesRemaining:livesRemaining, assetImg: assetImg, missionName: destination}); 
         this.scene.stop("levelSelect");
-        this.scene.stop("forestBackground");
     };
 };
 
