@@ -45,6 +45,7 @@ class FightScene extends Phaser.Scene {
 
         //background data
         this.asset = data?.assetImg;
+        console.log(this.asset);
 
         //create grid for layout guide
         const line = new AddLine(this, width, height);
@@ -275,7 +276,7 @@ class FightScene extends Phaser.Scene {
             //player damage by the enemy
             fetchData().then(data =>{
                 console.log(data.damage[0]);
-                this.playerHpBar.Subtract(Math.floor(data.damage[0]));
+                this.playerHpBar.Subtract(Math.floor(data.damage[0]));//Math.floor(data.damage[0])
             });
         };        
 

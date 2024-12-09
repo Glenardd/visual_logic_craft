@@ -12,7 +12,7 @@ class GameOver extends Phaser.Scene{
         this.assets = data.assetImg;
         this.lives = data.lives;
         this.previousScene = data.previousScene;
-        
+
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
 
@@ -29,9 +29,9 @@ class GameOver extends Phaser.Scene{
 
         this.layout.add(this.gameOverText);
         this.restartBtn();
-        this.levelSelectBtn();
+        this.exitBtn();
 
-        this.scene.launch("forestBackground");
+        // this.scene.launch("forestBackground");
     };
 
     restartBtn(){
@@ -42,9 +42,9 @@ class GameOver extends Phaser.Scene{
         this.layout.add(restartBtn);
     };
 
-    levelSelectBtn(){
+    exitBtn(){
         //go back to level select
-        const levelSelect = new ButtonCreate(this, 0, 120, "Level Select", 25, 80, 200, 0x88d17b, 0x5e9654,  ()=>this.changeScene("levelSelect"), true);
+        const levelSelect = new ButtonCreate(this, 0, 120, "Exit", 25, 80, 200, 0x88d17b, 0x5e9654,  ()=>this.changeScene("homeManager"), true);
         levelSelect.setInteractivity(true)
         levelSelect.setCenter();
         this.layout.add(levelSelect);

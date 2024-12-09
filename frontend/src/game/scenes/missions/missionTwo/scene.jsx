@@ -108,6 +108,11 @@ class MissionTwo extends Phaser.Scene {
         this.events.on("resume", () => {
             pause.stopListener();
         });
+
+        if(this.livesRemaining < 0){
+            this.scene.start("gameOver", {assetImg: assets ,previousScene: this.scene.key, livesRemaining: this.maxLives});
+            this.scene.stop();
+        };
     };  
 
     update() {
