@@ -43,7 +43,7 @@ class PauseMenu extends Phaser.Scene{
         this.layout = this.add.container(lineX, lineY);
         
         this.resumeBtn();
-        this.LevelSelectBtn();
+        this.exitBtn();
         this.toggleMusic();
         this.guideBtn();
         this.toggleSoundFX();
@@ -91,8 +91,8 @@ class PauseMenu extends Phaser.Scene{
     };
 
     //go back to level selection
-    LevelSelectBtn(){
-        const goLevelSelect = () =>{
+    exitBtn(){
+        const exit = () =>{
             console.log("quit: ",`${this.previousScene}` );
             this.scene.stop(this.previousScene);
             this.scene.stop("pauseMenu");
@@ -101,8 +101,8 @@ class PauseMenu extends Phaser.Scene{
             this.scene.start("homeManager");
         };
         
-        const levelSelectBtn = new ButtonCreate(this,0,125, "Exit", 25, 100, 300, 0xe85f5f,0x914c4c, goLevelSelect, true).setCenter();
-        this.layout.add(levelSelectBtn);
+        const exitBtn = new ButtonCreate(this,0,125, "Exit", 25, 100, 300, 0xe85f5f,0x914c4c, exit, true).setCenter();
+        this.layout.add(exitBtn);
     };
 
     update(){
