@@ -11,7 +11,7 @@ class MissionAccomplish extends Phaser.Scene{
         this.width = this.cameras.main.width;
         this.height = this.cameras.main.height;
 
-        const visibility = 1;
+        const visibility = 0;
 
         const line = new AddLine(this, this.width, this.height);
         const lineY = line.createHorizontalLine(0.5, visibility).PosY;

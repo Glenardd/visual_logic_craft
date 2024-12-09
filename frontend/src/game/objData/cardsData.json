@@ -55,7 +55,7 @@
         ]
       },
       {
-        "question": "Write a program to check if a number is divisible by both 3 and 5. Use 'num' with a value of 15.",
+        "question": "Write a program to check if a number is \"divisible by both\" 3 and 5. Use 'num' with a value of 15.",
         "answers": [
           {
             "code": "num = 15\nif num % 3 == 0 and num % 5 == 0:\n    print('Divisible by both')\nelse:\n    print('Not divisible by both')",

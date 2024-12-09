@@ -111,7 +111,7 @@ class MissionOne extends Phaser.Scene {
         });
 
         if(this.livesRemaining < 0){
-            this.scene.start("gameOver", {assetImg: assets ,previousScene: this.scene.key,livesRemaining: this.maxLives});
+            this.scene.start("gameOver", {assetImg: assetLoad ,previousScene: this.scene.key,livesRemaining: this.maxLives});
             this.scene.stop();
         };
     };
