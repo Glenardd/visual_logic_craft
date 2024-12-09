@@ -1,47 +1,11 @@
-//title screen and level select bg
-import forestJson from "../../../../../assets/background_levelSelect/pixel_art_forest.json";
-import forestBg from "../../../../../assets/background_levelSelect/pixel_art_forest.png"
-
 class ForestBackGround extends Phaser.Scene {
     constructor() {
         super({ key: "forestBackground" });
         this.bg = [];
     };
 
-    preload() {
-
-        this.cameras.main.setBackgroundColor('#1d1d1d');
-
-        const loadingText = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2, 'LOADING...', {
-            fontSize: "50px",
-            align: 'center',
-        }).setOrigin(0.5);
-
-        this.rexUI.add.sizer({
-            x: this.cameras.main.width/2,
-            y: this.cameras.main.height/2,
-        }).add(
-            this.rexUI.add.label({
-                text: loadingText,
-            }),
-            "0",
-            "center"
-        ).layout();
-
-        this.load.on("progress", () => {
-            this.scene.stop("titleScreen"); // Stop the title screen once loading starts
-        });
-      
-        // Once loading is complete, launch the title screen (or the next scene)
-        this.load.on("complete", () => {
-            loadingText.destroy()
-            this.scene.launch("titleScreen");
-        });
-
-        this.load.atlas("forest_bg", forestBg, forestJson);
-    };
-
     create() {
+
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
 
