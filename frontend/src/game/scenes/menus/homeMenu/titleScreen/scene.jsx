@@ -26,7 +26,6 @@ class TitleScreen extends Phaser.Scene{
         this.howToPlay();
         this.logout();
         
-
         //dynamically position btn
         const listOfUi = this.container.list;
         listOfUi.map((ui, i) =>{

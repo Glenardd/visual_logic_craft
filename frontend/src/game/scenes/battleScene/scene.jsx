@@ -162,10 +162,10 @@ class FightScene extends Phaser.Scene {
 
         const deselect = () => {
 
-            this.deselectCardbtn.setInteractivity(false);
-            this.hintsBtn.setInteractivity(false);
-
             console.log("deselect");
+
+            this.hintsBtn.setInteractivity(false);
+            this.deselectCardbtn.setInteractivity(false);
 
             //clear view th card challenge
             this.selectACardMessage.setText("Pick a card");
@@ -421,15 +421,15 @@ class FightScene extends Phaser.Scene {
         });
 
         //buttons
-        this.deselectCardbtn = new ButtonCreate(this, 100, 0, "Deselect", 25, 50, 200, 0xe85f5f, 0x914c4c, deselect, false);
+        this.deselectCardbtn = new ButtonCreate(this, 100, 0, "Deselect", 25, 50, 200, 0xe85f5f,0x914c4c,()=> deselect(), false);
         deselectBtn.add(this.deselectCardbtn);
 
         this.hintsBtn = new ButtonCreate(this, 0, 0, "Hint", 25, 50, 160, 0xe85f5f, 0x914c4c,()=> hints(), false);
         deselectBtn.add(this.hintsBtn);
 
-        this.endturnbtn = new ButtonCreate(this, 370, 0, "End\nTurn", 30, 100, 180, 0xe85f5f, 0x914c4c, endTurn, false);
+        this.endturnbtn = new ButtonCreate(this, 370, 0, "End\nTurn", 30, 100, 180, 0xe85f5f, 0x914c4c,()=> endTurn(), false);
 
-        this.runBtn = new ButtonCreate(this, 370, 0, "Run", 70, 100, 180, 0x68b054, 0x4a703f, runCode, true);
+        this.runBtn = new ButtonCreate(this, 370, 0, "Run", 70, 100, 180, 0x68b054, 0x4a703f,()=> runCode(), true);
         runAndlog.add([this.runBtn, resultLog, this.resultVal, this.endturnbtn]);
 
         this.countAttempts = this.add.text(0, 5, `Attempts: 0`, { fontSize: "40px" });

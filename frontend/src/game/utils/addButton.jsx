@@ -37,15 +37,18 @@ class ButtonCreate extends Phaser.GameObjects.Container{
 
         if(turnOn === true){
             buttonPadding.setInteractive({ useHandCursor: turnOn });
-            buttonPadding.setAlpha(turnOn);
-            btnText.setAlpha(turnOn);
-            this.buttonPadding.on("pointerdown", () => {this.func()});
-            this.buttonPadding.on("pointerover", () => this.buttonPadding.setFillStyle(this.foregroundColor));
-            this.buttonPadding.on("pointerout", () => this.buttonPadding.setFillStyle(this.backgroundColor));  
+            buttonPadding.setVisible(turnOn);
+            btnText.setVisible(turnOn);
+            buttonPadding.on("pointerdown", () => {
+                this.func();
+                buttonPadding.setFillStyle(this.backgroundColor);
+            });
+            buttonPadding.on("pointerover", () => buttonPadding.setFillStyle(this.foregroundColor));
+            buttonPadding.on("pointerout", () => buttonPadding.setFillStyle(this.backgroundColor));  
         }else{
-            buttonPadding.setAlpha(turnOn);
-            btnText.setAlpha(turnOn);
-            buttonPadding.disableInteractive();
+            buttonPadding.setVisible(turnOn);
+            btnText.setVisible(turnOn);
+            buttonPadding.disableInteractive({ useHandCursor: turnOn });
         };
     };
     
