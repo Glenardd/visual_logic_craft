@@ -545,7 +545,7 @@ class FightScene extends Phaser.Scene {
                 console.log(this.cardValue);
 
                 //damage
-                this.enemyHpBar.Subtract(this.cardValue);//this.cardValue
+                this.enemyHpBar.Subtract(this.cardValue);
 
                 if (this.enemyHpBar.currentHealth <= 0) {
                     console.log("enemy dead");

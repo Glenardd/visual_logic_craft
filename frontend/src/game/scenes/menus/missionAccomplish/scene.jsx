@@ -29,6 +29,30 @@ class MissionAccomplish extends Phaser.Scene{
 
         this.layout.add(this.missionAccomplish);
 
+        const assets = {
+            background: this.assetImg.background,
+            foreground: this.assetImg.foreground,
+            foreground_two: this.assetImg.foreground_two,
+        };
+
+        //add the bg
+        this.backGround = this.add.image(0,0, assets.background).setDepth(-1);
+        this.backGround.setScrollFactor(0);
+        this.backGround.setOrigin(0);
+        this.backGround.setDisplaySize(this.width, this.height);
+
+        //add the fg
+        this.foreGround = this.add.tileSprite(0,0,this.width,0, assets.foreground).setDepth(-1);
+        this.foreGround.setScrollFactor(0.25);
+        this.foreGround.setOrigin(0);
+        this.foreGround.setScale(5);
+
+        //add second fg
+        this.foreGround_two = this.add.tileSprite(0,100,this.width,0, assets.foreground_two).setDepth(-1);
+        this.foreGround_two.setScrollFactor(0.5);
+        this.foreGround_two.setOrigin(0);
+        this.foreGround_two.setScale(5);
+
         this.restartBtn();
         this.levelSelectBtn();
     };
