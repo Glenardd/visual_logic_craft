@@ -30,8 +30,6 @@ class HomeManager extends Phaser.Scene{
         // Once loading is complete, launch the title screen (or the next scene)
         this.load.on("complete", () => {
             this.scene.start("login");
-            // this.scene.start("titleScreen");
-            
         });
 
         this.load.atlas("forest_bg", forestBg, forestJson);

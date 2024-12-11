@@ -46,7 +46,9 @@ class Login extends Phaser.Scene{
         .on("pointerout", ()=> {rectangle.setFillStyle(0x88d17b)})
         .on("pointerdown", ()=> {
             signInWithPopup(auth, provider).then(data =>{
-                console.log(data);
+                if(data){
+                    this.scene.start("titleScreen");
+                }
             });
         });
 
