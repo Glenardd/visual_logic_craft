@@ -19,6 +19,7 @@ import CardCustomization from "./scenes/menus/cardsCustomization/scene";
 import HowToPlay from "./scenes/menus/homeMenu/howToPlay/scene";
 import Hints from "./scenes/hints/scene";
 import Loading from "./scenes/menus/homeMenu/loadingScreen/scene";
+import Login from "./scenes/menus/homeMenu/login/scene";
 
 function App() {
 
@@ -46,6 +47,7 @@ function App() {
       scene: [
         HomeManager,
         ForestBackGround,
+        Login,
         TitleScreen,
         HowToPlay,
         Loading,
