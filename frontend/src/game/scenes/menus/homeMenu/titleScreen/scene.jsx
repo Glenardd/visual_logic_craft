@@ -1,9 +1,11 @@
+import { authListener, logout } from "../../../../../firebase/accountPersist";
 import ButtonCreate from "../../../../utils/addButton";
 import AddLine from "../../../../utils/addLayoutGuide";
 
 class TitleScreen extends Phaser.Scene{
     constructor(){
         super({key: "titleScreen"});
+        this.hasCheckedAuth = false;
     };
 
     create(){
@@ -19,6 +21,20 @@ class TitleScreen extends Phaser.Scene{
         const lineY = line.createHorizontalLine(0.5, visibility).PosY;
         
         this.container = this.add.container(lineX, lineY);
+
+        if (!this.hasCheckedAuth) {
+            authListener((user) => {
+                this.hasCheckedAuth = true;  // Mark the check as completed
+                
+                if (user) {
+                    // If logged in, continue with the game, or start the game screen
+                    this.scene.start("titleScreen");
+                } else {
+                    // If not logged in, redirect to the login scene
+                    this.scene.start("login");
+                }
+            });
+        }
 
         this.gameTitle();
         this.levelSelect();
@@ -73,11 +89,11 @@ class TitleScreen extends Phaser.Scene{
 
     logout(){
 
-        const logout = () =>{
-            console.log("logout");
+        const logoutGame = () =>{
+            logout();
         };
 
-        const logoutBtn = new ButtonCreate(this, 0,0, "logout", 20, 100, 200,0x88d17b,0x5e9654,()=> logout(), true);
+        const logoutBtn = new ButtonCreate(this, 0,0, "logout", 20, 100, 200,0x88d17b,0x5e9654,()=> logoutGame(), true);
         logoutBtn.setCenter();
         
         this.container.add(logoutBtn);

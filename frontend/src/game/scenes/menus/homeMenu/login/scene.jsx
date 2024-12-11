@@ -1,17 +1,31 @@
 // import { database } from "../../../../../firebase/firbase";
 // import { get, onValue, ref } from "firebase/database";
-
-import { auth, provider } from "../../../../../firebase/firbase";
-import { signInWithPopup } from "firebase/auth";
+import { authListener } from "../../../../../firebase/accountPersist";
+import { login } from "../../../../../firebase/accountPersist";
 
 class Login extends Phaser.Scene{
     constructor(){
         super({key: "login"});
+        this.hasCheckedAuth = false;
     };
 
     create(){
         this.width = this.cameras.main.width;
         this.height = this.cameras.main.height;
+
+        if (!this.hasCheckedAuth) {
+            authListener((user) => {
+                this.hasCheckedAuth = true;  // Mark the check as completed
+                
+                if (user) {
+                    // If logged in, continue with the game, or start the game screen
+                    this.scene.start("titleScreen");
+                } else {
+                    // If not logged in, redirect to the login scene
+                    this.scene.start("login");
+                }
+            });
+        }
 
         this.googleBtn();
     };
@@ -45,11 +59,9 @@ class Login extends Phaser.Scene{
         .on("pointerover", () => {rectangle.setFillStyle(0x5e9654)})
         .on("pointerout", ()=> {rectangle.setFillStyle(0x88d17b)})
         .on("pointerdown", ()=> {
-            signInWithPopup(auth, provider).then(data =>{
-                if(data){
-                    this.scene.start("titleScreen");
-                }
-            });
+
+            //persists login
+            login();
         });
 
         btn.layout();

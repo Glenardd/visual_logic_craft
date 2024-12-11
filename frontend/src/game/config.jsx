@@ -24,6 +24,7 @@ import Login from "./scenes/menus/homeMenu/login/scene";
 function App() {
 
   useEffect(()=>{
+
     const config = {
       type: Phaser.AUTO,
       width: 2000,
