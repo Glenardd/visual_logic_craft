@@ -225,7 +225,7 @@ class FightScene extends Phaser.Scene {
             //will return enemy damage
             const fetchData = async () => {
                 try {
-                    const response = await fetch('https://visual-logic-craft-1.onrender.com/predict', {
+                    const response = await fetch(`${import.meta.env.VITE_FLASK_API_URL}/predict`, {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json"
@@ -488,7 +488,7 @@ class FightScene extends Phaser.Scene {
         //this will execute the python code
         const fetchData = async () => {
             try {
-                const response = await fetch("https://visual-logic-craft-1.onrender.com/", {
+                const response = await fetch(import.meta.env.VITE_FLASK_API_URL, {
                     method: 'POST',
                     headers: {
                         "Content-Type": "application/json"

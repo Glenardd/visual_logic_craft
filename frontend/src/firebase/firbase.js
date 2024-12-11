@@ -9,14 +9,14 @@ import {getAuth, GoogleAuthProvider } from "firebase/auth";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCqKcOfGygH_Rt4O7Zknpv7DIjryIRXa2Y",
-  authDomain: "visual-logic-craft.firebaseapp.com",
-  databaseURL: "https://visual-logic-craft-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "visual-logic-craft",
-  storageBucket: "visual-logic-craft.firebasestorage.app",
-  messagingSenderId: "716788220237",
-  appId: "1:716788220237:web:1670f0a53f4a72e8e77704",
-  measurementId: "G-Y3T1X6BRYR"
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_DATABASE_URL,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
