@@ -96,9 +96,9 @@ class PauseMenu extends Phaser.Scene{
             console.log("quit: ",`${this.previousScene}` );
             this.scene.stop(this.previousScene);
             this.scene.stop("pauseMenu");
-            // this.scene.start("levelSelect", {livesRemaining: this.lives, destroyedEnemies: []});
-            // this.scene.start("forestBackground");
-            this.scene.start("homeManager");
+
+            this.scene.start("titleScreen");
+            this.scene.start("forestBackground");
         };
         
         const exitBtn = new ButtonCreate(this,0,125, "Exit", 25, 100, 300, 0xe85f5f,0x914c4c, exit, true).setCenter();

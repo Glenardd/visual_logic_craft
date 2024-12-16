@@ -67,7 +67,7 @@ class MissionAccomplish extends Phaser.Scene{
     levelSelectBtn(){
         //go back to level select
         const exit = () =>{
-            this.scene.launch("levelSelect");
+            this.scene.launch("levelSelect", {levelAccomplished: this.previousScene});
             this.scene.start("forestBackground");
         };
 

@@ -38,9 +38,8 @@ class LevelSelect extends Phaser.Scene{
             isVisible()
             isActive()
         */ 
-        this.scene.manager.scenes.forEach(scene =>{
-            console.log(`${scene.sys.config.key}: ${scene.sys.isPaused()}`);
-        });
+
+        console.log(data?.levelAccomplished || "none accomplished yet!");
 
         this.livesRemaining = data.livesRemaining;
         this.destroyedEnemies = data.destroyedEnemies;
