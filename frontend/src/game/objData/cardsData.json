@@ -181,18 +181,18 @@
         ]
       },
       {
-        "question": "Write a program to concatenate two strings. Use 'first_name' as 'John' and 'last_name' as 'Doe'.",
+        "question": "Write a program to concatenate two strings. Use 'first-name' as 'John' and 'last-name' as 'Doe'.",
         "answers": [
           {
-            "code": "first_name = 'John'\nlast_name = 'Doe'\nfull_name = first_name + ' ' + last_name\nprint(full_name)",
+            "code": "first-name = 'John'\nlast-name = 'Doe'\nfull-name = first-name + ' ' + last-name\nprint(full-name)",
             "output": "John Doe"
           },
           {
-            "code": "first_name = 'John'\nlast_name = 'Doe'\nprint(f'{first_name} {last_name}')",
+            "code": "first-name = 'John'\nlast-name = 'Doe'\nprint(f'{first-name} {last-name}')",
             "output": "John Doe"
           },
           {
-            "code": "first_name = 'John'\nlast_name = 'Doe'\nprint(' '.join([first_name, last_name]))",
+            "code": "first-name = 'John'\nlast-name = 'Doe'\nprint(' '.join([first-name, last-name]))",
             "output": "John Doe"
           }
         ]

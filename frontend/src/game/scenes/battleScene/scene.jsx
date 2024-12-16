@@ -344,7 +344,7 @@ class FightScene extends Phaser.Scene {
 
         this.viewCardInstructions = this.add.text(0, 0, "", {
             fontSize: "20px",
-            wordWrap: { width: viewCard.width, useAdvancedWrap: true }
+            wordWrap: {width: viewCard.width, useAdvancedWrap: true}
         });
 
         this.viewCardName = this.add.text(0, 0, "", {

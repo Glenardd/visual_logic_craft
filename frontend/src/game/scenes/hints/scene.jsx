@@ -33,7 +33,9 @@ class Hints extends Phaser.Scene{
                 this.scene.resume("fightScene");
                 this.scene.stop();
             }).on("pointerover", ()=>{
-              console.log("over");  
+                rectangle.setFillStyle(0x422b1e);  
+            }).on("pointerout", ()=>{
+                rectangle.setFillStyle(0x754830);
             });
             
             return button;
