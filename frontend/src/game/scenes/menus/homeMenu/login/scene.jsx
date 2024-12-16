@@ -3,10 +3,17 @@
 import { authListener } from "../../../../../firebase/accountPersist";
 import { login } from "../../../../../firebase/accountPersist";
 
+//import the image signUp from google
+import googleSignUp from "../../../../../assets/google_signIn_asset/signInGoogle.png";
+
 class Login extends Phaser.Scene{
     constructor(){
         super({key: "login"});
         this.hasCheckedAuth = false;
+    };
+
+    preload(){
+        this.load.image("signUp", googleSignUp);
     };
 
     create(){
@@ -25,48 +32,37 @@ class Login extends Phaser.Scene{
                     this.scene.start("login");
                 }
             });
-        }
+        };
 
         this.googleBtn();
-    };
-
-    // const titleGame = this.add.text(0,0, "VISUAL LOGIC CRAFT", { fontSize: 100 }).setOrigin(0.5);
-
-    headerGame(){
-
-    };
+    }; 
 
     googleBtn(){
-        const rectangle = this.rexUI.add.roundRectangle(0,0,0,9,20,0x88d17b).setStrokeStyle(4, 0x00000);
-        const btn = this.rexUI.add.label({
+        const googleImg = this.add.image(0,0, "signUp").setDisplaySize(310,80);
+        const signInbtn = this.rexUI.add.sizer({
+            orientation: "y",
             x: this.width/2,
             y: this.height/2,
-            width: 300,
-            height: 100,
-            background: rectangle,
-            text: this.add.text(0, 0, "Google Login/Signup", {
-                fontSize: 40,
-                color: "#000000", 
-            }),
-            align: 'center',
             space: {
-                left: 20,
-                right: 20,
-                top: 5,
-                bottom: 5,
-            },
-        }).setInteractive({useHandCursor: true})
-        .on("pointerover", () => {rectangle.setFillStyle(0x5e9654)})
-        .on("pointerout", ()=> {rectangle.setFillStyle(0x88d17b)})
+                item: 30,
+            }
+        }).add(
+            this.add.text(0,0, "VISUAL LOGIC CRAFT", { fontSize: 100 }),
+            0,
+            "center",
+        ).add(
+            googleImg,
+        ).setInteractive({useHandCursor: true})
+        .on("pointerover", () => {googleImg.setTint(0x999999)})
+        .on("pointerout", ()=> {googleImg.clearTint()})
         .on("pointerdown", ()=> {
-
             //persists login
             login();
         });
+        
+        signInbtn.layout();
 
-        btn.layout();
-
-        return btn;
+        return signInbtn;
     };
     
      // async dataDB() {
