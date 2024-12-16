@@ -38,7 +38,7 @@ class Login extends Phaser.Scene{
     }; 
 
     googleBtn(){
-        const googleImg = this.add.image(0,0, "signUp").setDisplaySize(310,80);
+        const googleImg = this.add.image(0,0, "signUp").setDisplaySize(250,60);
         const signInbtn = this.rexUI.add.sizer({
             orientation: "y",
             x: this.width/2,
