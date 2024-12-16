@@ -104,11 +104,8 @@ class MissionOne extends Phaser.Scene {
         this.player.x = x 
         this.player.y = y; 
 
-        const pause = new PauseButton(this, this.Width, this.Height, this.destroyedEnemies, this.maxLives, assetLoad);
-
-        this.events.on('resume', () => {
-            pause.stopListener();
-        });
+        //pause btn
+        new PauseButton(this, this.Width, this.Height, this.destroyedEnemies, this.maxLives, assetLoad);
 
         if(this.livesRemaining < 0){
             this.scene.start("gameOver", {assetImg: assetLoad ,previousScene: this.scene.key,livesRemaining: this.maxLives});

@@ -39,7 +39,10 @@ class LevelSelect extends Phaser.Scene{
             isActive()
         */ 
 
+        //will detect if a mission is done when returned to level select
         console.log(data?.levelAccomplished || "none accomplished yet!");
+
+        this.missionDone = data?.levelAccomplished;
 
         this.livesRemaining = data.livesRemaining;
         this.destroyedEnemies = data.destroyedEnemies;
@@ -83,14 +86,25 @@ class LevelSelect extends Phaser.Scene{
     levelSelectbtn(){
 
         const missionOneBtn = new ButtonCreate(this,0,0, "Mission One",25, 100,200, 0x88d17b,0x5e9654, ()=>this.changeScene("loadingScreen", this.livesRemaining, this.assetsOne, "missionOne"),true);
-        missionOneBtn.setInteractivity(true);
         missionOneBtn.setCenter();
         this.levelSelection.add(missionOneBtn);
 
         const missionTwoBtn = new ButtonCreate(this,0,70, "Mission Two",25, 100,200 ,0x88d17b,0x5e9654, ()=>this.changeScene("loadingScreen", this.livesRemaining, this.assetTwo, "missionTwo"),true);
-        missionTwoBtn.setInteractivity(true);
         missionTwoBtn.setCenter();
         this.levelSelection.add(missionTwoBtn);
+
+        if(this.missionDone === "missionOne"){
+            missionOneBtn.disableInteractivivity();
+            missionOneBtn.backgroundColor = 0x5e9654;
+        }else{
+            missionOneBtn.setInteractivity(true);
+        };
+
+        if(this.missionDone === "missionTwo"){
+            missionTwoBtn.disableInteractivivity();
+        }else{
+            missionTwoBtn.setInteractivity(true);
+        };
     };
 
     changeScene(sceneName, livesRemaining, assetImg, destination){

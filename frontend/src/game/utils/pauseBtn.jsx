@@ -36,11 +36,6 @@ class PauseButton extends Phaser.GameObjects.Container {
         this.pause = new ButtonCreate(this.scene, 0, 0, "Menu", 25, 50, 150, 0xe85f5f, 0x914c4c, returnEvent, true);
         this.scene.add.container(lineX, lineY).add(this.pause);
     };
-
-    //stop event
-    stopListener(){
-        this.pause.DisableListners();
-    };
 };
 
 export default PauseButton;
