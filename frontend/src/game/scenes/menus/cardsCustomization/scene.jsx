@@ -2,6 +2,10 @@ import AddLine from "../../../utils/addLayoutGuide";
 import ReturnButton from "../../../utils/returnBtn";
 import cardData from "../../../objData/cardsData.json";
 
+import { database } from "../../../../firebase/firebase";
+import { ref, get } from "firebase/database";
+import { authListener } from "../../../../firebase/accountPersist";
+
 class CardCustomization extends Phaser.Scene {
 
     constructor() {
@@ -9,11 +13,34 @@ class CardCustomization extends Phaser.Scene {
 
         this.cardsEquipped = ["","","",""];
         this.cardsUneqiupped = [];
+        this.hasCheckedAuth = false;
+        
+        // cardData.map(cards => this.cardsUneqiupped.push(cards.card_name));
 
-        cardData.map(cards => this.cardsUneqiupped.push(cards.card_name));
+        if (!this.hasCheckedAuth) {
+            authListener((user) => {
+                this.hasCheckedAuth = true;  // Mark the check as completed
+                
+                if (user) {
+                    const userId = user.uid;
+                    const cardsRef = ref(database,"users/"+ userId);
+                    get(cardsRef).then((snapshot)=> {
+                        if(snapshot.exists()){
+                            const cards = snapshot.val()["cards"];
+                            cards.map((card)=>this.cardsUneqiupped.push(card)); 
+                        };
+                    });
+
+                } else {
+                    //do nothing
+                };
+            });
+        };
     };
 
     create() {
+
+        console.log(this.cardsUneqiupped);
 
         this.width = this.cameras.main.width;
         this.height = this.cameras.main.height;
@@ -24,8 +51,6 @@ class CardCustomization extends Phaser.Scene {
         this.visibility = 0;
         this.returnHome(width, height);
 
-        //prints the sise of the equipped cards
-        console.log(this.cardEquipped.length);
         this.cardEquipped();
         this.splitPanels();
     };
