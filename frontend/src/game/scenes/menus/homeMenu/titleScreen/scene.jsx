@@ -5,6 +5,7 @@ import AddLine from "../../../../utils/addLayoutGuide";
 class TitleScreen extends Phaser.Scene{
     constructor(){
         super({key: "titleScreen"});
+        this.playerDisplayName = "";
         this.hasCheckedAuth = false;
     };
 
@@ -45,11 +46,29 @@ class TitleScreen extends Phaser.Scene{
         //dynamically position btn
         const listOfUi = this.container.list;
         listOfUi.map((ui, i) =>{
-            ui.y  = i * (40 + 90)-180;
+            ui.y  = i * (40 + 90)-240;
         }); 
     };
 
     gameTitle(){
+        
+        if (!this.hasCheckedAuth) {
+            authListener((user) => {
+                this.hasCheckedAuth = true;  // Mark the check as completed
+                
+                if (user) {
+                    console.log(user.displayName)
+                    const userDisplayName = user.displayName;
+                    this.playerDisplayName = userDisplayName;
+                } else {
+
+                }
+            });
+        };
+
+        const displayName = this.add.text(0,0, `User: ${this.playerDisplayName}`, { fontSize: 30 }).setOrigin(0.5);
+        this.container.add(displayName);
+
         const titleGame = this.add.text(0,0, "VISUAL LOGIC CRAFT", { fontSize: 100 }).setOrigin(0.5);
         this.container.add(titleGame);
     };
