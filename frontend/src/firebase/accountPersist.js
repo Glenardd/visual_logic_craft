@@ -33,7 +33,7 @@ const login = () =>{
           console.log("account already exist, you may continue");
         }else{
           set(reference,{
-            displayName: userDisplayName,
+            display_name: userDisplayName,
             email: userEmail,
             cards: ["Conditional Cobra", "Variable Vulture", "Array Antellope", "Function Falcon"],
           });

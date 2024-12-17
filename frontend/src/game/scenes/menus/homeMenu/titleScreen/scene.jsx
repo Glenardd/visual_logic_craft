@@ -1,6 +1,8 @@
 import { authListener, logout } from "../../../../../firebase/accountPersist";
+import { database } from "../../../../../firebase/firebase";
 import ButtonCreate from "../../../../utils/addButton";
 import AddLine from "../../../../utils/addLayoutGuide";
+import { ref, get } from "firebase/database";
 
 class TitleScreen extends Phaser.Scene{
     constructor(){
@@ -23,11 +25,30 @@ class TitleScreen extends Phaser.Scene{
         
         this.container = this.add.container(lineX, lineY);
 
+        this.gameTitle();
+        this.levelSelect();
+        this.customizeCards();
+        this.howToPlay();
+        this.logout();
+
         if (!this.hasCheckedAuth) {
             authListener((user) => {
                 this.hasCheckedAuth = true;  // Mark the check as completed
                 
                 if (user) {
+
+                    const userId = user.uid
+
+                    const usersDb = ref(database,"users/"+userId);
+
+                    get(usersDb).then((snapshot)=>{
+                        
+                        if(snapshot.exists()){
+                            const userName = snapshot.val()["display_name"];
+                            this.displayName.setText(`User: ${userName}`);
+                        };
+                    });
+
                     // If logged in, continue with the game, or start the game screen
                     this.scene.start("titleScreen");
                 } else {
@@ -36,12 +57,6 @@ class TitleScreen extends Phaser.Scene{
                 }
             });
         }
-
-        this.gameTitle();
-        this.levelSelect();
-        this.customizeCards();
-        this.howToPlay();
-        this.logout();
         
         //dynamically position btn
         const listOfUi = this.container.list;
@@ -52,22 +67,8 @@ class TitleScreen extends Phaser.Scene{
 
     gameTitle(){
         
-        if (!this.hasCheckedAuth) {
-            authListener((user) => {
-                this.hasCheckedAuth = true;  // Mark the check as completed
-                
-                if (user) {
-                    console.log(user.displayName)
-                    const userDisplayName = user.displayName;
-                    this.playerDisplayName = userDisplayName;
-                } else {
-
-                }
-            });
-        };
-
-        const displayName = this.add.text(0,0, `User: ${this.playerDisplayName}`, { fontSize: 30 }).setOrigin(0.5);
-        this.container.add(displayName);
+        this.displayName = this.add.text(0,0, "", { fontSize: 30 }).setOrigin(0.5);
+        this.container.add(this.displayName);
 
         const titleGame = this.add.text(0,0, "VISUAL LOGIC CRAFT", { fontSize: 100 }).setOrigin(0.5);
         this.container.add(titleGame);

@@ -32,7 +32,8 @@ class CardCustomization extends Phaser.Scene {
                     });
 
                 } else {
-                    //do nothing
+                    //empty the cards if logged out
+                    this.cardsUneqiupped = [];
                 };
             });
         };
@@ -40,7 +41,7 @@ class CardCustomization extends Phaser.Scene {
 
     create() {
 
-        console.log(this.cardsUneqiupped);
+        
 
         this.width = this.cameras.main.width;
         this.height = this.cameras.main.height;
