@@ -52,7 +52,9 @@ class Login extends Phaser.Scene{
             "center",
         ).add(
             googleImg,
-        ).setInteractive({useHandCursor: true})
+        )
+        
+        googleImg.setInteractive({useHandCursor: true})
         .on("pointerover", () => {googleImg.setTint(0x999999)})
         .on("pointerout", ()=> {googleImg.clearTint()})
         .on("pointerdown", ()=> {
