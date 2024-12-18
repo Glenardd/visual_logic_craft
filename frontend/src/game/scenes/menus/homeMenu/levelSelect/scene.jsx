@@ -48,7 +48,7 @@ class LevelSelect extends Phaser.Scene{
         this.destroyedEnemies = data.destroyedEnemies;
 
         this.Width = this.scale.width;
-        this.Height = this.scale.height
+        this.Height = this.scale.height;
 
         const line = new AddLine(this, this.Width, this.Height);
 

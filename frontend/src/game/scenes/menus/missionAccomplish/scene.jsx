@@ -1,9 +1,13 @@
+import { ref, set } from "firebase/database";
 import ButtonCreate from "../../../utils/addButton";
 import AddLine from "../../../utils/addLayoutGuide";
+import { authListener } from "../../../../firebase/accountPersist";
+import { database } from "../../../../firebase/firebase";
 
 class MissionAccomplish extends Phaser.Scene{
     constructor(){
         super({key: "missionFinish"});
+        this.hasCheckedAuth =  false;
     };
 
     create(data){
@@ -66,6 +70,22 @@ class MissionAccomplish extends Phaser.Scene{
 
     levelSelectBtn(){
         //go back to level select
+        if (!this.hasCheckedAuth) {
+            authListener((user) => {
+                this.hasCheckedAuth = true;  // Mark the check as completed
+                
+                if (user) {
+                    const userId = user.uid;
+                    const missionRef = ref(database,"missions_done/");
+                    set(missionRef, {
+                        user_id: userId,
+                        mission_name: this.previousScene,
+                    });
+
+                };
+            });
+        };
+
         const exit = () =>{
             this.scene.launch("levelSelect", {levelAccomplished: this.previousScene});
             this.scene.start("forestBackground");
