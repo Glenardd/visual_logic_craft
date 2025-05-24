@@ -1,45 +1,46 @@
 class PlayerLivesCount extends Phaser.GameObjects.Container {
-    constructor(scene, x, y, currentLives, maxLives, destroyedEnemies, assetImg) {
+    constructor(scene, x, y, currentLives) {
         super(scene, x, y);
 
+        this.x =x;
+        this.y =y;
         this.scene = scene;
-        this.lives = maxLives; // Total lives (fixed)
         this.currentLives = currentLives; // Remaining lives
+        this.heartSprites = []; // Initialize heartSprites array
 
         this.drawLives();
         this.scene.add.existing(this);
-        this.destroyedEnemies = destroyedEnemies;
-        this.assetImg = assetImg;
-    }
+    };
 
     Subtract(value) {
         this.currentLives -= value;
 
+        this.drawLives(); // Update the visual representation of lives
+
         if (this.currentLives < 0) {
-            this.scene.scene.start("gameOver", { previousScene: this.scene.scene.key, lives: this.lives, assetImg: this.assetImg});
-            this.currentLives = this.lives; // Reset lives for next session
+            this.scene.scene.pause();
         } else {
-            // Restart the current scene with remaining lives
-            this.scene.scene.restart({ livesRemaining: this.currentLives, destroyedEnemies: this.destroyedEnemies, assetImg: this.assetImg });
-        };
+        }
     };
 
     drawLives() {
         // Clear existing graphics
         this.removeAll(true);
 
-        const circleRadius = 20; // Circle size
-        const spacing = 10; // Spacing between circles
+        const spacing = 30; // Spacing between circles
 
         for (let i = 0; i < this.currentLives; i++) {
-            const xOffset = i * (circleRadius * 2 + spacing);
+            const xOffset = i * (32 * 2 + spacing);
 
-            const lifeCircle = this.scene.add.circle(xOffset, 0, circleRadius, 0xff0000);
-            lifeCircle.setStrokeStyle(4, "#00000");
-            lifeCircle.setScrollFactor(0); // Lives don't move with camera
-            lifeCircle.setOrigin(0);
-            this.add(lifeCircle);
-        }
+           const heartSprite = this.scene.add.sprite(xOffset, 0, 'hearts', 1);
+           heartSprite.setTint(0xff0000); // Tint the sprite to red
+            heartSprite.setScale(5);
+            heartSprite.setScrollFactor(0); // Hearts don't move with camera
+            heartSprite.setOrigin(0);
+            
+            this.add(heartSprite);
+            this.heartSprites.push(heartSprite);
+        };
     }
 }
 

@@ -1,115 +1,96 @@
-import AddLine from "../../../../utils/addLayoutGuide";
-import ButtonCreate from "../../../../utils/addButton";
+import Button from "../../../../utils/addButton";
+import GridContainer from "../../../../utils/grid_container/gridContainer";
+import { levels } from "./buttonLabels";
 
-//backgrounds
-//Mission one
-import background_1 from "../../../../../assets/background_mission_one/cloud_bg.png";
-import foreground_1 from "../../../../../assets/background_mission_one/cloud_fg.png";
-import foreground_two_1 from "../../../../../assets/background_mission_one/cloud_fg_two.png"
-
-//mission two
-import background_2 from "../../../../../assets/background_mission_two/Hills_Layer_01.png";
-import foreground_2 from "../../../../../assets/background_mission_two/Hills_Layer_02.png";
-import foreground_two_2 from "../../../../../assets/background_mission_two/Hills_Layer_03.png";
-import ReturnButton from "../../../../utils/returnBtn";
-
-class LevelSelect extends Phaser.Scene{
-    constructor(){
-        super({key: "levelSelect"});
-        this.changeScene = this.changeScene.bind(this);
+class LevelSelect extends Phaser.Scene {
+    constructor() {
+        super({ key: "Level Select" });
     };
 
-    preload(){
-        this.load.image("background_1", background_1);
-        this.load.image("foreground_1", foreground_1);
-        this.load.image("foreground_two_1", foreground_two_1);
+    create(data) {
 
-        this.load.image("background_2", background_2);
-        this.load.image("foreground_2", foreground_2);
-        this.load.image("foreground_two_2", foreground_two_2);
-    };
-
-    create(data){
-
-        //check if some scene i still running
-        /*
-            isPause()
-            isSleeping()
-            isVisible()
-            isActive()
-        */ 
+        console.log("Level Select data: ", data);
 
         //will detect if a mission is done when returned to level select
-        console.log(data?.levelAccomplished || "none accomplished yet!");
+        // console.log(data?.levelAccomplished || "none accomplished yet!");
 
-        this.missionDone = data?.levelAccomplished;
+        // this.missionDone = data?.levelAccomplished;
 
-        this.livesRemaining = data.livesRemaining;
-        this.destroyedEnemies = data.destroyedEnemies;
+        // this.livesRemaining = data.livesRemaining;
+        // this.destroyedEnemies = data.destroyedEnemies;
 
-        this.Width = this.scale.width;
-        this.Height = this.scale.height;
+        this.previousScene = data?.previousScene;
+        console.log(this.previousScene);
 
-        const line = new AddLine(this, this.Width, this.Height);
+        this.width_ = this.scale.width;
+        this.height_ = this.scale.height;
 
-        this.visibility = 0;
+        // const line = new AddLine(this, this.width_, this.Height);
 
-        this.levelSelection = this.add.container(
-            line.createVerticalLine(0.5,this.visibility).PosX,
-            line.createHorizontalLine(0.5,this.visibility).PosY,
-        );
+        // this.visibility = 0;
 
-        this.assetsOne = {
-            background: "background_1",
-            foreground: "foreground_1",
-            foreground_two: "foreground_two_1",
-        };
-
-        this.assetTwo = {
-            background: "background_2",
-            foreground: "foreground_2",
-            foreground_two: "foreground_two_2",
-        };
+        // this.levelSelection = this.add.container(
+        //     line.createVerticalLine(0.5,this.visibility).PosX,
+        //     line.createHorizontalLine(0.5,this.visibility).PosY,
+        // );
 
         this.levelSelectbtn();
-        this.returnHome();
+        this.returnBtn();
     };
 
-    returnHome(){
-        const line = new AddLine(this, this.Width, this.Height);
-        const lineX = line.createVerticalLine(0.03,this.visibility).PosX;
-        const lineY = line.createHorizontalLine(0.03,this.visibility).PosY;
+    levelSelectbtn() {
+        //empty only since this is a mission select only
+        const data_ = {};
 
-        new ReturnButton(this, lineX, lineY, "titleScreen");
+        //instance of the button
+        const button = new Button(this, levels, {
+            x: this.width_,
+            y: this.height_,
+            orientation: "y",
+            btn_width: 300,
+            btn_height: 50,
+            fontSize: 30,
+            isGrid: false,
+            btn_color: 0x349354,
+            text_spacing: 15,
+            button_spacing: 20,
+            data: data_,
+        });
+
+        button.button_header_layout("Level Select", { fontSize: 60, space: 40 });
     };
 
-    levelSelectbtn(){
-
-        const missionOneBtn = new ButtonCreate(this,0,0, "Mission One",25, 100,200, 0x88d17b,0x5e9654, ()=>this.changeScene("loadingScreen", this.livesRemaining, this.assetsOne, "missionOne"),true);
-        missionOneBtn.setCenter();
-        this.levelSelection.add(missionOneBtn);
-
-        const missionTwoBtn = new ButtonCreate(this,0,70, "Mission Two",25, 100,200 ,0x88d17b,0x5e9654, ()=>this.changeScene("loadingScreen", this.livesRemaining, this.assetTwo, "missionTwo"),true);
-        missionTwoBtn.setCenter();
-        this.levelSelection.add(missionTwoBtn);
-
-        if(this.missionDone === "missionOne"){
-            missionOneBtn.disableInteractivivity();
-            missionOneBtn.backgroundColor = 0x5e9654;
-        }else{
-            missionOneBtn.setInteractivity(true);
+    //this will return the button from the previous scene
+    returnBtn() {
+        const data_ = {
+            previousScene: this.previousScene,
         };
 
-        if(this.missionDone === "missionTwo"){
-            missionTwoBtn.disableInteractivivity();
-        }else{
-            missionTwoBtn.setInteractivity(true);
-        };
-    };
+        const button = new Button(this, [{text: "Return"}], {
+            x: this.width_,
+            y: this.height_,
+            btn_color: 0xB2393B,
+            orientation: "y",
+            btn_width: 200,
+            btn_height: 50,
+            fontSize: 30,
+            isGrid: true,
+            text_spacing: 15,
+            button_spacing: 20,
+            data: data_,
+        });
+        
+        //activate the one button only layout
+        button.button_only_layout();
 
-    changeScene(sceneName, livesRemaining, assetImg, destination){
-        this.scene.start(sceneName, {livesRemaining:livesRemaining, assetImg: assetImg, missionName: destination}); 
-        this.scene.stop("levelSelect");
+        //get the grid container
+        const container = new GridContainer(this, { 
+            x: this.width_, 
+            y: this.height_,
+        });
+
+        //insert the button object
+        container.insert(button, 3, 3);
     };
 };
 

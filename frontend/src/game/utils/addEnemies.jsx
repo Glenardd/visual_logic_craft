@@ -1,6 +1,6 @@
 import Enemy from "./Enemy";
 class EnemyCreate{
-    constructor(scene ,ground, numberOfEnemies, player,tags, destroyedEnemies, playerRemainingLives, assetImg, groundColor){
+    constructor(scene ,ground, numberOfEnemies, player,tags, destroyedEnemies, livesRemaining, groundColor){
 
         this.player = player;
         this.scene = scene;
@@ -26,7 +26,7 @@ class EnemyCreate{
             this.enemyX = this.groundX - this.groundWidth / 2 + (i + 2) * this.spacing;
             this.enemyY = this.groundY - this.groundHeight/2;
 
-            this.enemy = new Enemy(this.scene, this.enemyX, this.enemyY, 100,120, 0x39cc8a, ground,enemyName);
+            this.enemy = new Enemy(this.scene, this.enemyX, this.enemyY,ground,enemyName);
             this.enemy.setOrigin(0.5,1);
             this.enemy.health = 100;
             this.allEnemies.push(this.enemy);
@@ -38,16 +38,9 @@ class EnemyCreate{
                 enemyName: enemy.name, 
                 enemyHp: enemy.health,
                 playerName: player.playerName,
-                playerHp: player.health,
-                
                 destroyedEnemies: this.destroyedEnemies,
-                playerPrevPos:{
-                    x: player.x,
-                    y: player.y
-                },
-                livesRemaining: playerRemainingLives,
-                currentScene: this.scene.scene.key,
-                assetImg: assetImg,
+                livesRemaining: livesRemaining,
+                previousScene: this.scene.scene.key,
                 groundColor: groundColor,
             });
             this.scene.scene.stop("missionOne");

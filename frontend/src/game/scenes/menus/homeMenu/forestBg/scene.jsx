@@ -5,6 +5,7 @@ class ForestBackGround extends Phaser.Scene {
     };
 
     create() {
+        console.log(this.scene.key);
 
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;

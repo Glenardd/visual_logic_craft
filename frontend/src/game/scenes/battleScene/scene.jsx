@@ -1,9 +1,10 @@
 import * as monaco from "monaco-editor";
-import ButtonCreate from "../../utils/addButton.jsx";
-import AddLine from "../../utils/addLayoutGuide.jsx";
-import CreateCard from "../../utils/addCards.jsx";
-import HealthBar from "../../utils/healthBar.jsx";
-import PauseButton from "../../utils/pauseBtn.jsx";
+import AddLine from "../../utils/addLayoutGuide";
+import CreateCard from "../../utils/addCards";
+import HealthBar from "../../utils/healthBar";
+import ButtonCreate from "../battleScene/buttons_temp"
+import GridContainer from "../../utils/grid_container/gridContainer";
+import { mission_bg } from "../../utils/mission_bg";
 
 class FightScene extends Phaser.Scene {
     constructor() {
@@ -16,43 +17,44 @@ class FightScene extends Phaser.Scene {
         this.enemyHealth = 0;
         this.enemyName = "";
         this.currentScene = "";
-    };
+    }
 
     create(data) {
+        console.log("Fight scene data: ", data);
 
-        this.cardsAvailable = this.plugins.get("DataPlugin").get("cardList") || [];
-        console.log(this.cardsAvailable);
+        this.cardsAvailable = this.plugins.get("DataPlugin")?.get("cardList") || [];
 
-        //the player current lives count
+        console.log("cards available", this.cardsAvailable);
+
+        // Player current lives count
         this.livesRemaining = data.livesRemaining;
-        
-        //enemy information
+
+        // Enemy information
         this.enemyHealth = data.enemyHp || 100;
         this.enemyName = data.enemyName || "Enemy";
         this.destroyedEnemies = data.destroyedEnemies;
 
-        //player information
+        // Player information
         this.playerHealth = data.playerHp || 100;
         this.playerName = data.playerName || "Player";
         this.playerPrevPos = data.playerPrevPos;
 
-        this.currentScene = data.currentScene;
+        this.previousScene = data?.previousScene;
 
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
 
         const groundColor = data.groundColor;
 
-        //background data
-        this.asset = data?.assetImg;
-        console.log(this.asset);
+        // Background data
+        this.asset = { backGround: mission_bg[0].bg3_mission1 };
 
-        //create grid for layout guide
+        // Create grid for layout guide
         const line = new AddLine(this, width, height);
 
         const visible = 0;
 
-        //line guides
+        // Line guides
         const first_Vline = line.createVerticalLine(0.25, visible);
         const second_Vline = line.createVerticalLine(0.48, visible);
         const third_Vline = line.createVerticalLine(0.07, visible);
@@ -67,7 +69,7 @@ class FightScene extends Phaser.Scene {
         const playerHealthbar_Hline = line.createHorizontalLine(0.12, visible);
         const playerHealthbar_Vline = line.createVerticalLine(0.07, visible);
 
-        //obj layers 
+        // Obj layers 
         this.playerAndEnemy = this.add.container(0, enemyAndPlayer_Hline.PosY);
         const groundPos = this.add.container(0, fourth_Hline.PosY);
         const backGround = this.add.container(0, first_Hline.PosY);
@@ -78,20 +80,20 @@ class FightScene extends Phaser.Scene {
         const cards = this.add.container(third_Vline.PosX, second_Hline.PosY);
         const attemptsUi = this.add.container(third_Vline.PosX, fourth_Hline.PosY);
 
-        //load the background images
-        const bg =this.add.image(0,0, this.asset?.background);
+        // Load the background images
+        const bg = this.add.image(0, 0, this.asset?.backGround);
         bg.setScrollFactor(0);
         bg.setOrigin(0);
-        bg.setDisplaySize(width,height/2+80);
+        bg.setDisplaySize(width, height/2+80);
         bg.setDepth(-1);
 
-        //enemy health bar
+        // Enemy health bar
         this.enemyHpBar = new HealthBar(this, enemyHealthbar_Vline.PosX, enemyHealthbar_Hline.PosY, this.enemyHealth, "enemy", "Enemy");
 
-        //player health bar
+        // Player health bar
         this.playerHpBar = new HealthBar(this, playerHealthbar_Vline.PosX, playerHealthbar_Hline.PosY, this.playerHealth, "player", "Player");
 
-        //container for code editor
+        // Container for code editor
         const containerDiv = `<div id="codeEditor" style="width: 57.4em; height: 380px; border: 1px solid grey;"></div>`;
         const containerDom = this.add.dom(0, 0).createFromHTML(containerDiv);
         containerDom.setOrigin(0);
@@ -105,7 +107,7 @@ class FightScene extends Phaser.Scene {
             containerDom.setVisible(true);
         });
 
-        //code editor
+        // Code editor
         const containerID = document.getElementById("codeEditor");
         this.editor = monaco.editor.create(containerID, {
             value: "#code here",
@@ -114,12 +116,13 @@ class FightScene extends Phaser.Scene {
             theme: "vs-dark",
             contextmenu: false,
             fontSize: 30,
+            fontFamily: "Dosis",
             minimap: {
                 enabled: false
             },
         });
 
-        //enemy and player
+        // Enemy and player
         this.playerBody = this.add.rectangle(width * 0.35, 0, 90, 90, 0xed5f5f);
         this.playerBody.setStrokeStyle(4, 0x0000);
         this.playerBody.setOrigin(0);
@@ -130,20 +133,18 @@ class FightScene extends Phaser.Scene {
 
         this.playerAndEnemy.add([this.playerBody, this.enemyBody]);
 
-        //animation of player and enemy
+        // Animation of player and enemy
         this.playerAndEnemy.list.forEach(child => {
             this.addFloatingAnimation(child);
         });
 
-        //execute code
+        // Execute code
         const runCode = () => {
-
             const checkCard = this.selectedCase.every((card) => card === "");
 
             if (checkCard) {
                 this.resultVal.setText("Pick a card");
                 setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
-
             } else {
                 const codeVal = this.editor.getValue();
                 const normalizedCode = this.codeNormalizer(codeVal);
@@ -153,8 +154,8 @@ class FightScene extends Phaser.Scene {
                     setTimeout(() => { this.resultVal.setText("Input your code") }, 1000);
                 } else {
                     this.assertEqual(normalizedCode, codeVal);
-                };
-            };
+                }
+            }
         };
 
         let currentStep = 0;
@@ -162,15 +163,14 @@ class FightScene extends Phaser.Scene {
         let codeStr = "";
 
         const deselect = () => {
-
             console.log("deselect");
 
             this.hintsBtn.setInteractivity(false);
             this.deselectCardbtn.setInteractivity(false);
 
-            //clear view th card challenge
+            // Clear view the card challenge
             this.selectACardMessage.setText("Pick a card");
-            this.viewCardInstructions.setText("")
+            this.viewCardInstructions.setText("");
             this.viewCardName.setText("");
             this.viewCardConcept.setText("");
             this.viewCardOutput.setText("");
@@ -181,8 +181,8 @@ class FightScene extends Phaser.Scene {
             this.selectedCase = [];
             this.selectedCaseOutput = [];
 
-            // all cards can be pressed or interacted with this function
-            cards.list?.map(card =>{
+            // All cards can be pressed or interacted with this function
+            cards.list?.map(card => {
                 card?.setInteractivity(true);
             });
 
@@ -192,37 +192,39 @@ class FightScene extends Phaser.Scene {
         };
 
         const select = (cardQuestion, cardAnswer, cardName, cardConcept, cardValue) => {
-
-            //view th card challenge
+            // View the card challenge
             this.selectACardMessage.setText("");
             this.viewCardInstructions.setText(cardQuestion);
             this.viewCardName.setText(cardName);
             this.viewCardConcept.setText(`\"${cardConcept}\"`);
-            this.viewCardValue.setText(`Damage: ${cardValue}`)
+            this.viewCardValue.setText(`Damage: ${cardValue}`);
 
-            cardAnswer.map(expected =>{
+            cardAnswer.map(expected => {
                 this.selectedCase.push(expected.code);
                 this.selectedCaseOutput.push(expected.output);
                 this.viewCardOutput.setText(`Output: ${expected.output}`);
             });
 
-            //card damage
+            // Card damage
             this.cardValue = cardValue;
             this.resultVal.setText("Input your code");
 
-            cards.list?.map(card =>{
+            cards.list?.map(card => {
                 card?.setInteractivity(false);
             });
         };
 
-        //enemy turn
+        // Enemy turn
         const endTurn = () => {
-            //the fetch the api here for machine learning
-            //send to machine learning model
+            // The fetch the api here for machine learning
+            // Send to machine learning model
             const conceptStr = this.viewCardConcept.text.replace(/['"]+/g, '');
-            const concept =  conceptStr === "Variables" ? 3 : conceptStr === "Conditionals" ? 1 : conceptStr === "Arrays" ? 0 : conceptStr === "Functions" ? 2 : "";
+            const concept = conceptStr === "Variables" ? 3 : 
+                           conceptStr === "Conditionals" ? 1 : 
+                           conceptStr === "Arrays" ? 0 : 
+                           conceptStr === "Functions" ? 2 : "";
 
-            //will return enemy damage
+            // Will return enemy damage
             const fetchData = async () => {
                 try {
                     const response = await fetch(`${import.meta.env.VITE_FLASK_API_URL}/predict`, {
@@ -236,17 +238,17 @@ class FightScene extends Phaser.Scene {
                     return data;  // Return the data
                 } catch (error) {
                     throw new Error("Nothing is fetch: ", error);
-                };
+                }
             };
 
-            //reset every run of the player
+            // Reset every run of the player
             deselect();
 
             this.endturnbtn.setInteractivity(false);
 
             this.runBtn.setInteractivity(true);
-            //reset turns when turn ended
-            this.attempts = 0
+            // Reset turns when turn ended
+            this.attempts = 0;
             this.countAttempts.setText(`Attempts: ${this.attempts}`);
 
             const [, enemy] = this.playerAndEnemy.list;
@@ -273,60 +275,59 @@ class FightScene extends Phaser.Scene {
                 },
             });
 
-            //player damage by the enemy
-            fetchData().then(data =>{
+            // Player damage by the enemy
+            fetchData().then(data => {
                 console.log(data.damage[0]);
-                this.playerHpBar.Subtract(Math.floor(data.damage[0]));//Math.floor(data.damage[0])
+                this.playerHpBar.Subtract(Math.floor(data.damage[0]));
             });
         };        
 
-        const hints =() =>{
+        const hints = () => {
             const answer = this.selectedCase;
 
             console.log(currentAnswer);
-            if(currentAnswer < answer.length){
+            if(currentAnswer < answer.length) {
                 const lines = answer[currentAnswer];
 
-                //split each string by new line
+                // Split each string by new line
                 let steps = lines.split('\n').map(line => line.trim());
-                
-                if(currentStep < steps.length){
+
+                if(currentStep < steps.length) {
                     codeStr += steps[currentStep] + "\n";
                     this.scene.launch("hints", {code: codeStr});
                     currentStep++;
-                    
-                    //damage per hints
+
+                    // Damage per hints
                     this.playerHpBar.Subtract(3);
 
-                    if(currentStep === steps.length){
+                    if(currentStep === steps.length) {
                         codeStr = "";  
-
                         currentStep = 0;
                         currentAnswer++;
-                    };
-                };
+                    }
+                }
 
-                if(currentAnswer === answer.length){
+                if(currentAnswer === answer.length) {
                     currentAnswer = 0;
-                };
-            };
+                }
+            }
             this.scene.pause();
             this.hintsBtn.disableInteractive({useHandCursor: false});
         };
 
-        //grass line obj
+        // Grass line obj
         const groundObj = this.add.rectangle(0, 0, width, 100, groundColor);
-        groundObj.setStrokeStyle(4, 0x0000)
+        groundObj.setStrokeStyle(4, 0x0000);
         groundObj.setOrigin(0);
         groundPos.add(groundObj);
 
-        //container bg
+        // Container bg
         const backgroundForEditor = this.add.rectangle(0, 0, width + 10, height, 0x698a84);
-        backgroundForEditor.setStrokeStyle(3, 0x0000)
+        backgroundForEditor.setStrokeStyle(3, 0x0000);
         backgroundForEditor.setOrigin(0);
         backGround.add(backgroundForEditor);
 
-        //code result shows here 
+        // Code result shows here 
         const resultLog = this.add.rectangle(0, 0, 700, 100, 0xffffff);
         this.resultVal = this.add.text(resultLog.x, resultLog.y, "Your turn", { fontSize: 40, color: "#00000" });
         resultLog.setStrokeStyle(3, 0x0000);
@@ -335,9 +336,9 @@ class FightScene extends Phaser.Scene {
         this.resultVal.x = resultLog.x + resultLog.width / 2;
         this.resultVal.y = resultLog.y + resultLog.height / 2;
 
-        //view card panel
+        // View card panel
         const viewCard = this.add.rectangle(0, 0, 400, 380, 0x9c8454);
-        this.selectACardMessage= this.add.text(0, 0, "Pick a card", {
+        this.selectACardMessage = this.add.text(0, 0, "Pick a card", {
             fontSize: "50px",
             wordWrap: { width: viewCard.width, useAdvancedWrap: true }
         });
@@ -396,14 +397,13 @@ class FightScene extends Phaser.Scene {
 
         cardView.add([viewCard, this.viewCardInstructions, this.viewCardName, this.viewCardConcept, this.viewCardValue, this.viewCardOutput, this.selectACardMessage]);
 
-        //store cards here
-        this.cardsAvailable?.map((card, i) =>{
-
+        // Store cards here
+        this.cardsAvailable?.map((card, i) => {
             let y = i * 40;
 
-            if(card === ""){
+            if(card === "") {
                 return null;  
-            };
+            }
 
             const cardStore = new CreateCard(
                 this,
@@ -421,23 +421,21 @@ class FightScene extends Phaser.Scene {
             cards.add(cardStore);
         });
 
-        //buttons
-        this.deselectCardbtn = new ButtonCreate(this, 100, 0, "Deselect", 25, 50, 200, 0xe85f5f,0x914c4c,()=> deselect(), false);
+        // Create deselect button
+        this.deselectCardbtn = new ButtonCreate(this, 200, 0, "Deselect", 25, 100, 160, 0x68b054, 0x4a703f, () => deselect(), false);
         deselectBtn.add(this.deselectCardbtn);
 
-        this.hintsBtn = new ButtonCreate(this, 0, 0, "Hint", 25, 50, 160, 0xe85f5f, 0x914c4c,()=> hints(), false);
+        this.hintsBtn = new ButtonCreate(this, 0, 0, "Hint", 25, 50, 160, 0xe85f5f, 0x914c4c, () => hints(), false);
         deselectBtn.add(this.hintsBtn);
 
-        this.endturnbtn = new ButtonCreate(this, 370, 0, "End\nTurn", 30, 100, 180, 0xe85f5f, 0x914c4c,()=> endTurn(), false);
+        this.endturnbtn = new ButtonCreate(this, 370, 0, "End\nTurn", 30, 100, 180, 0xe85f5f, 0x914c4c, () => endTurn(), false);
 
-        this.runBtn = new ButtonCreate(this, 370, 0, "Run", 70, 100, 180, 0x68b054, 0x4a703f,()=> runCode(), true);
-        runAndlog.add([this.runBtn, resultLog, this.resultVal, this.endturnbtn]);
+        this.runBtn = new ButtonCreate(this, 370, 0, "Run", 70, 100, 180, 0x68b054, 0x4a703f, () => runCode(), true);
+        runAndlog.add([resultLog, this.resultVal, this.endturnbtn, this.runBtn]);
 
         this.countAttempts = this.add.text(0, 5, `Attempts: 0`, { fontSize: "40px" });
         attemptsUi.add(this.countAttempts);
-
-        new PauseButton(this, width, height, this.destroyedEnemies, this.livesCount, this.asset);
-    };
+    }
 
     addFloatingAnimation(object) {
         this.tweens.add({
@@ -447,9 +445,9 @@ class FightScene extends Phaser.Scene {
             yoyo: true,
             y: "-=20",
         });
-    };
+    }
 
-    //will make the code into a single line
+    // Will make the code into a single line
     codeNormalizer(code) {
         try {
             const normalizedCode = code
@@ -465,27 +463,28 @@ class FightScene extends Phaser.Scene {
                 .replace(/\s*\]/g, ']')                                 // Remove space before closing square bracket
                 .replace(/"/g, "'")                                     // Normalize double quotes to single quotes
                 .replace(/\s*,\s*/g, ',');                              // Preserve compact commas like x,y=5,10
-    
+
             return normalizedCode;
         } catch {
             // Catch errors silently
+            return "";
         }
-    };
+    }
 
-    //case tester
-    //player attack
+    // Case tester
+    // Player attack
     assertEqual(code, codeExecute) {
-        //list of the code normalized
+        // List of the code normalized
         const caseAnswers = this.selectedCase.map(answers => {
             return this.codeNormalizer(answers);
         });
 
-        //expected code
+        // Expected code
         const expectedOutput = this.selectedCaseOutput.map(expected => {
-            return expected; 
+            return expected;
         });
 
-        //this will execute the python code
+        // This will execute the python code
         const fetchData = async () => {
             try {
                 const response = await fetch(import.meta.env.VITE_FLASK_API_URL, {
@@ -499,26 +498,26 @@ class FightScene extends Phaser.Scene {
                 return data;  // Return the data
             } catch (error) {
                 throw new Error("Nothing is fetch: ", error);
-            };
+            }
         };
 
-        //checks player code
+        // Checks player code
         const checkAnswer = caseAnswers.some(answer => answer.toLowerCase() === code.toLowerCase());
         console.log(checkAnswer);
 
-        //checks player output if right
+        // Checks player output if right
         fetchData().then(data => {
-            //executed result of the python code
+            // Executed result of the python code
             const pythonOutput = data.result;
             const checkOutput = expectedOutput.some(output => output.toLowerCase() === pythonOutput?.toLowerCase());
 
-            //attack enemy if correct
+            // Attack enemy if correct
             if (checkOutput && checkAnswer) {
                 this.resultVal.setText("Passed");
 
                 const [player] = this.playerAndEnemy.list;
 
-                //animation attack of player
+                // Animation attack of player
                 this.tweens.add({
                     targets: player,
                     ease: "Power1",
@@ -544,66 +543,93 @@ class FightScene extends Phaser.Scene {
 
                 console.log(this.cardValue);
 
-                //damage
+                // Damage
                 this.enemyHpBar.Subtract(this.cardValue);
 
                 if (this.enemyHpBar.currentHealth <= 0) {
                     console.log("enemy dead");
                     this.enemyBody.destroy(true);
 
-                    //this saves the enemies player defeated
-                    this.scene.launch(`${this.currentScene}`, {
+                    // This saves the enemies player defeated
+                    this.scene.launch(`${this.previousScene}`, {
                         enemyNewHp: this.enemyHealth,
                         enemyName: this.enemyName,
-                        playerPrevPos: this.playerPrevPos,
                         destroyedEnemies: [...this.destroyedEnemies, this.enemyName],
                         livesRemaining: this.livesRemaining,
-                        assetImg: this.asset,
                     });
                     this.scene.stop("fightScene");
-                };
-
+                }
             } else {
                 this.attempts += 1;
                 this.countAttempts.setText(`Attempts: ${this.attempts}`);
                 this.resultVal.setText("Wrong");
                 setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
-            };
+            }
 
             if (this.attempts >= 3) {
                 this.endturnbtn.setInteractivity(true);
                 this.runBtn.setInteractivity(false);
                 this.attempts = 0;
-            };
+            }
 
-            if(!checkOutput){
+            if (!checkOutput) {
                 this.countAttempts.setText(`Attempts: ${this.attempts}`);
                 this.resultVal.setText("Wrong");
                 setTimeout(() => { this.resultVal.setText("Your turn") }, 1000);
-            };
+            }
         });
-    };
+    }
 
-    checkPlayerHealth(){
-        //check the health of the player
-        if(this.playerHpBar.currentHealth === 0){
+    // If the player loses they will lose some lives remaining
+    checkPlayerHealth() {
+        // Check the health of the player
+        if (this.livesRemaining === 0) {
             console.log("Player is dead");
 
-            //subract to one the lives remaining
-            this.scene.launch(`${this.currentScene}`, {
-                enemyNewHp: this.enemyHealth,
-                enemyName: this.enemyName,
-                livesRemaining: this.livesRemaining-1,
-                assetImg: this.asset,
+            // Subtract one from the lives remaining
+            this.scene.launch(`${this.previousScene}`, {
+                livesRemaining: this.livesRemaining - 1,
             });
             this.scene.stop("fightScene");
-        };
-    };
+        }
+    }
 
-    update(){
-        //check the health of the player
+    update() {
+        // Check the health of the player
         this.checkPlayerHealth();
-    };
-};
+    }
+
+    returnBtn() {
+        const data_ = {
+            previousScene: this.previousScene,
+        };
+
+        const button = new Button(this, [{ text: "Return" }], {
+            x: this.width_,
+            y: this.height_,
+            btn_color: 0xB2393B,
+            orientation: "y",
+            btn_width: 200,
+            btn_height: 50,
+            fontSize: 30,
+            isGrid: true,
+            text_spacing: 15,
+            button_spacing: 20,
+            data: data_,
+        });
+
+        // Activate the one button only layout
+        button.button_only_layout();
+
+        // Get the grid container
+        const container = new GridContainer(this, {
+            x: this.width_,
+            y: this.height_,
+        });
+
+        // Insert the button object
+        container.insert(button, 3, 3);
+    }
+}
 
 export default FightScene;

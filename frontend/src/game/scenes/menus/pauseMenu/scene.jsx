@@ -1,32 +1,36 @@
-import ButtonCreate from "../../../utils/addButton";
-import AddLine from "../../../utils/addLayoutGuide";
+import Button from "../../../utils/addButton.jsx";
+import AddLine from "../../../utils/addLayoutGuide.jsx";
+import { menuLabels } from "./buttonLabels";
+import { mission_bg } from "../../../utils/mission_bg.js";
 
 class PauseMenu extends Phaser.Scene{
     constructor(){
-        super({key: "pauseMenu"});
+        super({key: "Menu"});
     };
     
     create(data){
-        console.log("pause menu");
-        
-        console.log("prev: ",data.previousScene);
+        console.log("Pause Menu data: ", data);
+        console.log("Forest is pause",this.scene.isPaused("forestBackground"));
 
         const visibility = 0;
 
-        const width = this.cameras.main.width;
-        const height = this.cameras.main.height;
+        console.log(data);
+        this.width_ = this.cameras.main.width;
+        this.height_ = this.cameras.main.height;
 
-        const addLine = new AddLine(this, width, height);
+        const addLine = new AddLine(this, this.width_, this.height_);
         const lineX = addLine.createVerticalLine(0.5, visibility).PosX; // Full visibility for vertical line
         const lineY = addLine.createHorizontalLine(0.5, visibility).PosY; // Half visibility for horizontal line
 
-        this.previousScene = data.previousScene;
-        this.lives = data.lives;
+        this.previousScene = data.previousScene ;
+        this.livesRemaining = data.livesRemaining;
         
-        const assetLoad = data?.assetImg;
-        const assets ={
-            background: assetLoad.background,
-            foreground: assetLoad.foreground,
+        //checks if mission 1 or mission 2
+        const sceneCheck = this.previousScene === "Mission One" ? [mission_bg[0].bg1_mission1, mission_bg[0].bg2_mission1] : this.previousScene === "Mission Two" ? [mission_bg[1].bg1_mission2, mission_bg[1].bg3_mission2] : [];
+
+        const assets = {
+            background: sceneCheck[0] || null,
+            foreground: sceneCheck[1] || null,
         };
 
         //background
@@ -36,75 +40,38 @@ class PauseMenu extends Phaser.Scene{
         this.bg.setScale(5);
 
         //foreground
-        this.fg = this.add.tileSprite(0,0,width,0,assets.foreground);
+        this.fg = this.add.tileSprite(0,0,this.width_,0,assets.foreground);
         this.fg.setOrigin(0);
         this.fg.setScale(5);
 
         this.layout = this.add.container(lineX, lineY);
         
-        this.resumeBtn();
-        this.exitBtn();
-        this.toggleMusic();
-        this.guideBtn();
-        this.toggleSoundFX();
+        this.menuBtns();
     };
 
-    //resume button
-    resumeBtn(){
-        const resumeEvent = () =>{
-            console.log("resume: ",`${this.previousScene}` );
-            this.scene.resume(this.previousScene);
-            this.scene.stop("pauseMenu");
-            this.scene.stop("forestBackground");
+    menuBtns(){
+        const data_ = {
+            previousScene: this.previousScene,
+            menuScene: this.scene.key,
         };
 
-        const resumeBtn = new ButtonCreate(this,0,-100, "Resume", 25, 100, 300, 0xe85f5f,0x914c4c, resumeEvent, true).setCenter();
-        this.layout.add(resumeBtn);
-    };
-
-    guideBtn(){
-        const howToPlay = () =>{
-            this.scene.launch("howToPlay", {previousScene: this.scene.key});
-            this.scene.stop("pauseMenu");
-        };
-
-        const toggleMusicBtn = new ButtonCreate(this,0,-25, "How to play", 25, 100, 300, 0xe85f5f,0x914c4c, ()=> howToPlay(), true).setCenter();
-        this.layout.add(toggleMusicBtn);
-    };
-
-    toggleMusic(){
-        const music = () =>{
-            console.log("toggle Music");
-        };
-
-        const toggleMusicBtn = new ButtonCreate(this,40,50, "music", 25, 100, 150, 0xe85f5f,0x914c4c, music, true).setCenter();
-        this.layout.add(toggleMusicBtn);
-    };
-
-    toggleSoundFX(){
-        const music = () =>{
-            console.log("toggle SFX");
-        };
-
-        const toggleMusicBtn = new ButtonCreate(this,-40,50, "SFX", 25, 100, 150, 0xe85f5f,0x914c4c, music, true).setCenter();
-        this.layout.add(toggleMusicBtn);
-    };
-
-    //go back to level selection
-    exitBtn(){
-        const exit = () =>{
-            console.log("quit: ",`${this.previousScene}` );
-            this.scene.stop(this.previousScene);
-            this.scene.stop("pauseMenu");
-
-            this.scene.start("titleScreen");
-            this.scene.start("forestBackground");
-        };
+        const button = new Button(this, menuLabels, {
+            x: this.width_,
+            y: this.height_,
+            orientation: "y",
+            btn_width: 200,
+            btn_height: 50,
+            fontSize: 30,
+            isGrid: false,
+            text_spacing: 15,
+            button_spacing: 20,
+            data: data_,
+            btn_color: 0xB2393B,
+        });
         
-        const exitBtn = new ButtonCreate(this,0,125, "Exit", 25, 100, 300, 0xe85f5f,0x914c4c, exit, true).setCenter();
-        this.layout.add(exitBtn);
-    };
+        button.button_header_layout("Menu", { fontSize: 60, space: 40 });
 
+    };
     update(){
         this.fg.tilePositionX += 0.25;
     };

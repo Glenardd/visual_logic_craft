@@ -1,127 +1,95 @@
-import { authListener, logout } from "../../../../../firebase/accountPersist";
+import { authListener } from "../../../../../firebase/accountPersist";
 import { database } from "../../../../../firebase/firebase";
-import ButtonCreate from "../../../../utils/addButton";
-import AddLine from "../../../../utils/addLayoutGuide";
 import { ref, get } from "firebase/database";
+import { labelsMenu } from "./buttonLabels";
 
-class TitleScreen extends Phaser.Scene{
-    constructor(){
-        super({key: "titleScreen"});
+// import GridContainer from "../../../../utils/grid_container/gridContainer";
+import Button from "../../../../utils/addButton";
+
+class TitleScreen extends Phaser.Scene {
+    constructor() {
+        super({ key: "Title Screen" });
         this.playerDisplayName = "";
-        this.hasCheckedAuth = false;
+        this.displayName = null;
+        this.width_ = 0;
+        this.height_ = 0;
     };
 
-    create(){
-        console.log(this.scene.key);
+    create(data) {
+        console.log("Title Screen data: ", data);
 
-        const width = this.cameras.main.width;
-        const height = this.cameras.main.height;
+        this.width_ = this.cameras.main.width;
+        this.height_ = this.cameras.main.height;
 
-        const visibility = 0;
+        console.log(this.width_, this.height_);
 
-        const line = new AddLine(this, width, height);
-        const lineX = line.createVerticalLine(0.5, visibility).PosX;
-        const lineY = line.createHorizontalLine(0.5, visibility).PosY;
-        
-        this.container = this.add.container(lineX, lineY);
+        this.menuButtons();
 
-        this.gameTitle();
-        this.levelSelect();
-        this.customizeCards();
-        this.howToPlay();
-        this.logout();
+        // Create a Phaser text object for displayName
+        this.displayName = this.add.text(this.width_/2, this.height_/2 +300, "Loading user...", {
+            fontSize: "30px",
+            fontFamily:"Dosis",
+            fill: "#ffffff",
+        }).setOrigin(0.5);
+            authListener(async (user) => {
+                if (await user) {
 
-        if (!this.hasCheckedAuth) {
-            authListener((user) => {
-                this.hasCheckedAuth = true;  // Mark the check as completed
-                
-                if (user) {
+                    const userId = await user.uid;
 
-                    const userId = user.uid
+                    console.log("User ID: ", userId);
 
-                    const usersDb = ref(database,"users/"+userId);
+                    const usersDb = ref(database, "users/" + userId);
 
-                    get(usersDb).then((snapshot)=>{
-                        
-                        if(snapshot.exists()){
-                            const userName = snapshot.val()["display_name"];
-                            this.displayName.setText(`User: ${userName}`);
+                    await get(usersDb).then((snapshot) => {
+                        if (snapshot.exists()) {
+                            const userName = snapshot.val()?.display_name || "User";
+                            if (this.displayName && userName) {
+                                console.log(userName);
+                                // If logged in, show the title screen and menu buttons
+                                this.menuButtons();
+                                this.displayName.setText(`User: ${userName}`);
+                            } else {
+                                console.error("Failed to update displayName: displayName or userName is undefined.");
+                            }
                         };
                     });
-
-                    // If logged in, continue with the game, or start the game screen
-                    this.scene.start("titleScreen");
                 } else {
                     // If not logged in, redirect to the login scene
-                    this.scene.start("login");
-                }
+                    this.scene.start("Login");
+                };
             });
-        }
-        
-        //dynamically position btn
-        const listOfUi = this.container.list;
-        listOfUi.map((ui, i) =>{
-            ui.y  = i * (40 + 90)-240;
-        }); 
     };
 
-    gameTitle(){
-        
-        this.displayName = this.add.text(0,0, "", { fontSize: 30 }).setOrigin(0.5);
-        this.container.add(this.displayName);
+    menuButtons() {
 
-        const titleGame = this.add.text(0,0, "VISUAL LOGIC CRAFT", { fontSize: 100 }).setOrigin(0.5);
-        this.container.add(titleGame);
-    };
-
-    levelSelect(){
-        const levelSelectBtn = new ButtonCreate(this, 0,0, "Level Select", 25, 100, 200,0x88d17b,0x5e9654,()=> this.changeScene("levelSelect"), true);
-        levelSelectBtn.setCenter();
-        
-        this.container.add(levelSelectBtn);
-    };
-
-    customizeCards(){
-
-        const customizeCards = () =>{
-            this.scene.launch("cardCustomization");
-            this.scene.stop("titleScreen");
+        const data_ = {
+            previousScene: this.scene.key,
+            livesRemaining: this.livesRemaining,
+            destroyedEnemies: this.destroyedEnemies,
+            assetImg: this.data_?.assetImg,
         };
 
-        const customizeCardsBtn = new ButtonCreate(this, 0,0, "Customize Cards", 20, 100, 200,0x88d17b,0x5e9654,()=> customizeCards(), true);
-        customizeCardsBtn.setCenter();
-        
-        this.container.add(customizeCardsBtn);
-    };
+        //instance of the button
+        const button = new Button(this, labelsMenu, {
+            x: this.width_,
+            y: this.height_,
+            orientation: "y",
+            btn_width: 300,
+            btn_height: 50,
+            fontSize: 30,
+            isGrid: false,
+            btn_color: 0x349354,
+            text_spacing: 15,
+            button_spacing: 20,
+            data: data_,
+        });
 
-    howToPlay(){
-        const howToPlay = () =>{
-            this.scene.launch("howToPlay",{previousScene: this.scene.key});
-            this.scene.stop("titleScreen");
-        };
+        button.button_header_layout("Visual Logic Craft", { fontSize: 60, space: 40 });
 
-        const customizeCardsBtn = new ButtonCreate(this, 0,0, "How to play", 20, 100, 200,0x88d17b,0x5e9654,()=> howToPlay(), true);
-        customizeCardsBtn.setCenter();
-        
-        this.container.add(customizeCardsBtn);
-    };  
-
-
-    logout(){
-
-        const logoutGame = () =>{
-            logout();
-        };
-
-        const logoutBtn = new ButtonCreate(this, 0,0, "logout", 20, 100, 200,0x88d17b,0x5e9654,()=> logoutGame(), true);
-        logoutBtn.setCenter();
-        
-        this.container.add(logoutBtn);
-    };
-
-    changeScene(sceneName){
-        this.scene.launch(sceneName); 
-        this.scene.stop("titleScreen");
+        //if the grid option is turned on
+        // the button will be added to the grid container
+        //if not, it will be added to the scene directly
+        // new GridContainer(this, { x: this.width_, y: this.height_ }).insert(button, 15, 10);
     };
 };
 

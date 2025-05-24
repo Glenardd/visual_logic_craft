@@ -8,7 +8,6 @@ const authListener = (callback) => {
         if (user) {      
             //checks if the used account to login exist in the db
             callback(user);
-
         } else {
             // User is signed out
             callback(null);

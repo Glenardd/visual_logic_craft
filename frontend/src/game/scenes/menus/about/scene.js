@@ -1,23 +1,28 @@
-import Button from "../../../../utils/addButton";
-import GridContainer from "../../../../utils/grid_container/gridContainer";
-class HowToPlay extends Phaser.Scene{
-    constructor(){
-        super({key: "How to Play"});
+import GridContainer from "../../../utils/grid_container/gridContainer";
+import Button from "../../../utils/addButton";
+
+export default class About extends Phaser.Scene {
+    constructor() {
+        super({key: "About"});
     };
 
-    create(data){
-
-        console.log("how to play: ",data);
-
+    create(data) {
+        console.log("About data: ",data);
+        
+        const { width, height } = this.scale;
+        
         this.previousScene = data?.previousScene;
         this.menuScene = data?.menuScene;
 
-        this.width_ = this.cameras.main.width;
-        this.height_ = this.cameras.main.height;
+        this.previousScene = data?.previousScene;
+        this.menuScene = data?.menuScene;
+        this.width_ = width;
+        this.height_ = height;
 
-        // if(this.scene.isPaused("missionOne") || this.scene.isPaused("missionTwo") || this.scene.isPaused("fightScene")){
-        //     this.scene.launch("forestBackground");
-        // };
+        this.add.text(width / 2, height / 2, 'Hello', {
+            fontSize: '32px',
+            color: '#ffffff',
+        }).setOrigin(0.5);
 
         this.panel();
         this.returnHome();
@@ -27,25 +32,17 @@ class HowToPlay extends Phaser.Scene{
 
         //instructions
         const content = `
-            1. Select cards first in [color=#75ff8c][b]Customize Cards[/b][/color], it can be one card, two cards, and so on. 
-               But we recommend you to choose 4.
+                This game is a two-dimensional, card-based educational tool that incorporates 
+            decision tree classification-driven supervised machine learning. 
             
-            2. Each card has their own corresponding damage count. 
+            It is designed to help students learn and understand fundamental programming 
+            logic in an engaging and interactive way. 
             
-            3. if you click the [color=#75ff8c][b]Deselect button[/b][/color] you can select another card.
-
-            4. Each card has its own difficulty, easiest, easy, medium, and hard.
+            The game's mechanics simplify complex programming ideas, focusing solely on basic 
+            concepts to ensure accessibility for beginners. 
             
-            5. Each card is categorized by its own concepts; 
-               variables, conditionals, arr ays, and functions.
-            
-            6. You can control the player using [color=#75ff8c][b]W[/b][/color] for jumping, 
-               [color=#75ff8c][b]A[/b][/color] is for going left, [color=#75ff8c][b]D[/b][/color] is for going right.
-            
-            7. Basically the game is similar to Pokémon, but a platformer theme.
-            
-            8. In the fight scene, you can use as much as many [color=#75ff8c][b]hints[/b][/color] as you want but beware that 
-               this will deduct your health, player!
+            Python is the primary programming language used, making it both practical 
+            and relatable for learners.
         `;
         
         this.rexUI.add.sizer({
@@ -62,7 +59,7 @@ class HowToPlay extends Phaser.Scene{
             this.rexUI.add.roundRectangle(0, 0, 2, 2, 0, 0x75512d).setStrokeStyle(4, 0x0000)
         ).add(
             this.rexUI.add.label({
-                text: this.add.rexBBCodeText(0, 0, "[b]HOW TO PLAY[/b]", {
+                text: this.add.rexBBCodeText(0, 0, "[b]ABOUT[/b]", {
                     fontSize: '50px',
                     fontFamily: 'Dosis',
                     wrap: { mode: 'word' }
@@ -72,11 +69,11 @@ class HowToPlay extends Phaser.Scene{
         ).add(
             this.rexUI.add.textBox({
                 text: this.add.rexBBCodeText(0, 0, content, {
-                    fontSize: '34px',
+                    fontSize: '40px',
                     fontFamily: 'Dosis',
                     wrap: { mode: 'word', width: this.width_ }
                 }),
-                space: { top: 20, bottom: 30},
+                space: { top: 30, bottom: 30},
             })
         ).layout();
     };
@@ -94,7 +91,6 @@ class HowToPlay extends Phaser.Scene{
         return textGroup;
     };
 
-    //button to return from title screen
     returnHome(){
         const data_ = {
             previousScene: this.previousScene,
@@ -122,8 +118,6 @@ class HowToPlay extends Phaser.Scene{
             y: this.height_,
         });
 
-        container.insert(button, 3, 6);
+        container.insert(button,3, 9);
     };
 };
-
-export default HowToPlay;

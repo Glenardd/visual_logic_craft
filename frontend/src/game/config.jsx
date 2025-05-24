@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Phaser from "phaser";
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 import BBCodeTextPlugin from 'phaser3-rex-plugins/plugins/bbcodetext-plugin.js';
-import DataPlugin from "./utils/dataPlugin";
+import DataPlugin from "./utils/dataPlugin.jsx";
 
 //scenes
 import MissionOne from "./scenes/missions/missionOne/scene";
@@ -18,8 +18,9 @@ import HomeManager from "./scenes/menus/homeMenu/homeManager/scene";
 import CardCustomization from "./scenes/menus/cardsCustomization/scene";
 import HowToPlay from "./scenes/menus/homeMenu/howToPlay/scene";
 import Hints from "./scenes/hints/scene";
-import Loading from "./scenes/menus/homeMenu/loadingScreen/scene";
 import Login from "./scenes/menus/homeMenu/login/scene";
+import Logout from "./scenes/menus/homeMenu/logout/scene";
+import About from "./scenes/menus/about/scene.js";
 
 function App() {
 
@@ -34,7 +35,7 @@ function App() {
       physics: {
         default: 'arcade',
         arcade: {
-          debug: false,
+          debug: true,
         },
       },
       dom: {
@@ -49,9 +50,8 @@ function App() {
         HomeManager,
         ForestBackGround,
         Login,
+        Logout,
         TitleScreen,
-        HowToPlay,
-        Loading,
         LevelSelect,
         CardCustomization,
         MissionTwo, 
@@ -59,9 +59,15 @@ function App() {
         GameOver,
         FightScene, 
         Hints,
-        PauseMenu, 
+        PauseMenu,
+        HowToPlay,
+        About, 
         MissionAccomplish,
-      ], //LevelSelect,MissionTwo, MissionOne, FightScene, PauseMenu, GameOver
+      ],
+      render:{
+        pixelArt: true,
+        antialias: true,
+      },
       plugins:{
         scene:[{
             key: "rexUI",

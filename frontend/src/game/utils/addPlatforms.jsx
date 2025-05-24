@@ -31,7 +31,7 @@ class PlatformCreate {
     };
     
     //door exit
-    door(index, livesRemaining, assetImg){
+    door(index, assetImg){
         console.log(this.platforms[index]);
 
         const platformIndex = this.platforms[index];

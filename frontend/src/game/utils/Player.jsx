@@ -1,67 +1,60 @@
-class Player extends Phaser.GameObjects.Rectangle{
-    constructor(scene ,x, y, width, height, color, playerName){
-        super(scene,x,y,width, height, color);
-        
-        //player health
+class Player extends Phaser.Physics.Arcade.Sprite {
+    constructor(scene, x, y, playerName) {
+        super(scene, x, y, 'Bob'); // 'Bob' is the sprite key you preloaded
+
         this.health = 100;
-        this.x = x;
-        this.y = y;
         this.scene = scene;
-        this.setOrigin(0.5,1);
         this.playerName = playerName;
-        this.setStrokeStyle(4, 0x0000);
+
+        this.setOrigin(0.5, 1);
+        this.setScale(4); // Optional scale adjustment
+        this.setDepth(1);   // Optional layering
+
+        // Add to scene and enable physics
         this.scene.add.existing(this);
-
-    };
-
-    //add some physics
-    addPhysics(){
         this.scene.physics.add.existing(this);
+        
+        // Gravity and bounce
         this.body.setGravityY(350);
 
-    };
+        this.body.setSize(16,32);   
+        this.body.setOffset(25, 17); 
+    }
 
-    //set up camera
-    setCamera(camera, width, height){
+    setCamera(camera, width, height) {
         camera.main.setBounds(0, 200, width * 3.3, height);
         camera.main.startFollow(this);
-        
-        //the camera wont start from 0 of x axis going to the position of player when position changes
         this.scene.time.delayedCall(50, () => {
             camera.main.setLerp(0.1, 0.1);
         });
     };
 
-    //the position of the camera
-    setCameraOffset(camera){
-        camera.main.followOffset.set(0,0);
-    };
+    setCameraOffset(camera) {
+        camera.main.followOffset?.set(0, 0);
+    }
 
-    setPlayerMovement(){
-        // Handle keydown events
+    setPlayerMovement() {
         this.scene.input.keyboard.on('keydown', (event) => {
-            // Move Right
-            if (event.key === "d" || event.key === "D" ) {
+            if (event.key === "d" || event.key === "D") {
                 this.body.setVelocityX(360);
-                
-            }
-            // Move Left
-            else if (event.key === "a" || event.key === "A") {
+                this.anims.play("walk", true);
+                this.flipX = false;
+            } else if (event.key === "a" || event.key === "A") {
                 this.body.setVelocityX(-360);
-                
-            };
+                this.anims.play("walk", true);
+                this.flipX = true;
+            }
 
-            // Jump
-            if ((event.key === "w" || event.key === "W") && this.body.touching.down) {
+            if ((event.key === "w" || event.key === "W") && this.body.blocked.down) {
                 this.body.setVelocityY(-380);
-            };
+            }
         });
 
-        // Handle keyup events to stop the player
         this.scene.input.keyboard.on("keyup", (event) => {
             if (["a", "d", "A", "D"].includes(event.key)) {
                 this.body.setVelocityX(0);
-            };
+                this.anims.stop();
+            }
         });
     };
 };
