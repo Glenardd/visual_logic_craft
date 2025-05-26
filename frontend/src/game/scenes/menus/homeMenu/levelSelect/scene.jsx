@@ -20,7 +20,7 @@ class LevelSelect extends Phaser.Scene {
         // this.destroyedEnemies = data.destroyedEnemies;
 
         this.previousScene = data?.previousScene;
-        console.log(this.previousScene);
+        console.log("levelSelect: ",this.previousScene);
 
         this.width_ = this.scale.width;
         this.height_ = this.scale.height;
@@ -40,7 +40,9 @@ class LevelSelect extends Phaser.Scene {
 
     levelSelectbtn() {
         //empty only since this is a mission select only
-        const data_ = {};
+        const data_ = {
+            previousScene: this.previousScene,
+        };
 
         //instance of the button
         const button = new Button(this, levels, {

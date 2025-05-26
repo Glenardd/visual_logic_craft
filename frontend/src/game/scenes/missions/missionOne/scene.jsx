@@ -16,6 +16,7 @@ class MissionOne extends Phaser.Scene {
     create(data) {
         console.log("Mission One data: ", data);
 
+        //turn this on to see collision
         this.physics.world.createDebugGraphic();
 
         //animation for character
@@ -100,18 +101,19 @@ class MissionOne extends Phaser.Scene {
         this.setPlayerInitialPosition();
 
         const platform = addNewPlatform.platformGroup.children.entries;
-        const platformEnemy1 = new EnemyCreate(this, platform[0], 1, this.player, "Enemy 1", this.destroyedEnemies, this.livesRemaining,0x78B3CE);
-        const platformEnemy2 = new EnemyCreate(this, platform[2], 1, this.player, "Enemy 2", this.destroyedEnemies, this.livesRemaining,0x78B3CE);
-        const platformEnemy3 = new EnemyCreate(this, platform[4], 1, this.player, "Enemy 3", this.destroyedEnemies, this.livesRemaining,0x78B3CE);
+        const platformEnemy1 = new EnemyCreate(this, platform[0], 0, this.player, "Enemy 1", this.destroyedEnemies, this.livesRemaining,0x78B3CE);
+        const platformEnemy2 = new EnemyCreate(this, platform[1], 1, this.player, "Enemy 2", this.destroyedEnemies, this.livesRemaining,0x78B3CE);
+        const platformEnemy3 = new EnemyCreate(this, platform[2], 1, this.player, "Enemy 2", this.destroyedEnemies, this.livesRemaining,0x78B3CE);
+        const platformEnemy4 = new EnemyCreate(this, platform[4], 1, this.player, "Enemy 3", this.destroyedEnemies, this.livesRemaining,0x78B3CE);
 
-        [platformEnemy1, platformEnemy2, platformEnemy3].forEach(enemyGroup => {
+        [platformEnemy1, platformEnemy2, platformEnemy3, platformEnemy4].forEach(enemyGroup => {
             if (this.enemyNewHp === 0) {
                 enemyGroup.destroyEnemy(this.enemyName);
             };
         });
 
         //checks if all enemies are destroyed empty
-        const allEmpty = [platformEnemy1, platformEnemy2, platformEnemy3].every(platform => platform.allEnemies.length === 0);
+        const allEmpty = [platformEnemy1, platformEnemy2, platformEnemy3, platformEnemy4].every(platform => platform.allEnemies.length === 0);
         if (allEmpty) {
             addNewPlatform.door(5, assets);
         };

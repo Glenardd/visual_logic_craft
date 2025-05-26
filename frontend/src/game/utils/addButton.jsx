@@ -33,6 +33,8 @@ class Button extends Phaser.GameObjects.Container {
         this.width_ = this.scene.cameras.main.width;
         this.height_ = this.scene.cameras.main.height;
         this.scene.add.existing(this);
+
+        console.log(this.scene.scene.key, ":", data);
     };
 
     #addLabel(title, label_fontSize) {
@@ -127,45 +129,44 @@ class Button extends Phaser.GameObjects.Container {
                 button.getElement('background').setFillStyle(this.color);
 
                 if (button.text === "Resume") {
-                    this.scene.scene.resume("forestBackground");
                     this.scene.scene.resume(this.data_?.previousScene, this.data_);
                     this.scene.scene.setVisible(true, this.data_?.previousScene);
                     this.scene.scene.stop();
 
-                }else if(button.text === "How to Play"){
-                    this.scene.scene.resume("forestBackground");
+                } else if (button.text === "How to Play") {
+                    this.scene.scene.wake("forestBackground");
                     this.scene.scene.launch(button.text, this.data_);
                     this.scene.scene.pause();
                     this.scene.scene.setVisible(false, this.data_?.previousScene);
                     this.scene.scene.setVisible(false, this.data_?.menuScene);
 
-                }else if(button.text === "About"){
-                    this.scene.scene.resume("forestBackground");
+                } else if (button.text === "About") {
+                    this.scene.scene.wake("forestBackground");
                     this.scene.scene.launch(button.text, this.data_);
                     this.scene.scene.pause();
                     this.scene.scene.setVisible(false, this.data_?.previousScene);
                     this.scene.scene.setVisible(false, this.data_?.menuScene);
 
-                }else if(button.text === "Card Customization"){
+                } else if (button.text === "Card Customization") {
                     this.scene.scene.launch(button.text, this.data_);
                     this.scene.scene.pause()
                     this.scene.scene.setVisible(false, this.data_?.previousScene);
 
-                }else if(button.text === "Level Select"){
-                    this.scene.scene.launch(button.text, this.data_);
-                    this.scene.scene.pause()
-                    this.scene.scene.setVisible(false, this.data_?.previousScene);
+                } else if (button.text === "Level Select") {
+                    this.scene.scene.start(button.text, this.data_);
+                    this.scene.scene.stop();
 
-                }else if(button.text === "Mission One"){
+                } else if (button.text === "Mission One") {
                     this.scene.scene.start("Mission One");
 
-                }else if(button.text === "Mission Two"){
+                } else if (button.text === "Mission Two") {
                     this.scene.scene.start("Mission Two");
-                
-                }else if(button.text === "Restart"){
-                    this.scene.scene.restart(this.data_?.previousScene);
+
+                } else if (button.text === "Restart") {
+                    this.scene.scene.start(this.data_?.missionScene);
                     this.scene.scene.start(this.data_?.previousScene);
-                }else if(button.text === "Exit"){
+
+                } else if (button.text === "Exit") {
                     //stop all
                     this.scene.scene.stop(this.data_?.previousScene);
                     this.scene.scene.stop(this.data_?.menuScene);
@@ -173,7 +174,7 @@ class Button extends Phaser.GameObjects.Container {
                     //go back to the start
                     this.scene.scene.start("Home Manager", this.data_);
 
-                }else if(button.text === "Logout"){
+                } else if (button.text === "Logout") {
                     this.scene.scene.start("Logout");
                 };
             });
@@ -202,15 +203,13 @@ class Button extends Phaser.GameObjects.Container {
                 button.getElement('background').setFillStyle(this.color);
 
                 if (button.text === "Menu") {
-                    this.scene.scene.pause("forestBackground");
-                    this.scene.scene.setVisible(false, this.data_?.previousScene);
-                    this.scene.scene.pause();
                     this.scene.scene.launch(button.text, this.data_);
                     this.scene.scene.pause();
 
-                }else if(button.text === "Return"){
+                } else if (button.text === "Return") {
                     if (this.data_?.menuScene) {
-                        this.scene.scene.resume(this.data_?.menuScene, this.data_);
+                        this.scene.scene.sleep("forestBackground");
+                        this.scene.scene.wake(this.data_?.menuScene, this.data_);
                     } else if (this.data_?.previousScene) {
                         this.scene.scene.resume(this.data_?.previousScene, this.data_);
                     };
@@ -218,7 +217,7 @@ class Button extends Phaser.GameObjects.Container {
                     this.scene.scene.stop(this.scene.scene.key);
                     this.scene.scene.setVisible(true, this.data_?.previousScene);
                     this.scene.scene.setVisible(true, this.data_?.menuScene);
-                }else{
+                } else {
                     this.scene.scene.start(button.text, this.data_);
                     //then stop the current scene
                     this.scene.scene.stop(this.scene.scene.key);

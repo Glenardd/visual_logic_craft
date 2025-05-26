@@ -18,7 +18,8 @@ import Bob from "../../../../../assets/character/Character.png"
 import Slime_blue from "../../../../../assets/character/Slime_Blue.png"
 
 //life bar 
-import heart from "../../../../../assets/life_bar/heart.png"
+import heart_ from "../../../../../assets/life_bar/hearts_hud.png"
+import heart_empty from "../../../../../assets/life_bar/no_hearts_hud.png"
 
 import { mission_bg } from "../../../../utils/mission_bg";
 
@@ -48,8 +49,19 @@ class HomeManager extends Phaser.Scene {
             frameHeight: 32
         });
 
-        //life bar
-        this.load.spritesheet('hearts', heart, { 
+        this.load.spritesheet('Slime_blue', Slime_blue, {
+            frameWidth: 32,
+            frameHeight: 32
+        });
+
+        //life bar 
+        this.load.spritesheet('hearts', heart_, { 
+            frameWidth: 16, 
+            frameHeight: 16
+        });
+
+        //life bar empty heart
+        this.load.spritesheet('hearts_empty', heart_empty, { 
             frameWidth: 16, 
             frameHeight: 16
         });
@@ -91,6 +103,7 @@ class HomeManager extends Phaser.Scene {
     };
 
     create() {
+
         this.scene.start("forestBackground");
     };
 };

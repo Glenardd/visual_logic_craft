@@ -9,7 +9,7 @@ class ForestBackGround extends Phaser.Scene {
 
         const width = this.cameras.main.width;
         const height = this.cameras.main.height;
-
+        
         //for title screen and level select bg
         this.forest_bg_frames = this.textures.get('forest_bg').getFrameNames().sort().reverse();
         this.forest_bg_frames.map((forest, i) => {
@@ -60,6 +60,7 @@ class ForestBackGround extends Phaser.Scene {
     };
 
     update() {
+        // console.log(this.scene.isActive("Mission One"));
         this.bg.forEach(bg => { bg.sprite.tilePositionX += bg.speed; });
     };
 };

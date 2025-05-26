@@ -64,9 +64,6 @@ class TitleScreen extends Phaser.Scene {
 
         const data_ = {
             previousScene: this.scene.key,
-            livesRemaining: this.livesRemaining,
-            destroyedEnemies: this.destroyedEnemies,
-            assetImg: this.data_?.assetImg,
         };
 
         //instance of the button

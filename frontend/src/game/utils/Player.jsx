@@ -17,7 +17,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // Gravity and bounce
         this.body.setGravityY(350);
 
-        this.body.setSize(16,32);   
+        this.body.setSize(16,31);   
         this.body.setOffset(25, 17); 
     }
 
