@@ -1,4 +1,3 @@
-//labels or scene
 export const labelsMenu = [
     {text:"Level Select"},
     {text: "Card Customization"},

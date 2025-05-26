@@ -13,12 +13,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // Add to scene and enable physics
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        
+
         // Gravity and bounce
         this.body.setGravityY(350);
 
-        this.body.setSize(16,31);   
-        this.body.setOffset(25, 17); 
+        this.body.setSize(16, 31);
+        this.body.setOffset(25, 17);
     }
 
     setCamera(camera, width, height) {
@@ -34,28 +34,30 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     setPlayerMovement() {
-        this.scene.input.keyboard.on('keydown', (event) => {
-            if (event.key === "d" || event.key === "D") {
-                this.body.setVelocityX(360);
-                this.anims.play("walk", true);
-                this.flipX = false;
-            } else if (event.key === "a" || event.key === "A") {
-                this.body.setVelocityX(-360);
-                this.anims.play("walk", true);
-                this.flipX = true;
-            }
-
-            if ((event.key === "w" || event.key === "W") && this.body.blocked.down) {
-                this.body.setVelocityY(-380);
-            }
+        this.keys = this.scene.input.keyboard.addKeys({
+            left: Phaser.Input.Keyboard.KeyCodes.A,
+            right: Phaser.Input.Keyboard.KeyCodes.D,
+            jump: Phaser.Input.Keyboard.KeyCodes.W
         });
 
-        this.scene.input.keyboard.on("keyup", (event) => {
-            if (["a", "d", "A", "D"].includes(event.key)) {
-                this.body.setVelocityX(0);
-                this.anims.stop();
-            }
-        });
+        const { left, right, jump } = this.keys;
+
+        if (left.isDown) {
+            this.body.setVelocityX(-360);
+            this.anims.play("walk", true);
+            this.flipX = true;
+        } else if (right.isDown) {
+            this.body.setVelocityX(360);
+            this.anims.play("walk", true);
+            this.flipX = false;
+        } else {
+            this.body.setVelocityX(0);
+            this.anims.stop();
+        };
+
+        if (jump.isDown && this.body.blocked.down) {
+            this.body.setVelocityY(-380);
+        };
     };
 };
 

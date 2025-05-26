@@ -52,7 +52,6 @@ class PauseMenu extends Phaser.Scene {
         const data_ = {
             previousScene: this.previousScene,
             menuScene: this.scene.key,
-            missionScene: this.missionScene
         };
 
         const button = new Button(this, menuLabels, {
