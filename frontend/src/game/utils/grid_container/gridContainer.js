@@ -26,7 +26,7 @@ class GridContainer extends Phaser.GameObjects.Container {
 
     #Grid() {
         const grid = this.scene.rexUI.add.gridSizer({
-            x: this.x / 2, y: this.y / 2,
+            x: this.x/2, y: this.y/2,
             width: this.x, height: this.y,
             column: this.col, row: this.row,
             columnProportions: 1, rowProportions: 1,
@@ -40,7 +40,7 @@ class GridContainer extends Phaser.GameObjects.Container {
 
     //insert a game object into the grid sizer
     insert(gameObject, colIndex, rowIndex) {
-        this.gridSizer.add(gameObject, colIndex, rowIndex, 'center', 0, true);
+        this.gridSizer.add(gameObject, colIndex, rowIndex, 'center', 0);
         this.gridSizer.layout();
     };
 };

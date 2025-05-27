@@ -122,7 +122,7 @@ class HowToPlay extends Phaser.Scene{
             y: this.height_,
         });
 
-        container.insert(button, 3, 6);
+        container.insert(button, 3, 6, false);
     };
 };
 
