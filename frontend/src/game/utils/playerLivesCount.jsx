@@ -36,7 +36,6 @@ class PlayerLivesCount extends Phaser.GameObjects.Container {
             const xOffset = i * (32 * 2 + spacing);
 
             const heartSprite = this.scene.add.sprite(xOffset, 0, 'hearts', 1);
-            heartSprite.setTint(0xff0000); // Tint the sprite to red
             heartSprite.setScale(5);
             heartSprite.setScrollFactor(0); // Hearts don't move with camera
             heartSprite.setOrigin(0);
@@ -55,7 +54,6 @@ class PlayerLivesCount extends Phaser.GameObjects.Container {
             const xOffset = i * (32 * 2 + spacing);
 
             const heartSpriteEmpty = this.scene.add.sprite(xOffset, 0, 'hearts_empty', 1);
-            heartSpriteEmpty.setTint(0xff0000); // Tint the sprite to red
             heartSpriteEmpty.setScale(5);
             heartSpriteEmpty.setScrollFactor(0); // Hearts don't move with camera
             heartSpriteEmpty.setOrigin(0);

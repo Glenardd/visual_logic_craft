@@ -233,6 +233,7 @@ class Button extends Phaser.GameObjects.Container {
 
                 if (button.text === "Menu") {
 
+                    // Log the state of all scenes in the manager
                     this.scene.scene.manager.scenes.forEach(scene => {
                         const key = scene.scene.key;
                         const isActive = this.scene.scene.isActive(key);
